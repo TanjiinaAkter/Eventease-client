@@ -3,6 +3,7 @@ import Aboutus from "./Aboutus";
 import Banner from "./Banner";
 import Header from "../Shared/Header/Header";
 import Categories from "./Categories/Categories";
+import Featured from "./Featured/Featured";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <div className="mx-auto  w-[97%]">
         <Aboutus />
         <Categories></Categories>
+        <Featured></Featured>
       </div>
     </div>
   );
