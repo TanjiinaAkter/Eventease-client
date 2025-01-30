@@ -1,12 +1,24 @@
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 const Aboutus = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+    });
+  }, []);
   return (
-    <div className="p-8 my-12">
-      <div className="flex flex-col  md:flex-row  w-full  ">
-        <div className="flex  justify-center md:w-1/2 pr-8 flex-col p-1 md:p-12">
-          <h3 className=" pl-1 text-[16px] text-[#44cfbf] md:text-lg  my-4 font-bold   border-l-[3px] border-[#b58753]  ">
+    <div className="p-8 my-12 overflow-hidden ">
+      <div className="flex flex-col sm:mb-5 md:mb-0 md:flex-row  w-full ">
+        <div className="flex  justify-center md:w-1/2 pr-8 flex-col p-1 ">
+          <h3
+            data-aos="fade-down"
+            className=" pl-1 text-[16px] text-[#44cfbf] md:text-lg  my-4    border-l-[3px] border-[#b58753]  ">
             About Us
           </h3>
-          <h1 className="text-2xl md:text-5xl text-[#b58753]">
+          <h1
+            data-aos="fade-down"
+            className="text-2xl md:text-5xl text-[#b58753]">
             With a strong focus on customer satisfaction
           </h1>
           <p className=" text-justify text-[16px] md:text-base my-12 text-[#6a6d6a] z-50">
@@ -17,28 +29,37 @@ const Aboutus = () => {
             corporate gathering, a wedding, or a community celebration, we bring
             your vision to life with precision and care.
           </p>
+          <div
+            data-aos="fade-up"
+            className="flex sm:mb-3 md:mb-0 justify-start">
+            <button className="button"> Explore Vanues</button>
+          </div>
         </div>
-        <div className="md:w-1/2 sm:mb-2">
+        <div className="md:w-1/2 mb-5 md:mb-0 ">
           <img
-            className="w-full  md:h-auto object-cover"
+            className="w-full  md:h-[27rem] object-cover"
             src="https://i.ibb.co.com/DHqvkRC2/md-duran-r-E9vg-D-TXg-M-unsplash.jpg"
             alt=""
           />
         </div>
       </div>
-      <div className="flex flex-col md:flex-row w-full  ">
+      <div data-aos="fade-left" className="flex flex-col md:flex-row w-full  ">
         <div className="md:w-1/2">
           <img
-            className="w-full"
+            className="w-full md:h-[27rem] object-cover"
             src="https://i.ibb.co.com/ynpy2x86/chuttersnap-Q-Kdj-Kxnt-H8-unsplash.jpg"
             alt=""
           />
         </div>
-        <div className="flex p-3 md:p-12 justify-center md:w-1/2 pr-8 flex-col">
-          <h3 className=" pl-1 text-[16px] text-[#44cfbf] md:text-lg  my-4 font-bold   border-l-[3px] border-[#b58753]  ">
+        <div
+          data-aos="fade-down"
+          className="flex p-3 md:p-12 justify-center md:w-1/2 pr-8 flex-col">
+          <h3 className=" pl-1 text-[16px] text-[#b58753] md:text-lg  my-4   border-l-[3px] border-[#b58753]  ">
             Our Venue
           </h3>
-          <h1 className="text-2xl md:text-5xl text-[#b58753]">
+          <h1
+            data-aos="fade-down"
+            className="text-2xl md:text-5xl text-[#44cfbf] ">
             With a strong focus on customer satisfaction
           </h1>
           <p className=" text-justify text-[16px] md:text-base my-12 text-[#6a6d6a] z-50">
@@ -50,6 +71,9 @@ const Aboutus = () => {
             experience with a venue that speaks to your style and needs. Book
             your perfect venue today and make your event extraordinary!
           </p>
+          <div data-aos="fade-up" className="flex justify-start">
+            <button className="button"> Explore Vanues</button>
+          </div>
         </div>
       </div>
     </div>

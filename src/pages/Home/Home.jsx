@@ -2,6 +2,8 @@ import video from "../../assets/video.mp4";
 import Aboutus from "./Aboutus";
 import Banner from "./Banner";
 import Header from "../Shared/Header/Header";
+import Categories from "./Categories/Categories";
+
 const Home = () => {
   return (
     <div className="bg-[#0a1316]">
@@ -18,6 +20,7 @@ const Home = () => {
       </div>
       <div className="mx-auto  w-[97%]">
         <Aboutus />
+        <Categories></Categories>
       </div>
     </div>
   );

@@ -1,0 +1,41 @@
+/* From Uiverse.io by Thomasfadi */
+.cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+/* #b58753  #041839*/
+.cards .red {
+  background-color: #0f1c1c;
+}
+
+
+.cards .card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  height: 200px;
+ 
+  border-radius: 2px;
+  color: #44cfbf;
+  cursor: pointer;
+  transition: 400ms;
+}
+
+.cards .card p.tip {
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+
+.cards .card:hover {
+  transform: scale( 1.1);
+}
+
+.cards:hover > .card:not(:hover) {
+  filter: blur(10px);
+  transform: scale(0.9, 0.9);
+}
