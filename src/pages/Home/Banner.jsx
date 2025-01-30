@@ -5,7 +5,7 @@ const Banner = () => {
         <h3 className="text-[16px] md:text-lg  my-4 font-bold z-50">
           Our Expertise
         </h3>
-        <h1 className="text-3xl md:text-6xl">
+        <h1 className="text-3xl md:text-7xl">
           Where Every <br />
           <span className="text-[#b58753]  z-50">Event Becomes Legendary</span>
         </h1>
