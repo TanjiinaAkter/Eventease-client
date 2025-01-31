@@ -1,8 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./header.css";
 import { FaShoppingCart } from "react-icons/fa";
 const Header = () => {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
   const lists = (
     <div className="flex flex-col md:flex-row justify-between items-center gap-8 text-lg font-semibold ">
       <li>
@@ -74,7 +76,10 @@ const Header = () => {
     </div>
   );
   return (
-    <div className="relative z-10 bg-black opacity-80 py-0 my-0 px-[3px]  navbar flex-wrap md:flex-nowrap justify-center ">
+    <div
+      className={`relative z-10 ${
+        isHome ? "bg-black opacity-80" : "bg-black"
+      }  py-0 m-0 px-[3px]  navbar flex-wrap md:flex-nowrap justify-center`}>
       <div className="navbar-start justify-center md:justify-start w-full md:w-1/2">
         <div className="dropdown">
           <div
@@ -113,7 +118,7 @@ const Header = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{lists}</ul>
       </div>
-      <div className="flex  flex-wrap gap-3 md:navbar-end">
+      <div className="flex mb-2 md:mb-0   flex-wrap gap-3 md:navbar-end">
         <div className="hover:text-black hover:bg-[#3cac9f] transition-transform ease-in-out duration-300 p-2 border border-[#3cac9f] rounded-full">
           <FaShoppingCart className="text-xl text-[#3cac9f] hover:text-black"></FaShoppingCart>
         </div>

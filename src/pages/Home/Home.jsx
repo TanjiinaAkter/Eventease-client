@@ -8,10 +8,14 @@ import Joinevent from "./Joinevent/Joinevent";
 import Eventartists from "./Eventartists/Eventartists";
 import Testimonial from "./Testimonial/Testimonial";
 import Booknow from "./Booknow/Booknow";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
     <div className="bg-[#0a1316]">
+      <Helmet>
+        <title>EventEase |Home</title>
+      </Helmet>
       <div className="relative bg-amber-200">
         <video
           className="blur-md h-full md:blur-[5px] absolute top-0 bottom-0 left-0 w-full  object-cover  z-0"
