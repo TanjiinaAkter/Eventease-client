@@ -4,6 +4,9 @@ import Banner from "./Banner";
 import Header from "../Shared/Header/Header";
 import Categories from "./Categories/Categories";
 import Featured from "./Featured/Featured";
+import Joinevent from "./Joinevent/Joinevent";
+import Eventartists from "./Eventartists/Eventartists";
+import Testimonial from "./Testimonial/Testimonial";
 
 const Home = () => {
   return (
@@ -23,6 +26,9 @@ const Home = () => {
         <Aboutus />
         <Categories></Categories>
         <Featured></Featured>
+        <Eventartists></Eventartists>
+        <Joinevent></Joinevent>
+       <Testimonial></Testimonial>
       </div>
     </div>
   );

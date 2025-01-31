@@ -11,7 +11,7 @@ import { MdPeople } from "react-icons/md";
 import { FaArrowCircleRight } from "react-icons/fa";
 const Featured = () => {
   return (
-    <div className="mx-auto w-[97%] mb-12">
+    <div className="mx-auto w-[88%] md:w-[97%] my-24">
       <Sectiontitle
         title={"Upcoming Events"}
         subtitle={"Featured Events"}></Sectiontitle>
@@ -41,201 +41,182 @@ const Featured = () => {
           }}
           modules={[Pagination, Autoplay]}
           className="mySwiper text-white ">
-          <SwiperSlide className="border text-[#44cfbf] border-[#44cfbf] ">
-            <div className="card relative w-full  rounded-md  bg-[#0f1c1c] shadow-md">
-              <figure className="w-full">
-                <img
-                  className="rounded-none hover:scale-105 transition-transform duration-300"
-                  src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
-                $100
-              </div>
-              <div className="card-body p-4">
-                <h2 className="card-title">Tech Conference 2024</h2>
-                <div className="flex items-center gap-2">
-                  <SlCalender className="text-[#44cfbf]  font-semibold"></SlCalender>
-                  <p>01/02/25</p>
+          <div className="grid grid-cols-1  md:grid-cols-4 gap-12">
+            <SwiperSlide className="border  border-[#4c4f4e] ">
+              <div className="card rounded-md relative w-full   bg-[#0f1c1c] shadow-md">
+                <figure className="w-full">
+                  <img
+                    className="rounded-none hover:scale-105 transition-transform duration-300"
+                    src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
+                    alt="Shoes"
+                  />
+                </figure>
+                <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
+                  $100
                 </div>
-                <div className="flex items-center gap-2">
-                  <FaLocationDot className="text-[#44cfbf] font-semibold"></FaLocationDot>
-                  <p>USA</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MdPeople className="text-[#44cfbf]  font-semibold"></MdPeople>
-                  <p>3002</p>
-                </div>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">View details</button>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="border text-[#44cfbf] border-[#44cfbf] ">
-            <div className="card relative w-full rounded-md  bg-[#0f1c1c] shadow-md">
-              <figure className="w-full">
-                <img
-                  className="rounded-none hover:scale-105 transition-transform duration-300"
-                  src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
-                $100
-              </div>
-              <div className="card-body p-4">
-                <h2 className="card-title">Tech Conference 2024</h2>
-                <div className="flex items-center gap-2">
-                  <SlCalender className="text-[#44cfbf]  font-semibold"></SlCalender>
-                  <p>01/02/25</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FaLocationDot className="text-[#44cfbf] font-semibold"></FaLocationDot>
-                  <p>USA</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MdPeople className="text-[#44cfbf]  font-semibold"></MdPeople>
-                  <p>3002</p>
-                </div>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">View details</button>
+                <div className="card-body p-4">
+                  <h2 className="card-title text-[#979a97]">
+                    Tech Conference 2024
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <SlCalender className="text-[#6a6d6a] font-semibold"></SlCalender>
+                    <p>01/02/25</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaLocationDot className="text-[#6a6d6a] font-semibold"></FaLocationDot>
+                    <p>USA</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MdPeople className="text-[#6a6d6a]  font-semibold"></MdPeople>
+                    <p>3002</p>
+                  </div>
+                  <div className="card-actions justify-end">
+                    <button className="btn btn-primary">View details</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="border text-[#44cfbf] border-[#44cfbf] ">
-            <div className="card relative w-full rounded-md  bg-[#0f1c1c] shadow-md">
-              <figure className="w-full">
-                <img
-                  className="rounded-none hover:scale-105 transition-transform duration-300"
-                  src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
-                $100
-              </div>
-              <div className="card-body p-4">
-                <h2 className="card-title">Tech Conference 2024</h2>
-                <div className="flex items-center gap-2">
-                  <SlCalender className="text-[#44cfbf]  font-semibold"></SlCalender>
-                  <p>01/02/25</p>
+            </SwiperSlide>
+            <SwiperSlide className="border  border-[#4c4f4e] ">
+              <div className="card rounded-md relative w-full   bg-[#0f1c1c] shadow-md">
+                <figure className="w-full">
+                  <img
+                    className="rounded-none hover:scale-105 transition-transform duration-300"
+                    src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
+                    alt="Shoes"
+                  />
+                </figure>
+                <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
+                  $100
                 </div>
-                <div className="flex items-center gap-2">
-                  <FaLocationDot className="text-[#44cfbf] font-semibold"></FaLocationDot>
-                  <p>USA</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MdPeople className="text-[#44cfbf]  font-semibold"></MdPeople>
-                  <p>3002</p>
-                </div>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">View details</button>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="border text-[#44cfbf] border-[#44cfbf] ">
-            <div className="card relative w-full rounded-md  bg-[#0f1c1c] shadow-md">
-              <figure className="w-full">
-                <img
-                  className="rounded-none hover:scale-105 transition-transform duration-300"
-                  src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
-                $100
-              </div>
-              <div className="card-body p-4">
-                <h2 className="card-title">Tech Conference 2024</h2>
-                <div className="flex items-center gap-2">
-                  <SlCalender className="text-[#44cfbf]  font-semibold"></SlCalender>
-                  <p>01/02/25</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FaLocationDot className="text-[#44cfbf] font-semibold"></FaLocationDot>
-                  <p>USA</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MdPeople className="text-[#44cfbf]  font-semibold"></MdPeople>
-                  <p>3002</p>
-                </div>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">View details</button>
+                <div className="card-body p-4">
+                  <h2 className="card-title text-[#6a6d6a]">
+                    Tech Conference 2024
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <SlCalender className="text-[#6a6d6a] font-semibold"></SlCalender>
+                    <p>01/02/25</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaLocationDot className="text-[#6a6d6a] font-semibold"></FaLocationDot>
+                    <p>USA</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MdPeople className="text-[#6a6d6a]  font-semibold"></MdPeople>
+                    <p>3002</p>
+                  </div>
+                  <div className="card-actions justify-end">
+                    <button className="btn btn-primary">View details</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="border text-[#44cfbf] border-[#44cfbf] ">
-            <div className="card relative w-full rounded-md  bg-[#0f1c1c] shadow-md">
-              <figure className="w-full">
-                <img
-                  className="rounded-none hover:scale-105 transition-transform duration-300"
-                  src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
-                $100
-              </div>
-              <div className="card-body p-4">
-                <h2 className="card-title">Tech Conference 2024</h2>
-                <div className="flex items-center gap-2">
-                  <SlCalender className="text-[#44cfbf]  font-semibold"></SlCalender>
-                  <p>01/02/25</p>
+            </SwiperSlide>
+            <SwiperSlide className="border  border-[#4c4f4e] ">
+              <div className="card rounded-md relative w-full   bg-[#0f1c1c] shadow-md">
+                <figure className="w-full">
+                  <img
+                    className="rounded-none hover:scale-105 transition-transform duration-300"
+                    src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
+                    alt="Shoes"
+                  />
+                </figure>
+                <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
+                  $100
                 </div>
-                <div className="flex items-center gap-2">
-                  <FaLocationDot className="text-[#44cfbf] font-semibold"></FaLocationDot>
-                  <p>USA</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MdPeople className="text-[#44cfbf]  font-semibold"></MdPeople>
-                  <p>3002</p>
-                </div>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">View details</button>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="border text-[#44cfbf] border-[#44cfbf] ">
-            <div className="card relative w-full rounded-md  bg-[#0f1c1c] shadow-md">
-              <figure className="w-full">
-                <img
-                  className="rounded-none hover:scale-105 transition-transform duration-300"
-                  src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
-                $100
-              </div>
-              <div className="card-body p-4">
-                <h2 className="card-title">Tech Conference 2024</h2>
-                <div className="flex items-center gap-2">
-                  <SlCalender className="text-[#44cfbf]  font-semibold"></SlCalender>
-                  <p>01/02/25</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FaLocationDot className="text-[#44cfbf] font-semibold"></FaLocationDot>
-                  <p>USA</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MdPeople className="text-[#44cfbf]  font-semibold"></MdPeople>
-                  <p>3002</p>
-                </div>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">View details</button>
+                <div className="card-body p-4">
+                  <h2 className="card-title text-[#979a97]">
+                    Tech Conference 2024
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <SlCalender className="text-[#6a6d6a] font-semibold"></SlCalender>
+                    <p>01/02/25</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaLocationDot className="text-[#6a6d6a] font-semibold"></FaLocationDot>
+                    <p>USA</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MdPeople className="text-[#6a6d6a]  font-semibold"></MdPeople>
+                    <p>3002</p>
+                  </div>
+                  <div className="card-actions justify-end">
+                    <button className="btn btn-primary">View details</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide className="border  border-[#4c4f4e] ">
+              <div className="card rounded-md relative w-full   bg-[#0f1c1c] shadow-md">
+                <figure className="w-full">
+                  <img
+                    className="rounded-none hover:scale-105 transition-transform duration-300"
+                    src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
+                    alt="Shoes"
+                  />
+                </figure>
+                <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
+                  $100
+                </div>
+                <div className="card-body p-4">
+                  <h2 className="card-title text-[#979a97]">
+                    Tech Conference 2024
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <SlCalender className="text-[#6a6d6a] font-semibold"></SlCalender>
+                    <p>01/02/25</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaLocationDot className="text-[#6a6d6a] font-semibold"></FaLocationDot>
+                    <p>USA</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MdPeople className="text-[#6a6d6a]  font-semibold"></MdPeople>
+                    <p>3002</p>
+                  </div>
+                  <div className="card-actions justify-end">
+                    <button className="btn btn-primary">View details</button>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="border  border-[#4c4f4e] ">
+              <div className="card rounded-md relative w-full   bg-[#0f1c1c] shadow-md">
+                <figure className="w-full">
+                  <img
+                    className="rounded-none hover:scale-105 transition-transform duration-300"
+                    src="https://i.ibb.co.com/x8wW7Cvn/premium-photo-1681487469745-91d1d8a5836b-w-500-auto-format-fit-crop-q-60-ixlib-rb-4-0.jpg"
+                    alt="Shoes"
+                  />
+                </figure>
+                <div className="absolute top-3 p-2 rounded-sm right-3 bg-black font-semibold">
+                  $100
+                </div>
+                <div className="card-body p-4">
+                  <h2 className="card-title text-[#979a97]">
+                    Tech Conference 2024
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    <SlCalender className="text-[#6a6d6a] font-semibold"></SlCalender>
+                    <p>01/02/25</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaLocationDot className="text-[#6a6d6a] font-semibold"></FaLocationDot>
+                    <p>USA</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MdPeople className="text-[#6a6d6a]  font-semibold"></MdPeople>
+                    <p>3002</p>
+                  </div>
+                  <div className="card-actions justify-end">
+                    <button className="btn btn-primary">View details</button>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          </div>
+
           {/* text-[#6a6d6a]  */}
         </Swiper>
-        <div className="card-actions justify-center my-8">
+        <div className="card-actions justify-center my-12">
           <button className="flex flex-row  items-center gap-2 ">
             View All Events
             <FaArrowCircleRight className="text-2xl"></FaArrowCircleRight>

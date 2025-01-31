@@ -8,7 +8,7 @@ const Sectiontitle = ({ title, subtitle }) => {
     });
   }, []);
   return (
-    <div data-aos="fade-down" className="mx-auto text-center my-6">
+    <div data-aos="fade-down" className="mx-auto text-center my-12">
       <h3 className="uppercase text-[18px] gap-1 text-[#b58753] md:text-xl  my-4 font-bold    ">
         <span className="border-l-[3px] pr-1 border-[#b58753]"></span>
         {title}
