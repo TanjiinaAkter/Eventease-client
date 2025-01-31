@@ -7,6 +7,7 @@ import Featured from "./Featured/Featured";
 import Joinevent from "./Joinevent/Joinevent";
 import Eventartists from "./Eventartists/Eventartists";
 import Testimonial from "./Testimonial/Testimonial";
+import Booknow from "./Booknow/Booknow";
 
 const Home = () => {
   return (
@@ -22,13 +23,14 @@ const Home = () => {
         <Header />
         <Banner />
       </div>
-      <div className="mx-auto  w-[97%]">
+      <div className="mx-auto ">
         <Aboutus />
         <Categories></Categories>
         <Featured></Featured>
         <Eventartists></Eventartists>
         <Joinevent></Joinevent>
-       <Testimonial></Testimonial>
+        <Testimonial></Testimonial>
+        <Booknow></Booknow>
       </div>
     </div>
   );
