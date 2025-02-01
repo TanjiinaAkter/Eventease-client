@@ -78,8 +78,8 @@ const Header = () => {
   return (
     <div
       className={`relative z-10 ${
-        isHome ? "bg-black opacity-80" : "bg-black"
-      }  py-0 m-0 px-[3px]  navbar flex-wrap md:flex-nowrap justify-center`}>
+        isHome ? "bg-black opacity-80" : "bg-black " 
+      } fixed top-0 left-0 py-0 m-0 px-[3px]  navbar flex-wrap md:flex-nowrap justify-center`}>
       <div className="navbar-start justify-center md:justify-start w-full md:w-1/2">
         <div className="dropdown">
           <div
