@@ -3,6 +3,7 @@ import Main from "../layout/Main";
 import Home from "../pages/Home/Home";
 import Events from "../pages/Events/Events";
 import Artists from "../pages/Artists/Artists";
+import Singleenventcard from "../pages/Singleenventcard/Singleenventcard";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/artists",
-        element:<Artists></Artists>,
+        element: <Artists></Artists>,
+      },
+      {
+        path: "/eventdetail",
+        element: <Singleenventcard></Singleenventcard>,
       },
     ],
   },

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="">
       <div className="footer  sm:footer-horizontal place-items-center bg-[#0f1c1c] text-neutral-content p-10">
         <nav>
           <h6 className="footer-title">Services</h6>

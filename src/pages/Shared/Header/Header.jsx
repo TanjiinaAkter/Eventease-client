@@ -78,8 +78,8 @@ const Header = () => {
   return (
     <div
       className={`relative z-10 ${
-        isHome ? "bg-black opacity-80" : "bg-black " 
-      } fixed top-0 left-0 py-0 m-0 px-[3px]  navbar flex-wrap md:flex-nowrap justify-center`}>
+        isHome ? "bg-black opacity-80" : "bg-black "
+      }  fixed top-0 left-0 py-0 m-0 px-[3px]  navbar flex-wrap md:flex-nowrap justify-center`}>
       <div className="navbar-start justify-center md:justify-start w-full md:w-1/2">
         <div className="dropdown">
           <div
@@ -103,7 +103,7 @@ const Header = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+            className="dropdown-content overflow-hidden bg-white rounded-box text- z-50 mt-3 w-52 p-2 shadow">
             {lists}
           </ul>
         </div>
