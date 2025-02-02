@@ -66,7 +66,7 @@ const Singleenventcard = () => {
                 </p>
               </div>
             </div>
-            <div className="absolute w-[80%]  md:mt-12 flex flex-col text-start left-[12%] bottom-[4%]  md:top-1/2 z-50 md:left-1/2 transform md:-translate-x-1/2 md:-translate-y-1/2">
+            <div className="absolute w-[80%]  md:mt-12 flex flex-col text-start left-[12%] bottom-[22%]  md:top-1/2 z-50 md:left-1/2 transform md:-translate-x-1/2 md:-translate-y-1/2">
               <h2 className="text-white text-2xl  font-semibold md:text-5xl ">
                 HealthTech Innovation Summit
               </h2>
@@ -81,7 +81,7 @@ const Singleenventcard = () => {
         </div>
         <div className="second-half md:pb-0 border-[1px] border-b-[#4c4f4e] grid grid-cols-1 md:grid-cols-4  ">
           <div className="col-span-1 flex flex-col">
-            <div className="flex h-[20rem] md:p-2 space-y-6 text-center flex-col justify-center items-center bg-linear-65 from-[#44cfbf] to-[#fff33acc]">
+            <div className="flex h-[20rem] md:p-2 space-y-6 text-center flex-col justify-center items-center bg-linear-65 from-[#44cfbf] to-[#fef6f685]">
               <h3 className="uppercase text-white font-semibold text-3xl md:text-lg">
                 - Location -
               </h3>
