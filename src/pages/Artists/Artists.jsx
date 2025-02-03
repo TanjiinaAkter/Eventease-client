@@ -25,10 +25,10 @@ const Artists = () => {
             </div>
 
             <div className="flex space-y-4 absolute opacity-80 p-3 bg-black w-[60%] left-[50%] top-[80%] transform -translate-x-[50%] -translate-y-[80%] flex-col justify-center items-center">
-              <h2 className="text-xl font-semibold capitalize">
+              <h2 className="text-xl font-semibold  text-[#b58753] capitalize">
                 kelvin Premium
               </h2>
-              <span className="text-lg">Speaker</span>
+              <span className="text-lg ">Speaker</span>
               <div className="flex flex-wrap  md:justify-between text-[1rem] md:items-center gap-3 font-semibold">
                 <span className="border-r-4 p-1  h-[2rem] border-r-[#44cfbf]">
                   398412046124
@@ -52,7 +52,7 @@ const Artists = () => {
             </div>
 
             <div className="flex space-y-4 absolute opacity-80 p-3 bg-black w-[60%] left-[50%] top-[80%] transform -translate-x-[50%] -translate-y-[80%] flex-col justify-center items-center">
-              <h2 className="text-xl font-semibold capitalize">
+            <h2 className="text-xl font-semibold  text-[#b58753] capitalize">
                 kelvin Premium
               </h2>
               <span className="text-lg">Speaker</span>
@@ -79,7 +79,7 @@ const Artists = () => {
             </div>
 
             <div className="flex space-y-4 absolute opacity-80 p-3 bg-black w-[60%] left-[50%] top-[80%] transform -translate-x-[50%] -translate-y-[80%] flex-col justify-center items-center">
-              <h2 className="text-xl font-semibold capitalize">
+            <h2 className="text-xl font-semibold  text-[#b58753] capitalize">
                 kelvin Premium
               </h2>
               <span className="text-lg">Speaker</span>

@@ -5,6 +5,8 @@ import Events from "../pages/Events/Events";
 import Artists from "../pages/Artists/Artists";
 import Singleenventcard from "../pages/Singleenventcard/Singleenventcard";
 import ArtistCard from "../pages/ArtistCard/ArtistCard";
+import Categories from "../pages/Categories/Categories";
+import Venues from "../pages/Venues/Venues";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/artistdetail",
         element: <ArtistCard></ArtistCard>,
+      },
+      {
+        path: "/categories",
+        element: <Categories></Categories>,
+      },
+      {
+        path: "/venues",
+        element: <Venues></Venues>,
       },
     ],
   },

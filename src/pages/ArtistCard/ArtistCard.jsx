@@ -1,8 +1,15 @@
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import RouteTitle from "../../components/RouteTitle";
 import Header from "../Shared/Header/Header";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 const ArtistCard = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+    });
+  }, []);
   return (
     <div className="bg-[#0a1316]  mx-auto sm:w-[88%] md:w-full ">
       <Header></Header>
@@ -19,7 +26,9 @@ const ArtistCard = () => {
             alt=""
           />
         </div>
-        <div className="absolute  hover:scale-105 transform duration-700 flex flex-wrap md:top-[25%] z-50 bottom-0 left-0 top-[0%] md:left-[40%] text-white md:h-[20rem] border  md:w-[50%] w-full  border-[#b58753]">
+        <div
+          data-aos="fade-left"
+          className="absolute overflow-hidden hover:scale-105 transform duration-700 flex flex-wrap md:top-[25%] z-50 bottom-0 left-0 top-[0%] md:left-[40%] text-white md:h-[20rem] border  md:w-[50%] w-full  border-[#b58753]">
           <div className="absolute opacity-55 inset-0  bg-[#44cfbf]"></div>
           <div className="flex  flex-col w-full text-center  z-50 top-[50%] left-[50%] transform  translate-x-[-50%] translate-y-[-50%] absolute  space-y-5">
             <h3 className="text-3xl md:text-2xl font-semibold ">

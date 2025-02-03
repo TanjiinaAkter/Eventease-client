@@ -58,7 +58,7 @@ const Header = () => {
               ? "text-[#b58753] relative after:absolute after:w-full after:bg-[#b58753] after:left-0 after:bottom-0 after:h-[2px] after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out"
               : "text-[#3cac9f] relative after:absolute after:w-full after:h-[2px] after:bg-[#3cac9f] after:left-0 after:bottom-0 after:scale-x-0 hover:after:scale-x-100 transition-transform after:duration-300 "
           }
-          to="/categories">
+          to="/venues">
           Venues
         </NavLink>
       </li>
