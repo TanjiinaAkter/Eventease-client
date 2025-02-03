@@ -7,6 +7,7 @@ import Singleenventcard from "../pages/Singleenventcard/Singleenventcard";
 import ArtistCard from "../pages/ArtistCard/ArtistCard";
 import Categories from "../pages/Categories/Categories";
 import Venues from "../pages/Venues/Venues";
+import Contact from "../pages/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/venues",
         element: <Venues></Venues>,
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>,
       },
     ],
   },
