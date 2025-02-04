@@ -52,7 +52,7 @@ const Singleenventcard = () => {
               src="https://i.ibb.co.com/4wpbwvwr/product-school-Gajr-OEN6m4-unsplash.jpg"
               alt=""
             />
-            <div className="bg-black z-0 flex justify-between items-center gap-2 py-3 px-4 md:px-12 opacity-90 absolute top-9 left-0  ">
+            <div className="bg-[#0a1316] z-0 flex justify-between items-center gap-2 py-3 px-4 md:px-12 opacity-90 absolute top-9 left-0  ">
               <p className="text-[#44cfbf] text-2xl pr-1 border-r-4 h-20 border-r-[#44cfbf] font-semibold">
                 29/02/25
               </p>
@@ -101,7 +101,7 @@ const Singleenventcard = () => {
             </div>
           </div>
 
-          <div className=" flex border-[1px] border-t-[#4c4f4e] bg-[#0f1c1c] col-span-3 flex-col justify-center  items-center">
+          <div className=" flex border-[1px] border-t-[#4c4f4e] bg-[#0a1316] col-span-3 flex-col justify-center  items-center">
             <div className="py-7  space-y-7  mx-auto w-[70%]">
               <p className="text-semibold  text-justify text-white text-xl">
                 EVENET DESCRIPTION

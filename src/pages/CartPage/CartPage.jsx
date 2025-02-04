@@ -4,14 +4,14 @@ import { IoLocation } from "react-icons/io5";
 import { FaCirclePlus } from "react-icons/fa6";
 const CartPage = () => {
   return (
-    <div className="bg-[#132323]">
+    <div className="bg-[#0a1316] pb-12">
       <Header></Header>
-      <div className="text-white mx-auto w-[94%] px-6 md:w-full">
+      <div className="text-white mx-auto w-[94%] px-6 pb-12 md:w-full">
         <h1 className="text-2xl font-semibold">Your Cart </h1>
         <p className="text-xl font-semibold mb-12">1 item in your bag</p>
         <div className="grid relative grid-cols-1 md:grid-cols-4 gap-4">
           {/* FIRST CARD */}
-          <div className="col-span-full md:col-span-3 p-4 hover:shadow-md transition-all duration-300 ease-in-out hover:shadow-[#44cfbf] border border-[#44cfbf] bg-black rounded-xl hover:drop-shadow-2xl ">
+          <div className="col-span-full md:col-span-3 p-4 hover:shadow-md transition-all duration-300 ease-in-out hover:shadow-[#44cfbf] border border-[#44cfbf] bg-[#101d1d] rounded-xl hover:drop-shadow-2xl ">
             {/* Table Header */}
             <div className="hidden md:flex justify-between items-center text-white border-b border-gray-600 pb-2">
               <h2 className="w-1/5 text-center">Ticket</h2>

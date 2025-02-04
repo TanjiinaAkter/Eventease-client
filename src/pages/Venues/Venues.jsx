@@ -13,7 +13,7 @@ const Venues = () => {
     });
   }, []);
   return (
-    <div className="bg-[#132323] pb-10  mx-auto sm:w-[80%] md:w-full ">
+    <div className="bg-[#0a1316] pb-10  mx-auto sm:w-[80%] md:w-full ">
       <Header></Header>
       <Helmet>
         <title>EventEase | Venue</title>

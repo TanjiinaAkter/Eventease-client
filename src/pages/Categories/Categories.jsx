@@ -7,7 +7,7 @@ import { BsTicketPerforatedFill } from "react-icons/bs";
 
 const Categories = () => {
   return (
-    <div className="bg-[#132323] mx-auto sm:w-[88%] md:w-full ">
+    <div className="bg-[#0a1316] mx-auto sm:w-[88%] md:w-full ">
       <Header></Header>
       <RouteTitle
         routetitle={"Meet the Artist "}
@@ -16,7 +16,7 @@ const Categories = () => {
         }></RouteTitle>
       <div className="grid grid-cols-1 gap-5 space-y-3 mt-5 ">
         {/*============= CATEGORY-1 DESIGN ============= */}
-        <div className="bg-[#1a3434] rounded-lg mx-auto w-full md:w-[97%] p-4">
+        <div className="bg-[#152626] rounded-lg mx-auto w-full md:w-[97%] p-4">
           <div className="flex items-center gap-2">
             <img
               className="h-[3rem] bg-white w-[3rem] rounded-full object-cover"
@@ -111,7 +111,7 @@ const Categories = () => {
           </div>
         </div>
         {/*============= CATEGORY-1 DESIGN ============= */}
-        <div className="bg-[#1a3434]  rounded-lg mx-auto w-full md:w-[97%] p-4">
+        <div className="bg-[#152626]  rounded-lg mx-auto w-full md:w-[97%] p-4">
           <div className="flex items-center gap-2">
             <img
               className="h-[3rem] bg-white w-[3rem] rounded-full object-cover"

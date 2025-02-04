@@ -8,7 +8,7 @@ const Aboutus = () => {
     });
   }, []);
   return (
-    <div className="bg-[#132323] md:mx-6 pt-16 pb-4 overflow-hidden ">
+    <div className="bg-[#0a1316] md:mx-6 pt-16 pb-4 overflow-hidden ">
       <div className="flex flex-col sm:mb-5 md:mb-0 md:flex-row  w-full ">
         <div className="flex  justify-center md:w-1/2 md:pr-8 flex-col p-1 ">
           <h3

@@ -5,7 +5,7 @@ import { MdEmail } from "react-icons/md";
 
 const Contact = () => {
   return (
-    <div className="bg-[#132323]  mx-auto sm:w-[88%]  md:w-full ">
+    <div className="bg-[#0a1316]  mx-auto sm:w-[88%]  md:w-full ">
       <Header></Header>
       <RouteTitle
         routetitle={"Meet the Artist "}

@@ -3,7 +3,7 @@ import Sectiontitle from "../../../components/Sectiontitle";
 
 const Eventartists = () => {
   return (
-    <div className="bg-[#132323] md:mx-6 mx-auto w-[88%] md:w-full">
+    <div className="bg-[#0a1316] md:mx-6 mx-auto w-[88%] md:w-full">
       <Sectiontitle
         title={"Our Artists"}
         subtitle={"Know event artists"}></Sectiontitle>

@@ -8,7 +8,7 @@ import RouteTitle from "../../components/RouteTitle";
 import "./Events.css";
 const Events = () => {
   return (
-    <div className="bg-[#132323] mx-auto sm:w-[88%] md:w-full ">
+    <div className="bg-[#0a1316] mx-auto sm:w-[88%] md:w-full ">
       <Header></Header>
       <Helmet>
         <title>EventEase | Events</title>

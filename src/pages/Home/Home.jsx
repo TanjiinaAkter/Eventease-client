@@ -11,8 +11,9 @@ import { Helmet } from "react-helmet-async";
 import HomeCategories from "./HomeCategories/HomeCategories";
 
 const Home = () => {
+  //bg-[#132323]
   return (
-    <div className="bg-[#132323]">
+    <div className=" bg-[#0a1316]">
       <Helmet>
         <title>EventEase |Home</title>
       </Helmet>

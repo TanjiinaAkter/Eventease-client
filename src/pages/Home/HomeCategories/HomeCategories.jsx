@@ -3,7 +3,7 @@ import Sectiontitle from "../../../components/Sectiontitle";
 import "../Categorycard/Categorycard.css";
 const HomeCategories = () => {
   return (
-    <div className=" bg-[#132323] mx-auto w-[88%]  md:w-full">
+    <div className=" bg-[#0a1316] mx-auto w-[88%]  md:w-full">
       <Sectiontitle
         title={"Event Categories "}
         subtitle={"Browse our diverse event categories"}></Sectiontitle>
