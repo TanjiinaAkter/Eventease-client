@@ -10,14 +10,14 @@ const Booknow = () => {
   }, []);
   return (
     // #44cfbf bg-[#010204a1]
-    <div className="mx-auto relative  bg-no-repeat h-auto md:h-[39rem] z-50  bg-cover bg-fixed bg-start bg-[url('https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg')] w-full mt-12">
+    <div className="mx-auto relative  overflow-hidden bg-no-repeat h-auto md:h-[39rem] z-50  bg-cover bg-fixed bg-start bg-[url('https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg')] w-full mt-12">
       <div className="absolute inset-0 z-0 bg-[#173e38bf]  opacity-95"></div>
       <div className="flex  overflow-hidden flex-col md:flex-row mx-5 relative brightness-105 z-50 justify-between items-center gap-6">
         <div className="flex py-4 md:p-12 z-50 flex-col justify-center space-y-6 w-full md:w-1/2">
           <p className=" text-[#44cfbf] pl-1 border-l-2 border-[#44cfbf] text-[16px] ">
             BOOK NOW
           </p>
-          <p className="text-[#b58753]  text-2xl md:text-4xl">
+          <p className="text-[#b58753]  text-[33px] font-semibold md:text-4xl">
             Ready to Create Your Next Event?
           </p>
           <div className="flex justify-start">

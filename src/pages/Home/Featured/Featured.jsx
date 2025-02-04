@@ -11,7 +11,7 @@ import { MdPeople } from "react-icons/md";
 import { FaArrowCircleRight } from "react-icons/fa";
 const Featured = () => {
   return (
-    <div className="mx-auto md:mx-6 bg-[#0a1316] w-[88%] md:w-full ">
+    <div className="mx-auto md:mx-6 bg-[#0a1316] w-[88%] md:w-[97%] ">
       <Sectiontitle
         title={"Upcoming Events"}
         subtitle={"Featured Events"}></Sectiontitle>
