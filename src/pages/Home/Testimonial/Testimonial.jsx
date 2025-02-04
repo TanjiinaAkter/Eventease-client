@@ -12,7 +12,7 @@ import { Scrollbar, Autoplay, Pagination, Navigation } from "swiper/modules";
 import Sectiontitle from "../../../components/Sectiontitle";
 const Testimonial = () => {
   return (
-    <div className="mx-auto w-[88%] md:w-[97%] my-24">
+    <div className="mx-auto w-[88%] md:w-[97%]  my-24">
       <Sectiontitle
         title={"Testimonial"}
         subtitle={"See what our clients tell about us"}></Sectiontitle>

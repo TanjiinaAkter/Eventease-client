@@ -3,7 +3,7 @@ import Header from "../Shared/Header/Header";
 import Routetitle from "../../components/RouteTitle";
 const Artists = () => {
   return (
-    <div className="bg-[#0a1316]  mx-auto sm:w-[88%] md:w-full ">
+    <div className="bg-[#132323]  mx-auto sm:w-[88%] md:w-full ">
       <Header></Header>
       <Helmet>
         <title>EventEase | Artists</title>

@@ -11,7 +11,7 @@ import { MdPeople } from "react-icons/md";
 import { FaArrowCircleRight } from "react-icons/fa";
 const Featured = () => {
   return (
-    <div className="mx-auto w-[88%] md:w-[97%] my-24">
+    <div className="mx-auto md:mx-6 bg-[#132323] w-[88%] md:w-full ">
       <Sectiontitle
         title={"Upcoming Events"}
         subtitle={"Featured Events"}></Sectiontitle>
@@ -41,7 +41,7 @@ const Featured = () => {
           }}
           modules={[Pagination, Autoplay]}
           className="mySwiper text-white ">
-          <div className="grid grid-cols-1  md:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1  mx-4 md:grid-cols-4 gap-12">
             <SwiperSlide className="border  border-[#4c4f4e] ">
               <div className="card rounded-md relative w-full   bg-[#0f1c1c] shadow-md">
                 <figure className="w-full">

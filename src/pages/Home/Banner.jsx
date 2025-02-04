@@ -1,6 +1,6 @@
 const Banner = () => {
   return (
-    <div className="mx-auto w-full pb-12 md:w-[70%] md:mt-24 relative md:z-50 space-y-5 flex justify-between">
+    <div className="mx-auto w-full   md:w-[70%] md:mt-24 relative md:z-50 space-y-5 flex justify-between">
       <div className="text-start text-[#44cfbf] bg-black p-6 opacity-70  rounded-md  md:z-10">
         <h3 className="text-[16px] md:text-lg  my-4 font-bold md:z-50">
           Our Expertise

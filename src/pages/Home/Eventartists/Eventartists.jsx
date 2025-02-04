@@ -3,11 +3,11 @@ import Sectiontitle from "../../../components/Sectiontitle";
 
 const Eventartists = () => {
   return (
-    <div className="my-18 mx-auto w-[88%] md:w-[97%]">
+    <div className="bg-[#132323] md:mx-6 mx-auto w-[88%] md:w-full">
       <Sectiontitle
         title={"Our Artists"}
         subtitle={"Know event artists"}></Sectiontitle>
-      <div className="my-12 grid grid-cols-1 md:grid-cols-4 mx-auto  gap-4 ">
+      <div className=" grid grid-cols-1 md:grid-cols-4 mx-auto  gap-4 ">
         <div className="artist-card bg-[#0f1c1c] border border-dotted border-[#4c4f4e]  mb-4 p-4 mx-auto w-full red ">
           <div className="flex justify-center items-center my-7 w-full">
             <img

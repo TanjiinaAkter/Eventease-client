@@ -2,17 +2,17 @@ import video from "../../assets/video.mp4";
 import Aboutus from "./Aboutus";
 import Banner from "./Banner";
 import Header from "../Shared/Header/Header";
-import Categories from "./Categories/Categories";
 import Featured from "./Featured/Featured";
 import Joinevent from "./Joinevent/Joinevent";
 import Eventartists from "./Eventartists/Eventartists";
 import Testimonial from "./Testimonial/Testimonial";
 import Booknow from "./Booknow/Booknow";
 import { Helmet } from "react-helmet-async";
+import HomeCategories from "./HomeCategories/HomeCategories";
 
 const Home = () => {
   return (
-    <div className="bg-[#0a1316]">
+    <div className="bg-[#132323]">
       <Helmet>
         <title>EventEase |Home</title>
       </Helmet>
@@ -29,7 +29,7 @@ const Home = () => {
       </div>
       <div className="mx-auto ">
         <Aboutus />
-        <Categories></Categories>
+        <HomeCategories></HomeCategories>
         <Featured></Featured>
         <Eventartists></Eventartists>
         <Joinevent></Joinevent>

@@ -1,16 +1,16 @@
 import Sectiontitle from "../../../components/Sectiontitle";
-// import Categorycard from "../Categorycard/Categorycard";
+// import Categorycard from "../Categorycard/Categorycard"; HomeCategories
 import "../Categorycard/Categorycard.css";
-const Categories = () => {
+const HomeCategories = () => {
   return (
-    <div className="my-16 mx-auto w-[88%] md:w-[97%]">
+    <div className=" bg-[#132323] mx-auto w-[88%]  md:w-full">
       <Sectiontitle
         title={"Event Categories "}
         subtitle={"Browse our diverse event categories"}></Sectiontitle>
 
       <div className="">
         {/* <Categorycard></Categorycard> */}
-        <div className="cards my-12 flex mx-auto w-[97%] justify-between items-center gap-4 flex-wrap">
+        <div className="cards flex mx-auto w-[97%] justify-between items-center gap-4 flex-wrap">
           <div className="card  border border-[#4c4f4e]  mx-auto w-[80%] md:w-[30%] red ">
             <img
               className="w-[4rem] text-red-600"
@@ -20,7 +20,7 @@ const Categories = () => {
             <p className="tip">Corporate & Business Events</p>
           </div>
           <div className="card border border-[#4c4f4e]  mx-auto w-[80%] md:w-[30%] red ">
-            <p className="tip">Hover Me</p>
+            <p className="tip">Hover me</p>
           </div>
           <div className="card  border border-[#4c4f4e] mx-auto w-[80%] md:w-[30%] red ">
             <p className="tip">Hover Me</p>
@@ -43,4 +43,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default HomeCategories;
