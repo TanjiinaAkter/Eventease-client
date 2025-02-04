@@ -73,7 +73,7 @@ const Singleenventcard = () => {
               <p className="text-white mt-4 border-l-4 pl-1 border-white">
                 CONFERENCE -
               </p>
-              <div className="flex justify-start my-3">
+              <div className="flex justify-start my-6">
                 <button className="">Buy Tickets</button>
               </div>
             </div>
@@ -94,7 +94,10 @@ const Singleenventcard = () => {
               </h2>
             </div>
             <div>
-              <img src="https://i.ibb.co.com/6JHXGP7P/bruno-cervera-Gi6-m-t-W-E-unsplash.jpg" alt="" />
+              <img
+                src="https://i.ibb.co.com/6JHXGP7P/bruno-cervera-Gi6-m-t-W-E-unsplash.jpg"
+                alt=""
+              />
             </div>
           </div>
 
@@ -113,6 +116,9 @@ const Singleenventcard = () => {
                 opportunities with experts in AI-driven diagnostics,
                 telemedicine, and wearable health tech.
               </p>
+              <div className="flex md:flex-row items-center justify-start my-3">
+                <button className="">Book Now </button>
+              </div>
             </div>
           </div>
         </div>

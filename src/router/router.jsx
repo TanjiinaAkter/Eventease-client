@@ -8,6 +8,7 @@ import ArtistCard from "../pages/ArtistCard/ArtistCard";
 import Categories from "../pages/Categories/Categories";
 import Venues from "../pages/Venues/Venues";
 import Contact from "../pages/Contact/Contact";
+import CartPage from "../pages/CartPage/CartPage";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact></Contact>,
+      },
+      {
+        path: "/cart",
+        element:<CartPage></CartPage>,
       },
     ],
   },
