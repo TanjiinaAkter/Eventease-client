@@ -12,6 +12,8 @@ import CartPage from "../pages/CartPage/CartPage";
 import CheckoutPage from "../pages/CheckoutPage/CheckoutPage";
 import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
+import UserDashboard from "../pages/Dahboard/UserDashboard/UserDashboard";
+import UserOrders from "../pages/Dahboard/UserOrders/UserOrders";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +67,15 @@ const router = createBrowserRouter([
       {
         path: "/registration",
         element: <Registration></Registration>,
+      },
+      // USER DASHBOARD
+      {
+        path: "/userdashboard",
+        element: <UserDashboard></UserDashboard>,
+      },
+      {
+        path: "/userorders",
+        element: <UserOrders></UserOrders>,
       },
     ],
   },

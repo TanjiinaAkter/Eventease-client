@@ -1,3 +1,4 @@
+import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 const Registration = () => {
@@ -8,12 +9,12 @@ const Registration = () => {
       <div className="absolute bg-black  opacity-70 inset-0 "></div>
 
       <div className="flex justify-start items-center">
-        <Link to="/">
-          <button>BACK TO HOME</button>
-        </Link>
+        <button className="flex justify-start items-center gap-1">
+          <IoHome className="text-xl"></IoHome> BACK TO HOME
+        </button>
       </div>
       <div className="relative  z-10 flex justify-center items-center mt-2">
-        <div className=" shadow-2xl bg-[#275e5eb8] p-6 border-[#44cfbf] border-[1px] rounded-xl w-full md:w-[60%] lg:w-[35%]  h-full">
+        <div className=" shadow-2xl bg-[#275e5eb8] p-6 border-[#44cfbf] border-[1px] rounded-xl w-full md:w-[60%] lg:w-[30%]  h-full">
           <h3 className="text-white text-center text-2xl md:text-3xl font-semibold uppercase">
             Create your account
           </h3>

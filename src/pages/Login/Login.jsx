@@ -8,9 +8,11 @@ const Login = () => {
 
       <div className="absolute bg-black  opacity-70 inset-0 "></div>
 
-      <div className="flex justify-start items-center">
+      <div>
         <Link to="/">
-          <button>BACK TO HOME</button>
+          <button className="flex justify-start items-center gap-1">
+            <IoHome className="text-xl"></IoHome> BACK TO HOME
+          </button>
         </Link>
       </div>
       <div className="relative  z-10 flex justify-center items-center mt-2">
