@@ -8,6 +8,7 @@ const Eventartists = () => {
         title={"Our Artists"}
         subtitle={"Know event artists"}></Sectiontitle>
       <div className=" grid grid-cols-1 md:grid-cols-4 mx-auto  gap-4 ">
+        
         <div className="artist-card bg-[#0f1c1c] border border-dotted border-[#4c4f4e]  mb-4 p-4 mx-auto w-full red ">
           <div className="flex justify-center items-center my-7 w-full">
             <img

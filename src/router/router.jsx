@@ -9,6 +9,8 @@ import Categories from "../pages/Categories/Categories";
 import Venues from "../pages/Venues/Venues";
 import Contact from "../pages/Contact/Contact";
 import CartPage from "../pages/CartPage/CartPage";
+import CheckoutPage from "../pages/CheckoutPage/CheckoutPage";
+import Login from "../pages/Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +51,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element:<CartPage></CartPage>,
+        element: <CartPage></CartPage>,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage></CheckoutPage>,
+      },
+      {
+        path: "/login",
+        element:<Login></Login>,
       },
     ],
   },

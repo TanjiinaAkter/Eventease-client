@@ -2,6 +2,7 @@ import { FaMinusCircle } from "react-icons/fa";
 import Header from "../Shared/Header/Header";
 import { IoLocation } from "react-icons/io5";
 import { FaCirclePlus } from "react-icons/fa6";
+import emoji from "../../assets/Animation - 1738737330342.gif";
 const CartPage = () => {
   return (
     <div className="bg-[#0a1316] pb-12">
@@ -101,6 +102,27 @@ const CartPage = () => {
               <p className="text-sm">45999</p>
             </div>
             <button className="my-4">Proceed to checkout</button>
+          </div>
+          {/*Cart item na thakle */}
+        </div>
+        <div className="artist-card border border-[#b58753] flex justify-center items-center bg-[#0f1c1c] mb-4 p-4 mx-auto  w-full  red ">
+          <div className="text-[#44cfbf] space-y-6">
+            <div className="flex justify-center items-center my-7 w-full">
+              <img
+                className="w-[8rem] h-[8rem] object-cover  text-red-600"
+                src={emoji}
+                alt=""
+              />
+            </div>
+            <h3 className="text-[#44cfbf] mt-8 text-center text-2xl">
+              Your cart is empty
+            </h3>
+            <p className="tip text-[#6a6d6a] text-center mb-2">
+              Looks like you have not added any events to your cart yet.
+            </p>
+            <div className="flex justify-center my-5 items-center">
+              <button>Browse Events</button>
+            </div>
           </div>
         </div>
       </div>

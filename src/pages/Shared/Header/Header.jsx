@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./header.css";
 import { FaShoppingCart } from "react-icons/fa";
@@ -122,7 +122,9 @@ const Header = () => {
         <div className="hover:text-black hover:bg-[#3cac9f] transition-transform ease-in-out duration-300 p-2 border border-[#3cac9f] rounded-full">
           <FaShoppingCart className="text-xl text-[#3cac9f] hover:text-black"></FaShoppingCart>
         </div>
-        <button className=""> Login</button>
+        <Link to='/login'>
+          <button className=""> Login</button>
+        </Link>
       </div>
     </div>
   );
