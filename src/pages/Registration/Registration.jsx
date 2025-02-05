@@ -1,7 +1,7 @@
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Registration = () => {
   return (
     <div>
       <div
@@ -17,9 +17,9 @@ const Login = () => {
             BACK TO HOME
           </h3>
         </Link>
-        <div className="absolute mt-[100px] md:mt-0 form-container border transition-all border-[#44cfbf] duration-700 ease-in-out hover:shadow-[#44cfbf] shadow-lg  bg-[#275e5eb8] rounded-lg w-[90%] md:w-[50%] lg:w-[40%] py-8 px-6 ">
+        <div className="absolute mt-[350px] md:mt-0 form-container border transition-all border-[#44cfbf] duration-700 ease-in-out hover:shadow-[#44cfbf] shadow-lg  bg-[#275e5eb8] rounded-lg w-[90%] md:w-[50%] lg:w-[40%] py-8 px-6 ">
           <h2 className="text-white text-3xl md:text-4xl text-center font-semibold ">
-            Welcome Back
+            Create your account
           </h2>
           <p className="text-white uppercase md:text-sm font-semibold mt-3 text-center  ">
             Access your account with a quick login!
@@ -29,11 +29,26 @@ const Login = () => {
             <div className="form-group flex flex-col space-y-3">
               <label
                 className="text-lg font-semibold  text-white"
+                htmlFor="name">
+                Your Name
+              </label>
+              <input
+                className="px-3 text-white py-2 border-b-[1px] border-b-amber-50   focus:border-b-[3px] rounded-none border-transparent  focus:outline-none"
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your Name"
+                required
+              />
+            </div>
+            <div className="form-group flex flex-col space-y-2">
+              <label
+                className="text-lg font-semibold  text-white"
                 htmlFor="email">
                 Your Email
               </label>
               <input
-                 className="px-3 text-white py-2 border-b-[1px] border-b-amber-50   focus:border-b-[3px] rounded-none border-transparent  focus:outline-none"
+                className="px-3 text-white py-2 border-b-[1px] border-b-amber-50   focus:border-b-[3px] rounded-none border-transparent  focus:outline-none"
                 type="email"
                 id="email"
                 name="email"
@@ -48,7 +63,7 @@ const Login = () => {
                 Your Password
               </label>
               <input
-                 className="px-3 text-white py-2 border-b-[1px] border-b-amber-50   focus:border-b-[3px] rounded-none border-transparent  focus:outline-none"
+                className="px-3 text-white py-2 border-b-[1px] border-b-amber-50   focus:border-b-[3px] rounded-none border-transparent  focus:outline-none"
                 type="password"
                 id="password"
                 name="password"
@@ -56,17 +71,32 @@ const Login = () => {
                 required
               />
             </div>
+            <div className="form-group flex flex-col space-y-3">
+              <label
+                className="text-lg font-semibold  text-white"
+                htmlFor="photo">
+                Your Photo
+              </label>
+              <input
+                className="px-3 text-white py-2 border-b-[1px] border-b-amber-50   focus:border-b-[3px] rounded-none border-transparent  focus:outline-none"
+                type="photo"
+                id="photo"
+                name="photo"
+                placeholder="Your Photo"
+                required
+              />
+            </div>
             <button className="my-7 w-full" type="submit">
               Submit
             </button>
-            <p className="text-white cursor-pointer">
-              Not registered yet?
-              <Link to="/registration">
+            <Link to="/login">
+              <p className="text-white cursor-pointer">
+                Already have an account?
                 <span className="text-[#d5944a] pl-1 text-lg hover:border-b-2">
-                  Register
+                  Login
                 </span>
-              </Link>
-            </p>
+              </p>
+            </Link>
           </form>
         </div>
       </div>
@@ -74,4 +104,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registration;
