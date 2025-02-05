@@ -23,7 +23,7 @@ const CartPage = () => {
             </div>
 
             {/* Cart Item */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 py-4">
+            <div className="flex flex-col md:flex-row justify-evenly items-center gap-4 py-4">
               {/* Image */}
               <img
                 className="w-36 h-28 md:w-24 md:h-32 object-cover rounded-lg"
@@ -33,17 +33,19 @@ const CartPage = () => {
 
               {/* Ticket Info */}
               <div className="flex flex-col justify-evenly text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-2">
+                <div className="flex items-center text-center justify-center md:justify-start gap-2">
                   <IoLocation className="text-lg text-[#44cfbf]" />
                   <h2 className="text-sm md:text-base">
                     Gaming Expo Unlimited 2024
                   </h2>
                 </div>
-                <h3 className="text-sm md:text-base text-gray-300">12/02/25</h3>
+                <h3 className="text-sm md:text-base text-gray-300 text-center">
+                  12/02/25
+                </h3>
               </div>
 
               {/* Price */}
-              <p className="text-sm md:text-base text-center font-semibold">
+              <p className="text-sm  md:text-base text-center font-semibold">
                 $ 300
               </p>
 
