@@ -5,23 +5,23 @@ const Registration = () => {
     <div className="relative bg-black w-full h-full min-h-screen p-6">
       <div className="bg-no-repeat bg-cover object-cover bg-center w-full h-full absolute top-0 left-0 bg-[url('https://i.ibb.co/cS96Ft6R/table-5696243-1280.jpg')]"></div>
 
-      <div className="absolute bg-black  opacity-50 inset-0 "></div>
+      <div className="absolute bg-black  opacity-70 inset-0 "></div>
 
-      <div className="flex justify-start items-center p-7">
+      <div className="flex justify-start items-center">
         <Link to="/">
           <button>BACK TO HOME</button>
         </Link>
       </div>
-      <div className="relative z-10 flex justify-center items-center border border-y-amber-300 ">
-        <div className=" shadow-2xl p-6 bg-[#0f1c1c] rounded-2xl w-full md:w-[40%] h-full">
-          <h3 className="text-white text-center text-2xl md:text-4xl font-semibold uppercase">
+      <div className="relative  z-10 flex justify-center items-center mt-2">
+        <div className=" shadow-2xl bg-[#275e5eb8] p-6 border-[#44cfbf] border-[1px] rounded-xl w-full md:w-[60%] lg:w-[35%]  h-full">
+          <h3 className="text-white text-center text-2xl md:text-3xl font-semibold uppercase">
             Create your account
           </h3>
           <p className="text-white  text-center text-sm my-2 font-semibold uppercase">
             Register now and enjoy a seamless experience!
           </p>
           <hr className="w-[10%] mx-auto h-[5px] bg-[#44cfbf] my-3 " />
-          <div className="form ">
+          <div className="form  ">
             <div className=" flex flex-col">
               <label className="text-white text-lg" htmlFor="name">
                 Your Name
@@ -75,11 +75,12 @@ const Registration = () => {
             </div>
 
             <p className="text-white">
-              {" "}
-              Already have an account?{" "}
-              <span className="text-[#d5944a] text-lg hover:border-b-2">
-                Login Now
-              </span>{" "}
+              Already have an account?
+              <Link to="/login">
+                <span className="text-[#d5944a] text-lg hover:border-b-2">
+                  Login Now
+                </span>
+              </Link>
             </p>
           </div>
         </div>
