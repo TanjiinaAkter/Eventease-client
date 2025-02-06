@@ -16,6 +16,7 @@ import UserDashboard from "../pages/Dahboard/UserDashboard/UserDashboard";
 import UserOrders from "../pages/Dahboard/UserOrders/UserOrders";
 import UserProfile from "../pages/Dahboard/UserProfile/UserProfile";
 import UserProfileEdit from "../pages/Dahboard/UserProfileEdit/UserProfileEdit";
+import UserEventDetail from "../pages/Dahboard/UserEventDetail/UserEventDetail";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
       {
         path: "/userprofileedit",
         element: <UserProfileEdit></UserProfileEdit>,
+      },
+      {
+        path: "/usereventdetail",
+        element: <UserEventDetail></UserEventDetail>,
       },
     ],
   },

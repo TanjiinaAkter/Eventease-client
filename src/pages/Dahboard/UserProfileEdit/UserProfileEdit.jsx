@@ -1,6 +1,5 @@
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import Sectiontitle from "../../../components/Sectiontitle";
 import RouteTitle from "../../../components/RouteTitle";
 
 const UserProfileEdit = () => {
