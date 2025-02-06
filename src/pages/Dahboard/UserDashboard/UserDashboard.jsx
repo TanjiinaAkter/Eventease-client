@@ -1,8 +1,8 @@
 const UserDashboard = () => {
   return (
     <div className="mx-auto w-full p-8 bg-[#0a1316] min-h-screen h-full">
-      <h2 className="text-white">Your dashboard</h2>
-      <div className=" flex flex-wrap border border-[#4b4d4c] md:w-[70%] mx-auto justify-evenly items-center gap-4 p-7 rounded-md bg-[#0f1c1c]">
+     
+      <div className=" flex flex-wrap border border-[#4b4d4c]  mx-auto justify-evenly items-center gap-4 p-7 rounded-md bg-[#0f1c1c]">
         <div className=" pb-3 text-center  sm:border-b-[1px] md:border-r-[1px] md:pr-12 md:border-r-[#6a6d6a]">
           <h2 className="text-xl text-white">Cancelled Orders</h2>
           <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
@@ -22,7 +22,7 @@ const UserDashboard = () => {
           </h1>
         </div>
       </div>
-      <div className="mt-12 border border-[#4b4d4c] flex flex-col flex-wrap md:w-[70%] mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
+      <div className="mt-12 border border-[#4b4d4c] flex flex-col flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
         <h2 className="text-xl text-white">Recent Orders</h2>
         {/* ==============  card-box =========== */}
         <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
@@ -73,7 +73,7 @@ const UserDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="mt-12 border border-[#4b4d4c] flex flex-col flex-wrap md:w-[70%] mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
+      <div className="mt-12 border border-[#4b4d4c] flex flex-col flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
         <h2 className="text-xl text-white">Upcoming Events</h2>
         {/* ==============  card-box =========== */}
         <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">

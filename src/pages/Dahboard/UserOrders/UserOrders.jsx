@@ -10,7 +10,7 @@ const UserOrders = () => {
         </p>
       </div>
 
-      <div className="mt-8 border border-[#4b4d4c] flex flex-col md:w-[70%] mx-auto gap-4 p-5 rounded-md bg-[#0f1c1c]">
+      <div className="mt-8 border border-[#4b4d4c] flex flex-col md:w-full mx-auto gap-4 p-5 rounded-md bg-[#0f1c1c]">
         <div className="overflow-auto">
           <table className="table-auto w-full min-w-[600px]  text-white text-sm sm:text-base">
             {/* head */}

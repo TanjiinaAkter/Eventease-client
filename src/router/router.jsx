@@ -17,6 +17,12 @@ import UserOrders from "../pages/Dahboard/UserOrders/UserOrders";
 import UserProfile from "../pages/Dahboard/UserProfile/UserProfile";
 import UserProfileEdit from "../pages/Dahboard/UserProfileEdit/UserProfileEdit";
 import UserEventDetail from "../pages/Dahboard/UserEventDetail/UserEventDetail";
+import AdminProfile from "../pages/Dahboard/AdminProfile/AdminProfile";
+import AdminProfileEdit from "../pages/Dahboard/AdminProfileEdit/AdminProfileEdit";
+import AdminDashboard from "../pages/Dahboard/AdminDashboard/AdminDashboard";
+import CreateArtists from "../pages/Dahboard/CreateArtists/CreateArtists";
+import AddArtists from "../pages/Dahboard/AddArtists/AddArtists";
+import EditArtists from "../pages/Dahboard/EditArtists/EditArtists";
 
 const router = createBrowserRouter([
   {
@@ -71,7 +77,33 @@ const router = createBrowserRouter([
         path: "/registration",
         element: <Registration></Registration>,
       },
-      // USER DASHBOARD
+
+      // =================== ADMIN DASHBOARD ========================//
+      {
+        path: "/adminprofile",
+        element: <AdminProfile></AdminProfile>,
+      },
+      {
+        path: "/adminprofileedit",
+        element: <AdminProfileEdit></AdminProfileEdit>,
+      },
+      {
+        path: "/admindashboard",
+        element: <AdminDashboard></AdminDashboard>,
+      },
+      {
+        path: "/createartists",
+        element: <CreateArtists></CreateArtists>,
+      },
+      {
+        path: "/addartists",
+        element: <AddArtists></AddArtists>,
+      },
+      {
+        path: "/editartists",
+        element: <EditArtists></EditArtists>,
+      },
+      // ===================== USER DASHBOARD ======================//
       {
         path: "/userdashboard",
         element: <UserDashboard></UserDashboard>,
