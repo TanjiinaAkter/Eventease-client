@@ -10,6 +10,7 @@ import Booknow from "./Booknow/Booknow";
 import { Helmet } from "react-helmet-async";
 import HomeCategories from "./HomeCategories/HomeCategories";
 
+
 const Home = () => {
   //bg-[#132323]
   return (
@@ -36,6 +37,7 @@ const Home = () => {
         <Joinevent></Joinevent>
         <Testimonial></Testimonial>
         <Booknow></Booknow>
+      
       </div>
     </div>
   );

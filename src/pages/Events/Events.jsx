@@ -1,11 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import Header from "../Shared/Header/Header";
+
 import { MdPeople } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
 import RouteTitle from "../../components/RouteTitle";
 
 import "./Events.css";
+
 const Events = () => {
   return (
     <div className="bg-[#0a1316] mx-auto sm:w-[88%] md:w-full ">

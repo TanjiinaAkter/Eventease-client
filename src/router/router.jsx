@@ -14,6 +14,8 @@ import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
 import UserDashboard from "../pages/Dahboard/UserDashboard/UserDashboard";
 import UserOrders from "../pages/Dahboard/UserOrders/UserOrders";
+import UserProfile from "../pages/Dahboard/UserProfile/UserProfile";
+import UserProfileEdit from "../pages/Dahboard/UserProfileEdit/UserProfileEdit";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +78,14 @@ const router = createBrowserRouter([
       {
         path: "/userorders",
         element: <UserOrders></UserOrders>,
+      },
+      {
+        path: "/userprofile",
+        element: <UserProfile></UserProfile>,
+      },
+      {
+        path: "/userprofileedit",
+        element: <UserProfileEdit></UserProfileEdit>,
       },
     ],
   },
