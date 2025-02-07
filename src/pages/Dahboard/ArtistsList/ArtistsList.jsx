@@ -22,18 +22,21 @@ const ArtistsList = () => {
           "Manage and organize artist profiles efficiently."
         }></RouteTitle>
       {/* SEARCH AND ADD NEW BUTTON */}
-      <div className="flex justify-between items-center gap-4">
-        <div>
+      <div className="flex  flex-wrap my-7 justify-between items-center gap-4">
+        <div className="flex flex-wrap items-center gap-2">
           <input
             type="text"
-            placeholder="Type here"
-            className="input input-bordered input-info w-full max-w-xs"
+            id="text"
+            placeholder="Type here.."
+            className="input input-bordered !py-[22px] input-info border !border-[#b58753] bg-[#0f1c1c] text-white w-full max-w-xs placeholder:text-white"
           />
-          <button type="button-style">Search</button>
+          <button className="button-style hover:scale-105">Search</button>
         </div>
         <div className="flex relative justify-center items-center gap-2">
-          <button className="button-style rounded-2xl !bg-white ">Add New</button>
-          <GoPlus className=" absolute top-3 right-1 text-[#44cfbf] font-semibold text-xl" />
+          <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
+            Add New
+          </button>
+          <GoPlus className="absolute  top-[13px] z-10 right-0 text-[#d39146] font-extrabold text-xl" />
         </div>
       </div>
       {/* TABLE STARSTS */}
