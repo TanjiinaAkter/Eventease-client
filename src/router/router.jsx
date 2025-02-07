@@ -26,7 +26,9 @@ import ArtistsList from "../pages/Dahboard/ArtistsList/ArtistsList";
 import VenueList from "../pages/Dahboard/VenueList/VenueList";
 import AddVenue from "../pages/Dahboard/AddVenue/AddVenue";
 import EditVenue from "../pages/Dahboard/EditVenue/EditVenue";
-
+import AddCategory from "../pages/Dahboard/AddCategory/AddCategory";
+import EditCategory from "../pages/Dahboard/EditCategory/EditCategory";
+import CategoryList from "../pages/Dahboard/CategoryList/CategoryList";
 
 const router = createBrowserRouter([
   {
@@ -113,11 +115,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/addvenue",
-        element:<AddVenue></AddVenue>,
+        element: <AddVenue></AddVenue>,
       },
       {
         path: "/editvenue",
-        element:<EditVenue></EditVenue>,
+        element: <EditVenue></EditVenue>,
+      },
+      {
+        path: "/addcategory",
+        element: <AddCategory></AddCategory>,
+      },
+      {
+        path: "/editcategory",
+        element: <EditCategory></EditCategory>,
+      },
+      {
+        path: "/categorylist",
+        element: <CategoryList></CategoryList>,
       },
       // ===================== USER DASHBOARD ======================//
       {
