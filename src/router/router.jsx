@@ -33,6 +33,7 @@ import EventList from "../pages/Dahboard/EventList/EventList";
 import AddEvent from "../pages/Dahboard/AddEvent/AddEvent";
 import EditEvent from "../pages/Dahboard/EditEvent/EditEvent";
 import VendorList from "../pages/Dahboard/VendorList/VendorList";
+import AddVendor from "../pages/Dahboard/AddVendor/AddVendor";
 
 const router = createBrowserRouter([
   {
@@ -152,6 +153,10 @@ const router = createBrowserRouter([
       {
         path: "/vendorlist",
         element: <VendorList></VendorList>,
+      },
+      {
+        path: "/addvendor",
+        element: <AddVendor></AddVendor>,
       },
 
       // ===================== USER DASHBOARD ======================//
