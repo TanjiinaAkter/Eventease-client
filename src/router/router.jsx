@@ -29,6 +29,10 @@ import EditVenue from "../pages/Dahboard/EditVenue/EditVenue";
 import AddCategory from "../pages/Dahboard/AddCategory/AddCategory";
 import EditCategory from "../pages/Dahboard/EditCategory/EditCategory";
 import CategoryList from "../pages/Dahboard/CategoryList/CategoryList";
+import EventList from "../pages/Dahboard/EventList/EventList";
+import AddEvent from "../pages/Dahboard/AddEvent/AddEvent";
+import EditEvent from "../pages/Dahboard/EditEvent/EditEvent";
+import VendorList from "../pages/Dahboard/VendorList/VendorList";
 
 const router = createBrowserRouter([
   {
@@ -133,6 +137,23 @@ const router = createBrowserRouter([
         path: "/categorylist",
         element: <CategoryList></CategoryList>,
       },
+      {
+        path: "/eventlist",
+        element: <EventList></EventList>,
+      },
+      {
+        path: "/addevent",
+        element: <AddEvent></AddEvent>,
+      },
+      {
+        path: "/editevent",
+        element: <EditEvent></EditEvent>,
+      },
+      {
+        path: "/vendorlist",
+        element: <VendorList></VendorList>,
+      },
+
       // ===================== USER DASHBOARD ======================//
       {
         path: "/userdashboard",
