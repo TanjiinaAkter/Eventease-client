@@ -74,7 +74,7 @@ const Singleenventcard = () => {
                 CONFERENCE -
               </p>
               <div className="flex justify-start my-6">
-                <button className="">Buy Tickets</button>
+                <button className="button-style">Buy Tickets</button>
               </div>
             </div>
           </div>
@@ -117,7 +117,7 @@ const Singleenventcard = () => {
                 telemedicine, and wearable health tech.
               </p>
               <div className="flex md:flex-row items-center justify-start my-3">
-                <button className="">Book Now </button>
+                <button className="button-style">Book Now </button>
               </div>
             </div>
           </div>

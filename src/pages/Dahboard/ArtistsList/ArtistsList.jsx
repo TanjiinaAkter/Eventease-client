@@ -4,13 +4,14 @@ import RouteTitle from "../../../components/RouteTitle";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { GoPlus } from "react-icons/go";
 
-const CreateArtists = () => {
+const ArtistsList = () => {
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
         <Link to="/">
-          <button className="flex justify-start items-center gap-1">
+          <button className="flex button-style justify-start items-center gap-1">
             <IoHome className="text-xl"></IoHome> BACK TO HOME
           </button>
         </Link>
@@ -20,13 +21,28 @@ const CreateArtists = () => {
         routesubtitle={
           "Manage and organize artist profiles efficiently."
         }></RouteTitle>
+      {/* SEARCH AND ADD NEW BUTTON */}
+      <div className="flex justify-between items-center gap-4">
+        <div>
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered input-info w-full max-w-xs"
+          />
+          <button type="button-style">Search</button>
+        </div>
+        <div className="flex relative justify-center items-center gap-2">
+          <button className="button-style rounded-2xl !bg-white ">Add New</button>
+          <GoPlus className=" absolute top-3 right-1 text-[#44cfbf] font-semibold text-xl" />
+        </div>
+      </div>
       {/* TABLE STARSTS */}
-      <div className="mx-auto overflow-auto border border-[#4b4d4c] w-full flex flex-col gap-4 p-5 pb-8 rounded-md bg-[#0f1c1c] ">
+      <div className="mx-auto overflow-auto  border border-[#4b4d4c] w-full flex flex-col gap-4 p-5 pb-8 rounded-md bg-[#0f1c1c] ">
         <div className="overflow-visible ">
-          <table className="table-auto  w-full min-w-[600px] text-white text-sm sm:text-base">
+          <table className="table-auto   w-full min-w-[600px] text-white text-sm sm:text-base">
             {/* head */}
             <thead className="text-white ">
-              <tr className="border-b-[1px] text-[#44cfbf] text-[1rem] border-white">
+              <tr className="border-b-[1px] text-[#44cfbf] text-[1.2rem] border-white">
                 <th className="px-3 py-2">#</th>
                 <th className="px-3 py-2">Name</th>
                 <th className="px-3 py-2">Bio</th>
@@ -79,4 +95,4 @@ const CreateArtists = () => {
   );
 };
 
-export default CreateArtists;
+export default ArtistsList;

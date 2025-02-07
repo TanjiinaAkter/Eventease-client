@@ -85,7 +85,7 @@ const Header = () => {
           <div
             tabIndex={0}
             role="button"
-            className="btn text-[#3cac9f]  bg-[#3f3131] lg:hidden">
+            className="button-style text-[#3cac9f]  bg-[#3f3131] lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -123,7 +123,7 @@ const Header = () => {
           <FaShoppingCart className="text-xl text-[#3cac9f] hover:text-black"></FaShoppingCart>
         </div>
         <Link to='/login'>
-          <button className=""> Login</button>
+          <button className="button-style"> Login</button>
         </Link>
       </div>
     </div>

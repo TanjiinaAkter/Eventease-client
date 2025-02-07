@@ -51,7 +51,7 @@ const CartPage = () => {
 
               {/* Quantity Controls */}
               <div className="flex items-center gap-2">
-                <button className="text-[#44cfbf] text-lg">
+                <button className="text-[#44cfbf] button-style text-lg">
                   <FaCirclePlus />
                 </button>
                 <input
@@ -60,7 +60,7 @@ const CartPage = () => {
                   defaultValue={1}
                   min={1}
                 />
-                <button className="text-red-500 text-lg">
+                <button className="text-red-500 button-style text-lg">
                   <FaMinusCircle />
                 </button>
               </div>
@@ -103,7 +103,7 @@ const CartPage = () => {
 
               <p className="text-sm">45999</p>
             </div>
-            <button className="my-4">Proceed to checkout</button>
+            <button className="my-4 button-style">Proceed to checkout</button>
           </div>
           {/*Cart item na thakle */}
         </div>
@@ -123,7 +123,7 @@ const CartPage = () => {
               Looks like you have not added any events to your cart yet.
             </p>
             <div className="flex justify-center my-5 items-center">
-              <button>Browse Events</button>
+              <button className="button-style">Browse Events</button>
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { AiOutlineCamera } from "react-icons/ai";
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
@@ -9,7 +10,7 @@ const Registration = () => {
       <div className="absolute bg-black  opacity-70 inset-0 "></div>
 
       <div className="flex justify-start items-center">
-        <button className="flex justify-start items-center gap-1">
+        <button className="flex button-style justify-start items-center gap-1">
           <IoHome className="text-xl"></IoHome> BACK TO HOME
         </button>
       </div>
@@ -59,20 +60,25 @@ const Registration = () => {
                 className="py-3 border-transparent border-b-white border-b-[1px] focus:border-b-[3px] text-white focus:outline-none"
               />
             </div>
-            <div className="flex flex-col space-y-3">
-              <label className="text-white text-lg mt-3" htmlFor="photo">
-                Your Photo
+            <div className="flex relative flex-col space-y-3">
+              <label className="text-white text-lg " htmlFor="file">
+                Your Profile Photo
               </label>
               <input
-                type="photo"
-                name=""
-                id=""
-                placeholder="Enter your photo"
-                className="py-3 border-transparent border-b-white border-b-[1px] focus:border-b-[3px] text-white focus:outline-none"
+                type="file"
+                name="file"
+                id="file"
+                className="py-[6px] focus:border-[#b58753] focus:border-2 text-white border px-6 border-gray-500 focus:outline-none rounded-none file:px-4   file:text-sm file:font-semibold "
+                required
+              />
+
+              <AiOutlineCamera
+                className="absolute top-[65%] left-2 transform -translate-y-1/2 text-white"
+                style={{ fontSize: "24px" }}
               />
             </div>
             <div className="w-full grid my-7">
-              <button>Register</button>
+              <button className="button-style">Register</button>
             </div>
 
             <p className="text-white">

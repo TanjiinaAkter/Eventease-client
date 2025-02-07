@@ -1,5 +1,5 @@
 /* From Uiverse.io by nikk7007 */
-button {
+.button-style {
   padding: 0.5em 1.4em;
   border: 2px solid #17c3b2;
   position: relative;
@@ -14,7 +14,7 @@ button {
   color: #17c3b2;
 }
 
-button::before {
+.button-style::before {
   content: "";
   width: 0;
   height: 300%;
@@ -28,10 +28,10 @@ button::before {
   z-index: -1;
 }
 
-button:hover::before {
+.button-style:hover::before {
   width: 105%;
 }
 
-button:hover {
+.button-style:hover {
   color: #111;
 }

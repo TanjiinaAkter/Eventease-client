@@ -10,7 +10,7 @@ const Login = () => {
 
       <div>
         <Link to="/">
-          <button className="flex justify-start items-center gap-1">
+          <button className="flex button-style justify-start items-center gap-1">
             <IoHome className="text-xl"></IoHome> BACK TO HOME
           </button>
         </Link>
@@ -51,7 +51,7 @@ const Login = () => {
             </div>
 
             <div className="w-full grid my-7">
-              <button>Login</button>
+              <button className="button-style">Login</button>
             </div>
 
             <p className="text-white">

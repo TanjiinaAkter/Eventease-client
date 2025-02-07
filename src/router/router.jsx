@@ -20,9 +20,9 @@ import UserEventDetail from "../pages/Dahboard/UserEventDetail/UserEventDetail";
 import AdminProfile from "../pages/Dahboard/AdminProfile/AdminProfile";
 import AdminProfileEdit from "../pages/Dahboard/AdminProfileEdit/AdminProfileEdit";
 import AdminDashboard from "../pages/Dahboard/AdminDashboard/AdminDashboard";
-import CreateArtists from "../pages/Dahboard/CreateArtists/CreateArtists";
 import AddArtists from "../pages/Dahboard/AddArtists/AddArtists";
 import EditArtists from "../pages/Dahboard/EditArtists/EditArtists";
+import ArtistsList from "../pages/Dahboard/ArtistsList/ArtistsList";
 
 const router = createBrowserRouter([
   {
@@ -92,8 +92,8 @@ const router = createBrowserRouter([
         element: <AdminDashboard></AdminDashboard>,
       },
       {
-        path: "/createartists",
-        element: <CreateArtists></CreateArtists>,
+        path: "/artistslist",
+        element: <ArtistsList></ArtistsList>,
       },
       {
         path: "/addartists",

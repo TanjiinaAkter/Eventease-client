@@ -5,8 +5,8 @@ const AdminDashboard = () => {
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
       <div className=" mx-auto mb-5 text-center md:text-start">
-        <h2 className="text-white text-xl">Admin Dashboard</h2>
-        <p className="text-gray-400">View and manage your events</p>
+        <h2 className="text-[#44cfbf] text-xl">Admin Dashboard</h2>
+        <p className="text-[#b58753]">View and manage your events</p>
       </div>
       {/* EITA HOBE CHART  DIV */}
       <div className="mt-12 mb-4 border border-[#4b4d4c] flex flex-col flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">

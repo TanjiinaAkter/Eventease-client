@@ -15,12 +15,12 @@ const Banner = () => {
           celebrations.
         </p>
         <div className="flex gap-2">
-          <button className="button">Plan your event </button>
-          <button className="button">Explore your vanues </button>
+          <button className="button-style">Plan your event </button>
+          <button className="button-style">Explore your vanues </button>
         </div>
       </div>
       <div className="md:flex hidden">
-        <button className="text-[13px] button p-0"> </button>
+        <button className="text-[13px] button-style p-0"> </button>
       </div>
     </div>
   );

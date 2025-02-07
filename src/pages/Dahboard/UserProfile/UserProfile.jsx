@@ -5,7 +5,7 @@ const UserProfile = () => {
       <div className="p-5 bg-[#0f1c1c] items-center mx-auto w-[90%]  md:w-[40%] text-white border-2 border-dotted border-[#4c4f4e]">
         <div className="flex mb-12 justify-start items-center space-y-4 flex-col">
           <img
-            className="w-[12rem] h-[12rem] border-8 border-[#44cfbf] inset-3 object-cover rounded-full"
+            className="w-[12rem] h-[12rem] border-8 border-[#b58753] inset-3 object-cover rounded-full"
             src="https://i.ibb.co.com/Xzx84Jx/colorful-paper-shopping-bags-blue-surface.jpg"
             alt=""
           />
@@ -57,7 +57,7 @@ const UserProfile = () => {
           </div>
         </div>
         <div className="grid my-10 w-[90%] md:w-[40%] gap-3">
-          <button>Edit Profile</button>
+          <button className="button-style">Edit Profile</button>
         </div>
       </div>
     </div>

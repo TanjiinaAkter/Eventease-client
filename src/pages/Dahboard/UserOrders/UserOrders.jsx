@@ -1,21 +1,21 @@
-import { Link } from "react-router-dom";
+import RouteTitle from "../../../components/RouteTitle";
+
 
 const UserOrders = () => {
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
-      <div className="md:w-[70%] mx-auto mb-5 text-center md:text-start">
-        <h2 className="text-white text-xl">My Orders</h2>
-        <p className="text-gray-400">
-          View and manage your event ticket orders
-        </p>
-      </div>
+      <RouteTitle
+        routetitle={"Update Your Profile"}
+        routesubtitle={
+          "Keep your information up-to-date for a seamless experience."
+        }></RouteTitle>
 
-      <div className="mt-8 border border-[#4b4d4c] flex flex-col md:w-full mx-auto gap-4 p-5 rounded-md bg-[#0f1c1c]">
+      <div className="mt-8 border -[#4b4d4c]border flex flex-col md:w-full mx-auto gap-4 p-5 rounded-md bg-[#0f1c1c]">
         <div className="overflow-auto">
           <table className="table-auto w-full min-w-[600px]  text-white text-sm sm:text-base">
             {/* head */}
             <thead>
-              <tr className="border-b-[1px] text-[#44cfbf] text-[1rem] border-white">
+              <tr className="border-b-[2px] text-[#44cfbf] text-center my-8 text-[1rem] border-[#b58753]">
                 <th className="px-3 py-2">#</th>
                 <th className="px-3 py-2">Order Number</th>
                 <th className="px-3 py-2">Event</th>
@@ -23,12 +23,12 @@ const UserOrders = () => {
                 <th className="px-3 py-2">Total Amount</th>
                 <th className="px-3 py-2">Payment Status</th>
                 <th className="px-3 py-2">Order Status</th>
-                <th className="px-3 py-2"> Actions</th>
+                <th className="px-3 py-2">Actions</th>
               </tr>
             </thead>
             <tbody>
               {/* row 1 */}
-              <tr className="border-b-[1px]  border-[#4c4f4e] text-center">
+              <tr className="border-b-[1px]  border-[#4c4f4e]  text-center">
                 <td className="px-3 py-4">1</td>
                 <td className="px-3 py-4">20250205-2866</td>
                 <td className="px-3 py-4">1</td>
@@ -46,9 +46,11 @@ const UserOrders = () => {
                   </span>
                 </td>
 
-                <Link to="/">
-                  <td className="px-3 py-2 ">View details</td>
-                </Link>
+                <td className="px-3 py-2">
+                  <span className="px-6 py-2 font-semibold cursor-pointer bg-[#ffffff] text-[#0c0606] rounded-md">
+                    Details
+                  </span>
+                </td>
               </tr>
               {/* row 2 */}
               <tr className="border-b-[1px]  border-[#4c4f4e] text-center">
@@ -69,9 +71,11 @@ const UserOrders = () => {
                   </span>
                 </td>
 
-                <Link to="/">
-                  <td className="px-3 py-2 ">View details</td>
-                </Link>
+                <td className="px-3 py-2">
+                  <span className="px-6 py-2 font-semibold cursor-pointer bg-[#ffffff] text-[#0c0606] rounded-md">
+                    Details
+                  </span>
+                </td>
               </tr>
               {/* row 3 */}
               <tr className="border-b-[1px]  border-[#4c4f4e] text-center">
@@ -92,9 +96,11 @@ const UserOrders = () => {
                   </span>
                 </td>
 
-                <Link to="/">
-                  <td className="px-3 py-2 ">View details</td>
-                </Link>
+                <td className="px-3 py-2">
+                  <span className="px-6 py-2 font-semibold cursor-pointer bg-[#ffffff] text-[#0c0606] rounded-md">
+                    Details
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>

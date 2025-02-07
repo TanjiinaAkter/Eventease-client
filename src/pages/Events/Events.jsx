@@ -71,7 +71,7 @@ const Events = () => {
                 <p className="text-white ">3002</p>
               </div>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">View details</button>
+                <button className="button-style">View details</button>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@ const Events = () => {
                 <p className="text-white ">3002</p>
               </div>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">View details</button>
+                <button className="button-style">View details</button>
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@ const Events = () => {
                 <p className="text-white ">3002</p>
               </div>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">View details</button>
+                <button className="button-style">View details</button>
               </div>
             </div>
           </div>
@@ -161,7 +161,7 @@ const Events = () => {
                 <p className="text-white ">3002</p>
               </div>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">View details</button>
+                <button className="button-style">View details</button>
               </div>
             </div>
           </div>
@@ -191,7 +191,7 @@ const Events = () => {
                 <p className="text-white ">3002</p>
               </div>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">View details</button>
+                <button className="button-style">View details</button>
               </div>
             </div>
           </div>
@@ -221,7 +221,7 @@ const Events = () => {
                 <p className="text-white ">3002</p>
               </div>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">View details</button>
+                <button className="button-style">View details</button>
               </div>
             </div>
           </div>

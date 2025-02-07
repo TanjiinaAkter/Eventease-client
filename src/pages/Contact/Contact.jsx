@@ -38,7 +38,7 @@ const Contact = () => {
             lets create something spectacular together!
           </h2>
           <h2 className=" text-white flex items-center self-start text-base md:text-lg  gap-1 md:gap-2">
-            <FaAddressBook className="text-[#44cfbf]k text-xl font-semibold" />
+            <FaAddressBook className="text-[#44cfbf]  text-xl font-semibold" />
             742 Innovation Drive, Tech Valley, CA 90210, USA
           </h2>
           <h2 className=" text-white flex items-center self-start text-base md:text-lg  gap-1 md:gap-2">
@@ -73,7 +73,7 @@ const Contact = () => {
               name=""
               id=""
             />
-            <button className=" ">Subscribe</button>
+            <button className=" button-style font-semibold">Subscribe</button>
           </div>
         </div>
       </div>

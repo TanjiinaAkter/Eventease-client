@@ -14,14 +14,14 @@ const Booknow = () => {
       <div className="absolute inset-0 z-0 bg-[#173e38bf]  opacity-95"></div>
       <div className="flex  overflow-hidden flex-col md:flex-row mx-5 relative brightness-105 z-50 justify-between items-center gap-6">
         <div className="flex py-4 md:p-12 z-50 flex-col justify-center space-y-6 w-full md:w-1/2">
-          <p className=" text-[#44cfbf] pl-1 border-l-2 border-[#44cfbf] text-[16px] ">
+          <p className=" text-[#44cfbf] pl-1 font-bold border-l-2 border-[#44cfbf] text-[16px] ">
             BOOK NOW
           </p>
           <p className="text-[#b58753]  text-[33px] font-semibold md:text-4xl">
             Ready to Create Your Next Event?
           </p>
           <div className="flex justify-start">
-            <button className="button">Plan your event </button>
+            <button className="button-style">Plan your event </button>
           </div>
         </div>
         <div className="flex flex-col my-4 gap-5 w-full md:w-1/2 justify-between items-start">

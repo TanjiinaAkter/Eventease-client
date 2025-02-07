@@ -71,7 +71,7 @@ const Featured = () => {
                     <p>3002</p>
                   </div>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary">View details</button>
+                    <button className="button-style">View details</button>
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@ const Featured = () => {
                     <p>3002</p>
                   </div>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary">View details</button>
+                    <button className="button-style">View details</button>
                   </div>
                 </div>
               </div>
@@ -139,7 +139,7 @@ const Featured = () => {
                     <p>3002</p>
                   </div>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary">View details</button>
+                    <button className="button-style">View details</button>
                   </div>
                 </div>
               </div>
@@ -173,7 +173,7 @@ const Featured = () => {
                     <p>3002</p>
                   </div>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary">View details</button>
+                    <button className="button-style">View details</button>
                   </div>
                 </div>
               </div>
@@ -207,7 +207,7 @@ const Featured = () => {
                     <p>3002</p>
                   </div>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary">View details</button>
+                    <button className="button-style">View details</button>
                   </div>
                 </div>
               </div>
@@ -217,7 +217,7 @@ const Featured = () => {
           {/* text-[#6a6d6a]  */}
         </Swiper>
         <div className="card-actions justify-center my-12">
-          <button className="flex flex-row  items-center gap-2 ">
+          <button className="flex button-style flex-row  items-center gap-2 ">
             View All Events
             <FaArrowCircleRight className="text-2xl"></FaArrowCircleRight>
           </button>

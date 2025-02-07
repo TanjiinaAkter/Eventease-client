@@ -32,7 +32,7 @@ const Aboutus = () => {
           <div
             data-aos="fade-up"
             className="flex sm:mb-3 md:mb-0 justify-start">
-            <button className="button"> Explore Vanues</button>
+            <button className="button-style"> Explore Vanues</button>
           </div>
         </div>
         <div className="md:w-1/2 mb-5 md:mb-0 ">
@@ -72,7 +72,7 @@ const Aboutus = () => {
             your perfect venue today and make your event extraordinary!
           </p>
           <div data-aos="fade-up" className="flex justify-start">
-            <button className="button"> Explore Vanues</button>
+            <button className="button-style"> Explore Vanues</button>
           </div>
         </div>
       </div>

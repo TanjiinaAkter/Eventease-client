@@ -36,7 +36,7 @@ const Artists = () => {
                 <span className="p-1">a@gmail.com</span>
               </div>
               <div className="mt-6 flex justify-center">
-                <button className="">View Details</button>
+                <button className="button-style">View Details</button>
               </div>
             </div>
           </div>
@@ -63,7 +63,7 @@ const Artists = () => {
                 <span className="p-1">a@gmail.com</span>
               </div>
               <div className="mt-6 flex justify-center">
-                <button className="">View Details</button>
+                <button className="button-style">View Details</button>
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@ const Artists = () => {
                 <span className="p-1">a@gmail.com</span>
               </div>
               <div className="mt-6 flex justify-center">
-                <button className="">View Details</button>
+                <button className="button-style">View Details</button>
               </div>
             </div>
           </div>

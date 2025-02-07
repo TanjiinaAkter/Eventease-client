@@ -15,7 +15,7 @@ const Joinevent = () => {
             Streamline, engage, and elevate every event with our game-changing
             platform!
           </p>
-          <button className="button flex items-center my-5 gap-2">
+          <button className="button-style flex items-center my-5 gap-2">
             Buy ticket <BsTicketPerforated className="text-xl" />
           </button>
         </div>
