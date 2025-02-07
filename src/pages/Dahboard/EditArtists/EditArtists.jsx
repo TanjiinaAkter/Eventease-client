@@ -105,7 +105,7 @@ const EditArtists = () => {
             </div>
           </div>
           <div className="grid md:w-full my-7">
-            <button>UPDATE ARTIST</button>
+            <button className="button-style">UPDATE ARTIST</button>
           </div>
         </div>
       </div>

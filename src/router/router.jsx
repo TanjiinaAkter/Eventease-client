@@ -23,6 +23,10 @@ import AdminDashboard from "../pages/Dahboard/AdminDashboard/AdminDashboard";
 import AddArtists from "../pages/Dahboard/AddArtists/AddArtists";
 import EditArtists from "../pages/Dahboard/EditArtists/EditArtists";
 import ArtistsList from "../pages/Dahboard/ArtistsList/ArtistsList";
+import VenueList from "../pages/Dahboard/VenueList/VenueList";
+import AddVenue from "../pages/Dahboard/AddVenue/AddVenue";
+import EditVenue from "../pages/Dahboard/EditVenue/EditVenue";
+
 
 const router = createBrowserRouter([
   {
@@ -102,6 +106,18 @@ const router = createBrowserRouter([
       {
         path: "/editartists",
         element: <EditArtists></EditArtists>,
+      },
+      {
+        path: "/venueslist",
+        element: <VenueList></VenueList>,
+      },
+      {
+        path: "/addvenue",
+        element:<AddVenue></AddVenue>,
+      },
+      {
+        path: "/editvenue",
+        element:<EditVenue></EditVenue>,
       },
       // ===================== USER DASHBOARD ======================//
       {

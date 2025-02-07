@@ -14,12 +14,12 @@ const AddArtists = () => {
             {/* ROW-1 */}
             <div className="flex flex-col md:flex-row justify-between w-full items-center gap-5 ">
               <div className="flex flex-col w-full md:w-1/2 space-y-3">
-                <label className="text-white text-lg" htmlFor="email">
+                <label className="text-white text-lg" htmlFor="artistname">
                   Name
                 </label>
                 <input
                   type="text"
-                  name="name"
+                  name="artistname"
                   id=""
                   placeholder="Enter artist name"
                   className="py-3 focus:border-[#b58753] focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
@@ -105,7 +105,7 @@ const AddArtists = () => {
             </div>
           </div>
           <div className="grid md:w-full my-7">
-            <button>CREATE ARTIST</button>
+            <button className="button-style">CREATE ARTIST</button>
           </div>
         </div>
       </div>
