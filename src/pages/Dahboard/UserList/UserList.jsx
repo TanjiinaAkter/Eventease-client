@@ -3,7 +3,7 @@ import { IoHome } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import RouteTitle from "../../../components/RouteTitle";
-import { GoPlus } from "react-icons/go";
+
 import { FaUsers } from "react-icons/fa";
 
 const UserList = () => {
