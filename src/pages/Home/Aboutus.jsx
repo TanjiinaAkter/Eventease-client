@@ -60,7 +60,7 @@ const Aboutus = () => {
           <h1
             data-aos="fade-down"
             className="text-2xl md:text-5xl text-[#44cfbf] ">
-            With a strong focus on customer satisfaction
+          We have the perfect space to bring your vision to life. 
           </h1>
           <p className=" text-justify text-[16px] md:text-base my-12 text-[#6a6d6a] z-50">
             Each venue offers a unique ambiance, equipped with modern amenities,
