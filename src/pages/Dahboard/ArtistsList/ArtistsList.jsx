@@ -41,7 +41,7 @@ const ArtistsList = () => {
       </div>
 
       {/* TABLE STARTS */}
-      <div className="mx-auto overflow-auto border border-[#4b4d4c] w-full flex flex-col gap-4 p-5 pb-8 rounded-md bg-[#0f1c1c]">
+      <div className="mx-auto overflow-auto border border-[#4b4d4c]  w-full flex flex-col gap-4 p-5 pb-8 rounded-md bg-[#0f1c1c]">
         <div className="">
           <table className="table-auto w-full min-w-[600px] text-center">
             <thead className=" ">
@@ -54,7 +54,7 @@ const ArtistsList = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="text-white border-b border-amber-50 ">
+              <tr className="text-white border-b border-[#4c4f4e] ">
                 <th className="py-2">#</th>
                 <td className="py-2">Cy Ganderton</td>
                 <td className="py-2">Cy Ganderton</td>
@@ -65,7 +65,7 @@ const ArtistsList = () => {
                     <div tabIndex={0} role="button" className="btn m-1">
                       <HiDotsHorizontal />
                     </div>
-                    <ul className="dropdown-content absolute top-0 right-[100%] menu bg-base-100 rounded-box z-10 w-32 md:w-52 p-1 shadow">
+                    <ul className="dropdown-content content-center absolute top-0 right-[100%] menu bg-base-100 rounded-box z-10 w-32 md:w-52 p-1 shadow">
                       <li className="place-self-center">
                         <a>
                           <FaEdit className="text-2xl text-amber-300" />
@@ -80,7 +80,7 @@ const ArtistsList = () => {
                   </div>
                 </td>
               </tr>
-              <tr className="text-white border-b border-amber-50 ">
+              <tr className="text-white border-b border-[#4c4f4e] ">
                 <th className="py-2">#</th>
                 <td className="py-2">Cy Ganderton</td>
                 <td className="py-2">Cy Ganderton</td>

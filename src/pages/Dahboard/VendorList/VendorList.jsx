@@ -39,39 +39,41 @@ const VendorList = () => {
         </div>
       </div>
       {/* TABLE STARSTS */}
-      <div className="mx-auto overflow-visible  border border-[#4b4d4c] w-full flex flex-col gap-4 p-5 pb-8 rounded-md bg-[#0f1c1c] ">
+      <div className="mx-auto overflow-auto border border-[#4b4d4c] w-full flex flex-col gap-4 p-5 pb-8 rounded-md bg-[#0f1c1c] ">
         <div className="overflow-visible ">
           <table className="table-auto   w-full min-w-[600px] text-white text-sm sm:text-base">
             {/* head */}
             <thead className="text-white ">
               <tr className="border-b-[1px] text-[#44cfbf] text-[1.2rem] border-white">
-                <th className="px-3 py-2">#</th>
-                <th className="px-3 py-2">Company name</th>
-                <th className="px-3 py-2">Description</th>
-                <th className="px-3 py-2"> Contact Email</th>
-                <th className="px-3 py-2"> Contact Phone</th>
-                <th className="px-3 py-2">Created At </th>
-                <th className="px-3 py-2">Action </th>
+                <th className="px-5 py-2 whitespace-nowrap">#</th>
+                <th className="px-5 py-2 whitespace-nowrap">Company name</th>
+                <th className="px-5 py-2 whitespace-nowrap">Description</th>
+                <th className="px-5 py-2 whitespace-nowrap"> Contact Email</th>
+                <th className="px-5 py-2 whitespace-nowrap"> Contact Phone</th>
+                <th className="px-5 py-2 whitespace-nowrap">Created At </th>
+                <th className="px-5 py-2 whitespace-nowrap">Action </th>
               </tr>
             </thead>
             <tbody className="">
               {/* row 1 */}
-              <tr className="border-b-[1px] border-[#4c4f4e] text-center">
+              <tr className="border-b border-[#4c4f4e] text-center">
                 <th>1</th>
-                <td className="py-4">Hart Hagerty</td>
-                <td className="py-4">Hart Hagerty</td>
-                <td className="py-4">Desktop Support Technician</td>
-                <td className="py-4">Purple</td>
-                <td className="py-4">Hart Hagerty</td>
+                <td className="px-5 py-2  whitespace-nowrap">Hart Hagerty</td>
+                <td className="px-5 py-2  whitespace-nowrap">Hart Hagerty</td>
+                <td className="px-5 py-2  whitespace-nowrap">
+                  Desktop Support Technician
+                </td>
+                <td className="px-5 py-2  whitespace-nowrap">Purple</td>
+                <td className="px-5 py-2  whitespace-nowrap">Hart Hagerty</td>
 
-                <td className="">
-                  <div className="dropdown dropdown-end">
+                <td className="px-5 py-2  whitespace-nowrap">
+                  <div className="dropdown ">
                     <label tabIndex={0} className="btn m-1">
                       <HiDotsHorizontal />
                     </label>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content menu  content-center p-2 shadow bg-gray-800 text-white rounded-box w-44">
+                      className="dropdown-content menu absolute top-0 right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-32 md:w-52">
                       <li>
                         <a href="#">
                           <MdDelete className="text-3xl text-red-600" />
@@ -82,56 +84,6 @@ const VendorList = () => {
                 </td>
               </tr>
               {/* row 2 */}
-              <tr className="border-b-[1px]  border-[#4c4f4e] text-center">
-                <th>1</th>
-                <td className="py-4">Hart Hagerty</td>
-                <td className="py-4">Hart Hagerty</td>
-                <td className="py-4">Desktop Support Technician</td>
-                <td className="py-4">Purple</td>
-                <td className="py-4">Hart Hagerty</td>
-
-                <td className="">
-                  <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn m-1">
-                      <HiDotsHorizontal />
-                    </label>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu  content-center p-2 shadow bg-gray-800 text-white rounded-box w-44">
-                      <li>
-                        <a href="#">
-                          <MdDelete className="text-3xl text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-              <tr className="border-b-[1px]  border-[#4c4f4e] text-center">
-                <th>1</th>
-                <td className="py-4">Hart Hagerty</td>
-                <td className="py-4">Hart Hagerty</td>
-                <td className="py-4">Desktop Support Technician</td>
-                <td className="py-4">Purple</td>
-                <td className="py-4">Hart Hagerty</td>
-
-                <td className="">
-                  <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn m-1">
-                      <HiDotsHorizontal />
-                    </label>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu  content-center p-2 shadow bg-gray-800 text-white rounded-box w-44">
-                      <li>
-                        <a href="#">
-                          <MdDelete className="text-3xl text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>

@@ -18,11 +18,11 @@ const UserEventDetail = () => {
             </h3>
           </div>
           <div className="flex flex-col items-center gap-3">
-            <p className="px-3 py-1 bg-[#e4f360] text-[#ff8d13]  text-center rounded-2xl">
+            <p className="px-3 py-1 bg-[#e4ef7d] text-[#a35d11]  text-center rounded-2xl">
               pending
             </p>
             <p className="px-3 py-1 bg-red-600 text-white  text-center rounded-2xl">
-              unpaid
+              payment: unpaid
             </p>
           </div>
         </div>
@@ -89,10 +89,10 @@ const UserEventDetail = () => {
           </div>
         </div>
         <div className="flex flex-col w-full md:w-full md:flex-row my-3 gap-3">
-          <button className="flex gap-2 items-center">
+          <button className="flex gap-2 button-style items-center">
             Cancel booking <ImCross className="text-sm" />
           </button>
-          <button className="flex gap-2 sm:w-[30%] md:w-auto justify-center text-center items-center">
+          <button className="flex gap-2 px-4 hover:bg-white hover:text-orange-400 transition-all duration-300 ease-in-out py-2 bg-orange-400 border-2 border-white sm:w-[30%] md:w-auto justify-center text-center items-center">
             <FiDownload className="text-lg" />
           </button>
         </div>
