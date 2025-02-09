@@ -54,14 +54,14 @@ const CheckoutPage = () => {
               />
             </div>
 
-            <button className="form-submit-btn my-6" type="submit">
+            <button className="form-submit-btn button-style my-6" type="submit">
               Proceed to chackout
             </button>
           </form>
         </div>
 
         <div className="card bg-[#0f1c1c]  p-4  w-full border border-[#4c4f4e] shrink-0 shadow-2xl">
-          <h2 className="border-l-4 pl-1 pb-2 border-l-[#b58753] text-2xl font-semibold text-white mb-1">
+          <h2 className="border-l-4 pl-1 pb-2   border-l-[#b58753] text-2xl font-semibold text-white mb-1">
             Payment Method
           </h2>
           <p className="text-lg mb-3  text-white">Choose how you want to pay</p>
@@ -115,7 +115,7 @@ const CheckoutPage = () => {
                   <p className="text-[#b58753] font-semibold text-lg">$ 490</p>
                 </div>
                 <div className="flex my-8 justify-center items-center ">
-                  <button>Place order</button>
+                  <button className="button-style">Place order</button>
                 </div>
               </div>
             </div>
@@ -127,7 +127,7 @@ const CheckoutPage = () => {
                 <hr className="h-[1px] my-5 w-full text-[#6a6d6a]" />
                 <div>ekhane stripe elementcard hobe</div>
                 <div className="flex my-8 justify-center items-center ">
-                  <button>Pay Now</button>
+                  <button className="button-style">Pay Now</button>
                 </div>
               </div>
             </div>

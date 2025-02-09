@@ -47,6 +47,8 @@ import VendorEventList from "../pages/Dahboard/VendorEventList/VendorEventList";
 import VendorAddEvent from "../pages/Dahboard/VendorAddEvent/VendorAddEvent";
 import VendorEditEvent from "../pages/Dahboard/VendorEditEvent/VendorEditEvent";
 import VendorOrderManagement from "../pages/Dahboard/VendorOrderManagement/VendorOrderManagement";
+import VendorProfile from "../pages/Dahboard/VendorProfile/VendorProfile";
+import VendorProfileEdit from "../pages/Dahboard/VendorProfileEdit/VendorProfileEdit";
 
 const router = createBrowserRouter([
   {
@@ -225,6 +227,14 @@ const router = createBrowserRouter([
       {
         path: "/vendorordermanagement",
         element: <VendorOrderManagement></VendorOrderManagement>,
+      },
+      {
+        path: "/vendorprofile",
+        element: <VendorProfile></VendorProfile>,
+      },
+      {
+        path: "/vendorprofileedit",
+        element: <VendorProfileEdit></VendorProfileEdit>,
       },
       // ===================== USER DASHBOARD ======================//
       {
