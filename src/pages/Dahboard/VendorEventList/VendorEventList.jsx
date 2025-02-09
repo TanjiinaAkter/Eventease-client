@@ -2,11 +2,12 @@ import { FaEdit } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
-import RouteTitle from "../../../components/RouteTitle";
+
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import RouteTitle from "../../../components/RouteTitle";
 
-const EventList = () => {
+const VendorEventList = () => {
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -101,4 +102,4 @@ const EventList = () => {
   );
 };
 
-export default EventList;
+export default VendorEventList;
