@@ -1,9 +1,28 @@
+import { useEffect, useState } from "react";
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import "./Login.css";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
 
 const Login = () => {
+  const [disabled, setDisabled] = useState(true);
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+  const handleRecaptcha = (e) => {
+    const user_captcha_value = e.target.value;
+    if (validateCaptcha(user_captcha_value)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  };
   return (
-    <div className="relative bg-black w-full h-full min-h-screen p-6">
+    <div className="overflow-hidden relative bg-black w-full h-full min-h-screen p-6 ">
       <div className="bg-no-repeat bg-cover object-cover bg-center w-full h-full absolute top-0 left-0 bg-[url('https://i.ibb.co/cS96Ft6R/table-5696243-1280.jpg')]"></div>
 
       <div className="absolute bg-black  opacity-70 inset-0 "></div>
@@ -34,7 +53,7 @@ const Login = () => {
                 name=""
                 id=""
                 placeholder="Enter your email"
-                className="py-3 text-white border-b-white focus:border-b-[3px] border-transparent focus:outline-none border-b-[1px] rounded-none"
+                className="py-3 text-white border-b-white  border-transparent focus:outline-none border-b-[1px] rounded-none"
               />
             </div>
             <div className="flex flex-col space-y-3">
@@ -46,12 +65,36 @@ const Login = () => {
                 name=""
                 id=""
                 placeholder="Enter your password"
-                className="py-3 border-transparent border-b-white border-b-[1px] focus:border-b-[3px] text-white focus:outline-none"
+                className="py-3 border-transparent border-b-white border-b-[1px]  text-white focus:outline-none"
+              />
+            </div>
+            {/* =============== REACT SIMPLE RE-CAPTCHA  =================*/}
+            <div className="flex flex-col space-y-3 mt-4">
+              <label htmlFor="captcha">
+                <LoadCanvasTemplate className="" />
+              </label>
+              <input
+                onBlur={handleRecaptcha}
+                type="text"
+                name="captcha"
+                id=""
+                placeholder="Type the captcha"
+                className="py-3 border-transparent border-b-white border-b-[1px]  text-white focus:outline-none"
               />
             </div>
 
-            <div className="w-full grid my-7">
-              <button className="button-style">Login</button>
+            <div
+              className={`${
+                disabled
+                  ? "bg-gray-500 px-[1.4em ] py-[0.4em]  text-white cursor-not-allowed"
+                  : "button-style"
+              }  cursor-pointer w-full grid my-7`}>
+              <input
+                className=""
+                type="submit"
+                value="Login"
+                disabled={disabled}
+              />
             </div>
 
             <p className="text-white">

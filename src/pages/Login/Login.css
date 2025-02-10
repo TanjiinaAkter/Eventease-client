@@ -1,4 +1,7 @@
-
+#reload_href {
+  filter: invert(2);
+  color: rgb(213, 3, 3) !important;
+}
 .button-style {
   padding: 0.5em 1.4em;
   border: 2px solid #17c3b2;
