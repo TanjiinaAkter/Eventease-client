@@ -1,8 +1,36 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { AiOutlineCamera } from "react-icons/ai";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Registration = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const axiosPublic = useAxiosPublic();
+  const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
+  // ===================== SIGN UP AUTHENTICATION CODE(REACT HOOOK FORM) ==============//
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log("reg data ", data);
+    const imageFile = { image: data.photo[0] };
+
+    // =========== PERSONAL LOCAL IMAGE HOSTING POST REQUEST TO IMGBB ============//
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+    console.log(res.data.status);
+  };
   return (
     <div className="relative bg-black w-full h-full min-h-screen p-6">
       <div className="bg-no-repeat bg-cover object-cover bg-center w-full h-full absolute top-0 left-0 bg-[url('https://i.ibb.co/cS96Ft6R/table-5696243-1280.jpg')]"></div>
@@ -23,62 +51,113 @@ const Registration = () => {
             Register now and enjoy a seamless experience!
           </p>
           <hr className="w-[10%] mx-auto h-[5px] bg-[#44cfbf] my-3 " />
-          <div className="form  ">
+          {/* =================== REACT HOOK FORM   ===================*/}
+          <form className="form" onSubmit={handleSubmit(onSubmit)}>
+            {/* ================  NAME INPUT ================= */}
             <div className=" flex flex-col">
               <label className="text-white text-lg" htmlFor="name">
                 Your Name
               </label>
               <input
+                {...register("name", { required: true })}
                 type="text"
-                name=""
-                id=""
                 placeholder="Enter your name"
-                className="py-3 w-full border-b-[0.5px] mb-2 border-b-amber-50 rounded-none border-transparent text-white focus:border-b-white focus:border-b-[3px]  focus:outline-0"
+                className="py-3 w-full border-b-[0.5px] mb-2 border-b-amber-50 rounded-none border-transparent text-white focus:border-b-white  focus:outline-0"
               />
+              {errors.name && (
+                <span className="text-yellow-300 text-sm font-semibold">
+                  This field is required *
+                </span>
+              )}
             </div>
+            {/* ================  EMAIL INPUT ================= */}
             <div className="flex flex-col space-y-3">
               <label className="text-white text-lg" htmlFor="email">
                 Your Email
               </label>
+
               <input
+                {...register("email", {
+                  required: true,
+                })}
                 type="email"
-                name=""
-                id=""
                 placeholder="Enter your email"
-                className="py-3 text-white border-b-white focus:border-b-[3px] border-transparent focus:outline-none border-b-[1px] rounded-none"
+                className="py-3 text-white border-b-white border-transparent focus:outline-none border-b-[1px] rounded-none"
               />
+              {errors.email?.type === "required" && (
+                <span className="text-yellow-300 text-sm font-semibold">
+                  Only Gmail addresses are allowed and required
+                </span>
+              )}
             </div>
-            <div className="flex flex-col space-y-3">
+            {/* ================  PASSWORD INPUT ================= */}
+            <div className="relative mb-3 flex flex-col space-y-3">
               <label className="text-white text-lg mt-3" htmlFor="password">
                 Your Password
               </label>
               <input
-                type="password"
-                name=""
-                id=""
+                {...register("password", {
+                  required: true,
+                  maxLength: 20,
+                  minLength: 6,
+                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                })}
+                type={`${isOpen ? "text" : "password"}`}
                 placeholder="Enter your password"
-                className="py-3 border-transparent border-b-white border-b-[1px] focus:border-b-[3px] text-white focus:outline-none"
+                className="py-3 border-transparent border-b-white border-b-[1px] text-white focus:outline-none"
               />
+              {errors.password?.type === "required" && (
+                <p className="text-yellow-300 text-sm font-semibold ">
+                  Password is required*
+                </p>
+              )}
+              {errors.password?.type === "maxLength" && (
+                <p className="text-yellow-300 text-sm font-semibold ">
+                  Password must be less than 20 characters*
+                </p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="text-yellow-300 text-sm font-semibold ">
+                  Password must be 6 characters*
+                </p>
+              )}
+              {errors.password?.type === "pattern" && (
+                <p className="text-yellow-300 text-sm font-semibold">
+                  Password must be 1 uppercase, 1 lowercase, 1 number and 1
+                  special character*
+                </p>
+              )}
+              <span onClick={() => setIsOpen(!isOpen)}>
+                {isOpen ? (
+                  <FaEye className=" absolute top-[62%] right-3 text-xl text-[#17c3b2] " />
+                ) : (
+                  <FaEyeSlash className=" absolute top-[62%] right-3 text-xl text-[#17c3b2] " />
+                )}
+              </span>
             </div>
+            {/* ================  PHOTO INPUT ================= */}
             <div className="flex relative flex-col space-y-3">
               <label className="text-white text-lg " htmlFor="file">
                 Your Profile Photo
               </label>
               <input
+                {...register("photo", { required: true })}
                 type="file"
-                name="file"
-                id="file"
                 className="py-[6px] focus:border-[#b58753] focus:border-2 text-white border px-6 border-gray-500 focus:outline-none rounded-none file:px-4   file:text-sm file:font-semibold "
                 required
               />
-
+              {errors.photo && (
+                <span className="text-yellow-300 text-sm font-semibold">
+                  Photo field is required
+                </span>
+              )}
               <AiOutlineCamera
                 className="absolute top-[65%] left-2 transform -translate-y-1/2 text-white"
                 style={{ fontSize: "24px" }}
               />
             </div>
-            <div className="w-full grid my-7">
-              <button className="button-style">Register</button>
+            <div className="w-full button-style grid my-7">
+              <input type="submit" value="Register"></input>
             </div>
 
             <p className="text-white">
@@ -89,7 +168,7 @@ const Registration = () => {
                 </span>
               </Link>
             </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>
