@@ -2,7 +2,9 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./header.css";
 import { FaShoppingCart } from "react-icons/fa";
+import useAuth from "../../../hooks/useAuth";
 const Header = () => {
+  const { user, logOut } = useAuth();
   const location = useLocation();
   const isHome = location.pathname === "/";
   const lists = (
@@ -69,12 +71,30 @@ const Header = () => {
               ? "text-[#b58753] relative after:absolute after:w-full after:bg-[#b58753] after:left-0 after:bottom-0 after:h-[2px] after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out"
               : "text-[#3cac9f] relative after:absolute after:w-full after:bg-[#3cac9f] after:h-[2px] after:left-0 after:bottom-0 after:scale-x-0 hover:after:scale-x-100 after:duration-300 after:ease-in-out after:transition-transform"
           }
+          to="/cart">
+          cartPage
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive
+              ? "text-[#b58753] relative after:absolute after:w-full after:bg-[#b58753] after:left-0 after:bottom-0 after:h-[2px] after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out"
+              : "text-[#3cac9f] relative after:absolute after:w-full after:bg-[#3cac9f] after:h-[2px] after:left-0 after:bottom-0 after:scale-x-0 hover:after:scale-x-100 after:duration-300 after:ease-in-out after:transition-transform"
+          }
           to="/contact">
           Contact
         </NavLink>
       </li>
     </div>
   );
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div
       className={`relative z-10 ${
@@ -108,23 +128,40 @@ const Header = () => {
           </ul>
         </div>
         <a className=" hover:scale-105 transition-all ease-out text-xl ">
-          <img
-            className="w-[17rem] hover:ease-in-out hover:duration-300 hover:transition-transform md:w-[18rem] "
-            src={logo}
-            alt=""
-          />
+          <Link to="/">
+            <img
+              className="w-[17rem] hover:ease-in-out hover:duration-300 hover:transition-transform md:w-[18rem] "
+              src={logo}
+              alt=""
+            />
+          </Link>
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{lists}</ul>
       </div>
-      <div className="flex mb-2 md:mb-0   flex-wrap gap-3 md:navbar-end">
+      <div className="flex mb-2 md:mb-0 items-center  gap-3 md:navbar-end">
         <div className="hover:text-black hover:bg-[#3cac9f] transition-transform ease-in-out duration-300 p-2 border border-[#3cac9f] rounded-full">
           <FaShoppingCart className="text-xl text-[#3cac9f] hover:text-black"></FaShoppingCart>
         </div>
-        <Link to='/login'>
-          <button className="button-style"> Login</button>
-        </Link>
+        {user ? (
+          <>
+            <div>
+              <img
+                className="w-[4rem] h-[4rem] rounded-full  border-white border-4 object-cover "
+                src={user?.photoURL}
+                alt=""
+              />
+            </div>
+            <button onClick={handleLogOut} className="button-style">
+              Logout
+            </button>
+          </>
+        ) : (
+          <Link to="/login">
+            <button className="button-style"> Login</button>
+          </Link>
+        )}
       </div>
     </div>
   );

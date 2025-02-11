@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IoHome } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
 import {
   loadCaptchaEnginge,
@@ -10,9 +10,15 @@ import {
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const { user, signIn } = useAuth();
+  const [noEmail, setNoEmail] = useState("");
+  const { signIn, logOut, forgetPassword } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+  console.log(from);
   const [isOpen, setIsOpen] = useState(false);
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
@@ -32,6 +38,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -43,11 +50,73 @@ const Login = () => {
       "pass is",
       data.password
     );
-    signIn(data.email, data.password).then((res) => {
-      console.log(res.user);
-    });
+    signIn(data.email, data.password)
+      .then((res) => {
+        console.log(res.user);
+        if (res.user.emailVerified) {
+          Swal.fire({
+            title: "logged in successfull!!",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
+          // replace er mane hocche jodi private route thake then oi private route e chole jabe ,, previous pageee  e ar jabe na current page ei thakbe
+          navigate(from, { replace: true });
+        } else {
+          Swal.fire({
+            title: "please verify your email first!!",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
+          return logOut();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+  const handleForgetPassword = () => {
+    const email = getValues("email");
+    setNoEmail("");
+    console.log(email);
+    if (!email) {
+      return setNoEmail("Enter a email first !");
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return setNoEmail("Enter a valid email first");
+    }
 
+    forgetPassword(email)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="overflow-hidden relative bg-black w-full h-full min-h-screen p-6 ">
       <div className="bg-no-repeat bg-cover object-cover bg-center w-full h-full absolute top-0 left-0 bg-[url('https://i.ibb.co/cS96Ft6R/table-5696243-1280.jpg')]"></div>
@@ -105,6 +174,13 @@ const Login = () => {
                 )}
               </span>
             </div>
+            {/* ================  FORGET PASSWORD/PASSWORD RESET =================== */}
+            <p
+              onClick={handleForgetPassword}
+              className="text-[#d5944a] cursor-pointer hover:underline">
+              Forget Password*
+            </p>
+            {noEmail && <p className="text-[#00ffdd]">{noEmail}</p>}
             {/* =============== REACT SIMPLE RE-CAPTCHA  =================*/}
             <div className="flex flex-col space-y-3 mt-4">
               <label htmlFor="captcha">

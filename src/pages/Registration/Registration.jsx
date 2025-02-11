@@ -3,10 +3,13 @@ import { useForm } from "react-hook-form";
 import { AiOutlineCamera } from "react-icons/ai";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 const Registration = () => {
+  const navigate = useNavigate();
+  const { createUser, updateUserProfile, verifyEmail } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const axiosPublic = useAxiosPublic();
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -29,7 +32,50 @@ const Registration = () => {
         "content-type": "multipart/form-data",
       },
     });
-    console.log(res.data.status);
+    console.log(res.data.data.display_url);
+    if (res.data.success) {
+      const imgUrl = res.data.data.display_url;
+      createUser(data.email, data.password)
+        .then((res) => {
+          console.log(res.user);
+
+          // UPDATE USER NAME AND PHOTO URL
+          updateUserProfile(data.name, imgUrl)
+            .then((res) => {
+              console.log("updated");
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title:
+                  "Your Registration done and profile updated successfully!!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+          // EMAIL VERIFICATION
+          verifyEmail()
+            .then((res) => {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "please verify your email",
+                showConfirmButton: false,
+                timer: 3000,
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          navigate("/login");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
   return (
     <div className="relative bg-black w-full h-full min-h-screen p-6">

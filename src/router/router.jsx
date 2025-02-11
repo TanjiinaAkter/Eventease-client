@@ -49,6 +49,7 @@ import VendorEditEvent from "../pages/Dahboard/VendorEditEvent/VendorEditEvent";
 import VendorOrderManagement from "../pages/Dahboard/VendorOrderManagement/VendorOrderManagement";
 import VendorProfile from "../pages/Dahboard/VendorProfile/VendorProfile";
 import VendorProfileEdit from "../pages/Dahboard/VendorProfileEdit/VendorProfileEdit";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -89,7 +90,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <CartPage></CartPage>,
+        element: (
+          <PrivateRoute>
+            <CartPage></CartPage>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/checkout",

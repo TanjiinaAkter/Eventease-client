@@ -4,8 +4,11 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 // context api create korte hobe, jehetu onek place e use korbo tai component er baire likhbo
 export const AuthContext = createContext(null);
@@ -42,12 +45,34 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
+  // UPDATE USER NAME AND PHOTO
+  const updateUserProfile = (name, photo) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
+
+  //============ EMAIL VERIFICATION TO THE USER ===============//
+  const verifyEmail = () => {
+    setLoading(true);
+    return sendEmailVerification(auth.currentUser);
+  };
+  // ============= PASSWORD RESET ====================//
+  const forgetPassword = (email) => {
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
   const authInfo = {
     user,
     loading,
     createUser,
     signIn,
     logOut,
+    updateUserProfile,
+    verifyEmail,
+    forgetPassword,
   };
   return (
     // context use korte hole provider add kore dite hoy
