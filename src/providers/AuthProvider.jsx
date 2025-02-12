@@ -3,16 +3,19 @@ import { app } from "../firebase/firebase.config";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
   sendEmailVerification,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
 // context api create korte hobe, jehetu onek place e use korbo tai component er baire likhbo
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -64,6 +67,11 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return sendPasswordResetEmail(auth, email);
   };
+  // ============= GOOGLE AUTHENTICATION  ====================//
+  const googleSign = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
   const authInfo = {
     user,
     loading,
@@ -73,6 +81,7 @@ const AuthProvider = ({ children }) => {
     updateUserProfile,
     verifyEmail,
     forgetPassword,
+    googleSign,
   };
   return (
     // context use korte hole provider add kore dite hoy

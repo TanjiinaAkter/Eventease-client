@@ -11,6 +11,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin";
 
 const Login = () => {
   const [noEmail, setNoEmail] = useState("");
@@ -43,13 +44,13 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(
-      "login form data from react hook form",
-      "email is",
-      data.email,
-      "pass is",
-      data.password
-    );
+    // console.log(
+    //   "login form data from react hook form",
+    //   "email is",
+    //   data.email,
+    //   "pass is",
+    //   data.password
+    // );
     signIn(data.email, data.password)
       .then((res) => {
         console.log(res.user);
@@ -112,6 +113,13 @@ const Login = () => {
     forgetPassword(email)
       .then((res) => {
         console.log(res);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Please check your email to reset your password!!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -151,7 +159,9 @@ const Login = () => {
                 placeholder="Enter your email"
                 className="py-3 text-white border-b-white  border-transparent focus:outline-none border-b-[1px] rounded-none"
               />
-              {errors.email && <span>email field is required</span>}
+              {errors.email && (
+                <span className="text-yellow-300">email field is required</span>
+              )}
             </div>
             {/* ================  PASSWORD INPUT ================= */}
             <div className="flex relative flex-col space-y-3">
@@ -165,7 +175,11 @@ const Login = () => {
                 placeholder="Enter your password"
                 className="py-3 border-transparent border-b-white border-b-[1px]  text-white focus:outline-none"
               />
-              {errors.password && <span>password field is required</span>}
+              {errors.password && (
+                <span className="text-yellow-300">
+                  password field is required
+                </span>
+              )}
               <span onClick={() => setIsOpen(!isOpen)}>
                 {isOpen ? (
                   <FaEye className=" absolute top-[62%] right-3 text-xl text-[#17c3b2] " />
@@ -218,6 +232,7 @@ const Login = () => {
                 </span>
               </Link>
             </p>
+            <SocialLogin></SocialLogin>
           </form>
         </div>
       </div>

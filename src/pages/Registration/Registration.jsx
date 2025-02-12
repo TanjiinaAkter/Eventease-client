@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin";
 const Registration = () => {
   const navigate = useNavigate();
   const { createUser, updateUserProfile, verifyEmail } = useAuth();
@@ -38,10 +39,23 @@ const Registration = () => {
       createUser(data.email, data.password)
         .then((res) => {
           console.log(res.user);
+          //STORE  USER NAME AND PHOTO URL IN USERS COLLECTION
+          const userInfo = {
+            email: res.user.email,
+            name: res.user.displayName,
+          };
+          axiosPublic
+            .post("/users", userInfo)
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
 
           // UPDATE USER NAME AND PHOTO URL
           updateUserProfile(data.name, imgUrl)
-            .then((res) => {
+            .then(() => {
               console.log("updated");
               Swal.fire({
                 position: "top-end",
@@ -58,7 +72,7 @@ const Registration = () => {
 
           // EMAIL VERIFICATION
           verifyEmail()
-            .then((res) => {
+            .then(() => {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -214,6 +228,7 @@ const Registration = () => {
                 </span>
               </Link>
             </p>
+            <SocialLogin></SocialLogin>
           </form>
         </div>
       </div>
