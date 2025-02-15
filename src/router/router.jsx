@@ -50,8 +50,10 @@ import VendorOrderManagement from "../pages/Dahboard/VendorOrderManagement/Vendo
 import VendorProfile from "../pages/Dahboard/VendorProfile/VendorProfile";
 import VendorProfileEdit from "../pages/Dahboard/VendorProfileEdit/VendorProfileEdit";
 import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../layout/Dashboard";
 
 const router = createBrowserRouter([
+  // =================== HOME ROUTES ========================//
   {
     path: "/",
     element: <Main></Main>,
@@ -61,35 +63,35 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/events",
+        path: "events",
         element: <Events></Events>,
       },
       {
-        path: "/artists",
+        path: "artists",
         element: <Artists></Artists>,
       },
       {
-        path: "/eventdetail",
+        path: "eventdetail",
         element: <Singleenventcard></Singleenventcard>,
       },
       {
-        path: "/artistdetail",
+        path: "artistdetail",
         element: <ArtistCard></ArtistCard>,
       },
       {
-        path: "/categories",
+        path: "categories",
         element: <Categories></Categories>,
       },
       {
-        path: "/venues",
+        path: "venues",
         element: <Venues></Venues>,
       },
       {
-        path: "/contact",
+        path: "contact",
         element: <Contact></Contact>,
       },
       {
-        path: "/cart",
+        path: "cart",
         element: (
           <PrivateRoute>
             <CartPage></CartPage>
@@ -97,169 +99,174 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/checkout",
+        path: "checkout",
         element: <CheckoutPage></CheckoutPage>,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login></Login>,
       },
       {
-        path: "/registration",
+        path: "registration",
         element: <Registration></Registration>,
       },
-
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
       // =================== ADMIN DASHBOARD ========================//
       {
-        path: "/adminprofile",
+        path: "adminprofile",
         element: <AdminProfile></AdminProfile>,
       },
       {
-        path: "/adminprofileedit",
+        path: "adminprofileedit",
         element: <AdminProfileEdit></AdminProfileEdit>,
       },
       {
-        path: "/admindashboard",
+        path: "admindashboard",
         element: <AdminDashboard></AdminDashboard>,
       },
       {
-        path: "/artistslist",
+        path: "artistslist",
         element: <ArtistsList></ArtistsList>,
       },
       {
-        path: "/addartists",
+        path: "addartists",
         element: <AddArtists></AddArtists>,
       },
       {
-        path: "/editartists",
+        path: "editartists",
         element: <EditArtists></EditArtists>,
       },
       {
-        path: "/venueslist",
+        path: "venueslist",
         element: <VenueList></VenueList>,
       },
       {
-        path: "/addvenue",
+        path: "addvenue",
         element: <AddVenue></AddVenue>,
       },
       {
-        path: "/editvenue",
+        path: "editvenue",
         element: <EditVenue></EditVenue>,
       },
       {
-        path: "/addcategory",
+        path: "addcategory",
         element: <AddCategory></AddCategory>,
       },
       {
-        path: "/editcategory",
+        path: "editcategory",
         element: <EditCategory></EditCategory>,
       },
       {
-        path: "/categorylist",
+        path: "categorylist",
         element: <CategoryList></CategoryList>,
       },
       {
-        path: "/eventlist",
+        path: "eventlist",
         element: <EventList></EventList>,
       },
       {
-        path: "/addevent",
+        path: "addevent",
         element: <AddEvent></AddEvent>,
       },
       {
-        path: "/editevent",
+        path: "editevent",
         element: <EditEvent></EditEvent>,
       },
       {
-        path: "/vendorlist",
+        path: "vendorlist",
         element: <VendorList></VendorList>,
       },
       {
-        path: "/addvendor",
+        path: "addvendor",
         element: <AddVendor></AddVendor>,
       },
       {
-        path: "/userlist",
+        path: "userlist",
         element: <UserList></UserList>,
       },
       {
-        path: "/ordermanagement",
+        path: "ordermanagement",
         element: <OrderManagement></OrderManagement>,
       },
 
       // ===================== VENDOR DASHBOARD ======================//
       {
-        path: "/vendordashboard",
+        path: "vendordashboard",
         element: <VendorDashboard></VendorDashboard>,
       },
 
       {
-        path: "/vendorartistslist",
+        path: "vendorartistslist",
         element: <VendorArtistList></VendorArtistList>,
       },
       {
-        path: "/vendoraddartists",
+        path: "vendoraddartists",
         element: <VendorAddArtists></VendorAddArtists>,
       },
       {
-        path: "/vendoreditartists",
+        path: "vendoreditartists",
         element: <VendorEditArtists></VendorEditArtists>,
       },
       {
-        path: "/vendorvenueslist",
+        path: "vendorvenueslist",
         element: <VendorVenueList></VendorVenueList>,
       },
       {
-        path: "/vendoraddvenue",
+        path: "vendoraddvenue",
         element: <VendorAddVenue></VendorAddVenue>,
       },
       {
-        path: "/vendoreditvenue",
+        path: "vendoreditvenue",
         element: <VendorEditVenue></VendorEditVenue>,
       },
       {
-        path: "/vendoreventlist",
+        path: "vendoreventlist",
         element: <VendorEventList></VendorEventList>,
       },
       {
-        path: "/vendoraddevent",
+        path: "vendoraddevent",
         element: <VendorAddEvent></VendorAddEvent>,
       },
       {
-        path: "/vendoreditevent",
+        path: "vendoreditevent",
         element: <VendorEditEvent></VendorEditEvent>,
       },
       {
-        path: "/vendorordermanagement",
+        path: "vendorordermanagement",
         element: <VendorOrderManagement></VendorOrderManagement>,
       },
       {
-        path: "/vendorprofile",
+        path: "vendorprofile",
         element: <VendorProfile></VendorProfile>,
       },
       {
-        path: "/vendorprofileedit",
+        path: "vendorprofileedit",
         element: <VendorProfileEdit></VendorProfileEdit>,
       },
       // ===================== USER DASHBOARD ======================//
       {
-        path: "/userdashboard",
+        path: "userdashboard",
         element: <UserDashboard></UserDashboard>,
       },
       {
-        path: "/userorders",
+        path: "userorders",
         element: <UserOrders></UserOrders>,
       },
       {
-        path: "/userprofile",
+        path: "userprofile",
         element: <UserProfile></UserProfile>,
       },
       {
-        path: "/userprofileedit",
+        path: "userprofileedit",
         element: <UserProfileEdit></UserProfileEdit>,
       },
       {
-        path: "/usereventdetail",
+        path: "usereventdetail",
         element: <UserEventDetail></UserEventDetail>,
       },
     ],

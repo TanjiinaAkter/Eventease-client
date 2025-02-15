@@ -9,7 +9,7 @@ const RouteTitle = ({ routetitle, routesubtitle }) => {
     });
   }, []);
   return (
-    <div data-aos="fade-down" className="mx-auto text-center my-12">
+    <div data-aos="fade-down" className="mx-auto text-center my-6">
       <h3 className=" text-[18px] gap-1 text-[#6a6d6a] md:text-lg  my-4 font-bold    ">
         <span className=""></span>
         {routetitle}
