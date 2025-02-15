@@ -8,6 +8,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import SocialLogin from "../../components/SocialLogin";
+
 const Registration = () => {
   const navigate = useNavigate();
   const { createUser, updateUserProfile, verifyEmail } = useAuth();
@@ -39,32 +40,33 @@ const Registration = () => {
       createUser(data.email, data.password)
         .then((res) => {
           console.log(res.user);
-          //STORE  USER NAME AND PHOTO URL IN USERS COLLECTION
-          const userInfo = {
-            email: res.user.email,
-            name: res.user.displayName,
-          };
-          axiosPublic
-            .post("/users", userInfo)
-            .then((res) => {
-              console.log(res.data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
 
           // UPDATE USER NAME AND PHOTO URL
           updateUserProfile(data.name, imgUrl)
             .then(() => {
-              console.log("updated");
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title:
-                  "Your Registration done and profile updated successfully!!",
-                showConfirmButton: false,
-                timer: 1500,
-              });
+              //STORE  USER EMAIL,NAME AND PHOTO URL IN USERS COLLECTION...ROLE backend e add korbo
+              const userInfo = {
+                email: data.email,
+                name: data.name,
+                photo: imgUrl,
+              };
+              console.log(userInfo);
+              axiosPublic
+                .post("/users", userInfo)
+                .then((res) => {
+                  console.log(res.data);
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title:
+                      "Your Registration done and profile updated successfully!!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
             })
             .catch((error) => {
               console.log(error);
@@ -84,6 +86,7 @@ const Registration = () => {
             .catch((error) => {
               console.log(error);
             });
+          // return kori nai karon verify chara login korte dibo na,,,tay reg e kono return er proyojon nei
           navigate("/login");
         })
         .catch((error) => {

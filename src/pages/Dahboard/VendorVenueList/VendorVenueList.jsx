@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import RouteTitle from "../../../components/RouteTitle";
+import { LuPlus } from "react-icons/lu";
 
 const VendorVenueList = () => {
   return (
@@ -34,8 +35,8 @@ const VendorVenueList = () => {
           <button className="button-style hover:scale-105">Search</button>
         </div>
         <div className="flex relative justify-center items-center gap-2">
-          <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
-            Add New
+          <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white flex hover:!text-white !border-none">
+            Add New <LuPlus />
           </button>
           <GoPlus className="absolute  top-[13px] z-10 right-0 text-[#d39146] font-extrabold text-xl" />
         </div>

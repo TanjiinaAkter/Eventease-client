@@ -8,11 +8,13 @@ const SocialLogin = () => {
   const navigate = useNavigate();
   const { googleSign } = useAuth();
   const handleGoogleSignAuth = () => {
+    // google diye reg korle auto name email ar google photo peye jabo res.user e
     googleSign()
       .then((res) => {
         const userInfo = {
           email: res.user.email,
           name: res.user.displayName,
+          photo: res.user.photoURL,
         };
 
         axiosPublic.post("/users", userInfo).then((res) => {

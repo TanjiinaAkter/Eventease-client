@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import {
-  FaClipboardList,
-  FaStore,
-  FaUserFriends,
-} from "react-icons/fa";
+import { FaClipboardList, FaStore, FaUserFriends } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosLogOut } from "react-icons/io";
 import { IoPeople } from "react-icons/io5";
@@ -20,13 +16,13 @@ const Dashboard = () => {
   };
   return (
     //#0f1c1c
-    <div className="mx-auto  w-full bg-[#0a1316] ">
-      <div className="grid relative grid-cols-1 md:grid-cols-4  p-1 h-full">
+    <div className="mx-auto min-h-screen  w-full bg-[#0a1316] ">
+      <div className="grid min-h-screen relative grid-cols-1 md:grid-cols-5  p-1 h-full">
         <div className=" sidebar px-4 bg-[#0f1c1c] col-span-full md:col-span-1">
           <h1 className="text-[#44cfbf] my-2 text-center text-[26px] font-semibold">
             EventEase
           </h1>
-
+          <hr className="h-[2px] w-full bg-gray-600" />
           <ul className={`md:block ${isOpen ? "block" : "hidden"}`}>
             <>
               {[
@@ -100,7 +96,7 @@ const Dashboard = () => {
         <div onClick={toggleMenu} className="md:hidden absolute top-4 right-4">
           <RiMenu2Line className="text-[#44cfbf] text-3xl" />
         </div>
-        <div className="col-span-full md:col-span-3">
+        <div className="col-span-full md:col-span-4">
           <Outlet></Outlet>
         </div>
       </div>

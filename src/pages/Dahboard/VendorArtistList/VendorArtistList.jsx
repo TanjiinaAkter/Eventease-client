@@ -6,6 +6,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { GoPlus } from "react-icons/go";
 import RouteTitle from "../../../components/RouteTitle";
+import { LuPlus } from "react-icons/lu";
 
 const VendorArtistList = () => {
   return (
@@ -34,8 +35,8 @@ const VendorArtistList = () => {
           <button className="button-style hover:scale-105">Search</button>
         </div>
         <div className="relative flex items-center gap-2">
-          <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
-            Add New
+          <button className="button-style flex hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
+            Add New <LuPlus />
           </button>
           <GoPlus className="absolute top-[13px] right-0 text-[#d39146] font-extrabold text-xl" />
         </div>
