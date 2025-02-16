@@ -248,6 +248,7 @@ const router = createBrowserRouter([
         path: "vendorprofile",
         element: <VendorProfile></VendorProfile>,
       },
+      // TO DO : EI ROUTE ADD korte hobe
       {
         path: "vendorprofileedit",
         element: <VendorProfileEdit></VendorProfileEdit>,
@@ -269,6 +270,7 @@ const router = createBrowserRouter([
         path: "userprofileedit",
         element: <UserProfileEdit></UserProfileEdit>,
       },
+      //TO DO: THIS route is not added
       {
         path: "usereventdetail",
         element: <UserEventDetail></UserEventDetail>,

@@ -48,8 +48,8 @@ const UserList = () => {
     });
   };
   //========== USER ROLE UPDATE ==========//
-  const makeAdminRole = (userId, newrole) => {
-    console.log(userId);
+  const makeAdminRole = (user, newrole) => {
+    console.log(user);
     if (!isAdmin) {
       return Swal.fire({
         icon: "error",
@@ -58,7 +58,7 @@ const UserList = () => {
       });
     }
     axiosSecure
-      .patch(`/users/admin/${userId}`, {
+      .patch(`/users/admin/${user._id}`, {
         role: newrole,
       })
       .then((res) => {
@@ -68,7 +68,7 @@ const UserList = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: `${userId} role has been changed now`,
+            title: `Role of ${user.name} has been changed! `,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -157,7 +157,7 @@ const UserList = () => {
                       <ul className="dropdown-content menu  absolute top-[-65%] right-[100%] p-2 shadow bg-white text-black rounded-box w-44">
                         <li
                           onClick={() =>
-                            isAdmin && makeAdminRole(user._id, "Admin")
+                            isAdmin && makeAdminRole(user, "Admin")
                           }
                           className="place-self-center">
                           <button>
@@ -166,9 +166,7 @@ const UserList = () => {
                           </button>
                         </li>
                         <li
-                          onClick={() =>
-                            isAdmin && makeAdminRole(user._id, "User")
-                          }
+                          onClick={() => isAdmin && makeAdminRole(user, "User")}
                           className="place-self-center">
                           <button>
                             <FaUser className="text-base text-red-600" />
@@ -177,7 +175,7 @@ const UserList = () => {
                         </li>
                         <li
                           onClick={() =>
-                            isAdmin && makeAdminRole(user._id, "Vendor")
+                            isAdmin && makeAdminRole(user, "Vendor")
                           }
                           className="place-self-center">
                           <button>

@@ -8,6 +8,7 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
   const { logOut } = useAuth();
   const navigate = useNavigate();
+  // request interceptor to add authorization header to call all secure api
   axiosSecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem("access-token");
@@ -31,9 +32,11 @@ const useAxiosSecure = () => {
         navigate("/login");
         await logOut();
       }
+      // promise ta reject kore dibo ar reject er karon hishbe error take dicchi
       return Promise.reject(error);
     }
   );
+  // return kore dite hobe must
   return axiosSecure;
 };
 
