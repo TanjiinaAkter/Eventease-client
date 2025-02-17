@@ -52,7 +52,7 @@ const AuthProvider = ({ children }) => {
   }, [axiosPublic]);
   //============ CREATE USER  ===============//
   const createUser = (email, password) => {
-    setLoading(true);
+    setLoading(true); //Authentication complete
     return createUserWithEmailAndPassword(auth, email, password);
   };
   //============ LOGIN USER  ===============//
