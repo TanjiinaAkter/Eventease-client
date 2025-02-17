@@ -1,23 +1,23 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import animation from "../assets/Animation.gif";
 import useRole from "../hooks/useRole";
-const PrivateRoute = ({ children }) => {
-  const location = useLocation();
+import animation from "../assets/Animation.gif";
+const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
+  console.log(user);
   const [role, roleloading] = useRole();
-  console.log("user er role", user?.role);
+  const location = useLocation();
   if (!user && !loading) {
-    return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
   if (loading || roleloading) {
     return <img src={animation} alt="" />;
   }
 
-  if (role !== "User") {
+  if (role !== "Admin") {
     return <Navigate to="/" state={{ from: location }} replace></Navigate>;
   }
   return children;
 };
 
-export default PrivateRoute;
+export default AdminRoute;

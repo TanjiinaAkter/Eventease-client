@@ -51,6 +51,8 @@ import VendorProfile from "../pages/Dahboard/VendorProfile/VendorProfile";
 import VendorProfileEdit from "../pages/Dahboard/VendorProfileEdit/VendorProfileEdit";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layout/Dashboard";
+import AdminRoute from "./AdminRoute";
+import VendorRoute from "./VendorRoute";
 
 const router = createBrowserRouter([
   // =================== HOME ROUTES ========================//
@@ -114,166 +116,311 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: (
-      <PrivateRoute>
-        <Dashboard></Dashboard>
-      </PrivateRoute>
-    ),
+    element: <Dashboard></Dashboard>,
     children: [
       // =================== ADMIN DASHBOARD ========================//
       {
         path: "adminprofile",
-        element: <AdminProfile></AdminProfile>,
+        element: (
+          <AdminRoute>
+            <AdminProfile></AdminProfile>
+          </AdminRoute>
+        ),
       },
       {
         path: "adminprofileedit",
-        element: <AdminProfileEdit></AdminProfileEdit>,
+        element: (
+          <AdminRoute>
+            <AdminProfileEdit></AdminProfileEdit>
+          </AdminRoute>
+        ),
       },
       {
         path: "admindashboard",
-        element: <AdminDashboard></AdminDashboard>,
+        element: (
+          <AdminRoute>
+            <AdminDashboard></AdminDashboard>
+          </AdminRoute>
+        ),
       },
       {
         path: "artistslist",
-        element: <ArtistsList></ArtistsList>,
+        element: (
+          <AdminRoute>
+            <ArtistsList></ArtistsList>
+          </AdminRoute>
+        ),
       },
       {
         path: "addartists",
-        element: <AddArtists></AddArtists>,
+        element: (
+          <AdminRoute>
+            <AddArtists></AddArtists>
+          </AdminRoute>
+        ),
       },
       {
         path: "editartists",
-        element: <EditArtists></EditArtists>,
+        element: (
+          <AdminRoute>
+            <EditArtists></EditArtists>
+          </AdminRoute>
+        ),
       },
       {
         path: "venueslist",
-        element: <VenueList></VenueList>,
+        element: (
+          <AdminRoute>
+            <VenueList></VenueList>
+          </AdminRoute>
+        ),
       },
       {
         path: "addvenue",
-        element: <AddVenue></AddVenue>,
+        element: (
+          <AdminRoute>
+            <AddVenue></AddVenue>
+          </AdminRoute>
+        ),
       },
       {
         path: "editvenue",
-        element: <EditVenue></EditVenue>,
+        element: (
+          <AdminRoute>
+            <EditVenue></EditVenue>
+          </AdminRoute>
+        ),
       },
       {
         path: "addcategory",
-        element: <AddCategory></AddCategory>,
+        element: (
+          <AdminRoute>
+            <AddCategory></AddCategory>
+          </AdminRoute>
+        ),
       },
       {
         path: "editcategory",
-        element: <EditCategory></EditCategory>,
+        element: (
+          <AdminRoute>
+            <EditCategory></EditCategory>
+          </AdminRoute>
+        ),
       },
       {
         path: "categorylist",
-        element: <CategoryList></CategoryList>,
+        element: (
+          <AdminRoute>
+            <CategoryList></CategoryList>
+          </AdminRoute>
+        ),
       },
       {
         path: "eventlist",
-        element: <EventList></EventList>,
+        element: (
+          <AdminRoute>
+            <EventList></EventList>
+          </AdminRoute>
+        ),
       },
       {
         path: "addevent",
-        element: <AddEvent></AddEvent>,
+        element: (
+          <AdminRoute>
+            <AddEvent></AddEvent>
+          </AdminRoute>
+        ),
       },
       {
         path: "editevent",
-        element: <EditEvent></EditEvent>,
+        element: (
+          <AdminRoute>
+            <EditEvent></EditEvent>
+          </AdminRoute>
+        ),
       },
       {
         path: "vendorlist",
-        element: <VendorList></VendorList>,
+        element: (
+          <AdminRoute>
+            <VendorList></VendorList>
+          </AdminRoute>
+        ),
       },
       {
         path: "addvendor",
-        element: <AddVendor></AddVendor>,
+        element: (
+          <AdminRoute>
+            <AddVendor></AddVendor>
+          </AdminRoute>
+        ),
       },
       {
         path: "userlist",
-        element: <UserList></UserList>,
+        element: (
+          <AdminRoute>
+            <UserList></UserList>
+          </AdminRoute>
+        ),
       },
       {
         path: "ordermanagement",
-        element: <OrderManagement></OrderManagement>,
+        element: (
+          <AdminRoute>
+            <OrderManagement></OrderManagement>
+          </AdminRoute>
+        ),
       },
 
       // ===================== VENDOR DASHBOARD ======================//
       {
         path: "vendordashboard",
-        element: <VendorDashboard></VendorDashboard>,
+        element: (
+          <VendorRoute>
+            <VendorDashboard></VendorDashboard>
+          </VendorRoute>
+        ),
       },
 
       {
         path: "vendorartistslist",
-        element: <VendorArtistList></VendorArtistList>,
+        element: (
+          <VendorRoute>
+            <VendorArtistList></VendorArtistList>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendoraddartists",
-        element: <VendorAddArtists></VendorAddArtists>,
+        element: (
+          <VendorRoute>
+            <VendorAddArtists></VendorAddArtists>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendoreditartists",
-        element: <VendorEditArtists></VendorEditArtists>,
+        element: (
+          <VendorRoute>
+            <VendorEditArtists></VendorEditArtists>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendorvenueslist",
-        element: <VendorVenueList></VendorVenueList>,
+        element: (
+          <VendorRoute>
+            <VendorVenueList></VendorVenueList>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendoraddvenue",
-        element: <VendorAddVenue></VendorAddVenue>,
+        element: (
+          <VendorRoute>
+            <VendorAddVenue></VendorAddVenue>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendoreditvenue",
-        element: <VendorEditVenue></VendorEditVenue>,
+        element: (
+          <VendorRoute>
+            <VendorEditVenue></VendorEditVenue>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendoreventlist",
-        element: <VendorEventList></VendorEventList>,
+        element: (
+          <VendorRoute>
+            {" "}
+            <VendorEventList></VendorEventList>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendoraddevent",
-        element: <VendorAddEvent></VendorAddEvent>,
+        element: (
+          <VendorRoute>
+            <VendorAddEvent></VendorAddEvent>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendoreditevent",
-        element: <VendorEditEvent></VendorEditEvent>,
+        element: (
+          <VendorRoute>
+            <VendorEditEvent></VendorEditEvent>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendorordermanagement",
-        element: <VendorOrderManagement></VendorOrderManagement>,
+        element: (
+          <VendorRoute>
+            <VendorOrderManagement></VendorOrderManagement>
+          </VendorRoute>
+        ),
       },
       {
         path: "vendorprofile",
-        element: <VendorProfile></VendorProfile>,
+        element: (
+          <VendorRoute>
+            <VendorProfile></VendorProfile>
+          </VendorRoute>
+        ),
       },
       // TO DO : EI ROUTE ADD korte hobe
       {
         path: "vendorprofileedit",
-        element: <VendorProfileEdit></VendorProfileEdit>,
+        element: (
+          <VendorRoute>
+            <VendorProfileEdit></VendorProfileEdit>
+          </VendorRoute>
+        ),
       },
       // ===================== USER DASHBOARD ======================//
       {
         path: "userdashboard",
-        element: <UserDashboard></UserDashboard>,
+        element: (
+          <PrivateRoute>
+            <UserDashboard></UserDashboard>
+          </PrivateRoute>
+        ),
       },
       {
         path: "userorders",
-        element: <UserOrders></UserOrders>,
+        element: (
+          <PrivateRoute>
+            <UserOrders></UserOrders>
+          </PrivateRoute>
+        ),
       },
       {
         path: "userprofile",
-        element: <UserProfile></UserProfile>,
+        element: (
+          <PrivateRoute>
+            <UserProfile></UserProfile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "userprofileedit",
-        element: <UserProfileEdit></UserProfileEdit>,
+        element: (
+          <PrivateRoute>
+            <UserProfileEdit></UserProfileEdit>
+          </PrivateRoute>
+        ),
       },
       //TO DO: THIS route is not added
       {
         path: "usereventdetail",
-        element: <UserEventDetail></UserEventDetail>,
+        element: (
+          <PrivateRoute>
+            <UserEventDetail></UserEventDetail>
+          </PrivateRoute>
+        ),
       },
     ],
   },
