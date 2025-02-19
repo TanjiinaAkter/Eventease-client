@@ -3,8 +3,10 @@ import logo from "../../../assets/logo.png";
 import "./header.css";
 import { FaShoppingCart } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
+import useRole from "../../../hooks/useRole";
 const Header = () => {
   const { user, logOut } = useAuth();
+  const [role] = useRole();
   const location = useLocation();
   const isHome = location.pathname === "/";
   const lists = (
@@ -147,11 +149,20 @@ const Header = () => {
         {user ? (
           <>
             <div>
-              <img
-                className="w-[4rem] h-[4rem] rounded-full  border-white border-4 object-cover "
-                src={user?.photoURL}
-                alt=""
-              />
+              <Link
+                to={
+                  role === "Admin"
+                    ? "/dashboard/admindashboard"
+                    : role === "Vendor"
+                    ? "/dashboard/vendordashboard"
+                    : "/dashboard/userdashboard"
+                }>
+                <img
+                  className="w-[4rem] h-[4rem] rounded-full  border-white border-4 object-cover "
+                  src={user?.photoURL}
+                  alt=""
+                />
+              </Link>
             </div>
             <button onClick={handleLogOut} className="button-style">
               Logout

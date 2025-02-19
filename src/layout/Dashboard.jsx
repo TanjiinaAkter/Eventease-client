@@ -7,7 +7,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { IoPeople } from "react-icons/io5";
 import { MdCategory, MdDashboard } from "react-icons/md";
 import { RiMenu2Line } from "react-icons/ri";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 import useRole from "../hooks/useRole";
 
@@ -22,9 +22,11 @@ const Dashboard = () => {
     <div className="mx-auto min-h-screen  w-full bg-[#0a1316] ">
       <div className="grid min-h-screen relative grid-cols-1 md:grid-cols-5  p-1 h-full">
         <div className=" sidebar px-4 bg-[#0f1c1c] col-span-full md:col-span-1">
-          <h1 className="text-[#44cfbf] my-2 text-center text-[26px] font-semibold">
-            EventEase
-          </h1>
+          <Link to="/">
+            <h1 className="text-[#44cfbf] my-2 text-center text-[26px] font-semibold">
+              EventEase
+            </h1>
+          </Link>
           <hr className="h-[2px] w-full bg-gray-600" />
           <ul className={`md:block ${isOpen ? "block" : "hidden"}`}>
             {role === "Admin" ? (
@@ -75,6 +77,7 @@ const Dashboard = () => {
                     icon: <FaUserFriends />,
                     label: "Users",
                   },
+
                   {
                     to: "/",
                     icon: <IoIosLogOut />,

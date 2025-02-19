@@ -6,8 +6,43 @@ import { Link } from "react-router-dom";
 import RouteTitle from "../../../components/RouteTitle";
 
 import { LuPlus } from "react-icons/lu";
+import useCategories from "../../../hooks/useCategories";
+import { useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const CategoryList = () => {
+  const axiosSecure = useAxiosSecure();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [categories, refetch] = useCategories();
+  console.log(categories);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/categories/${id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: `${id} has been deleted from categorylist.`,
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
+
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -34,10 +69,11 @@ const CategoryList = () => {
           <button className="button-style hover:scale-105">Search</button>
         </div>
         <div className="flex relative justify-center items-center gap-2">
-          <button className="button-style flex hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
-            Add New <LuPlus />
-          </button>
-         
+          <Link to="/dashboard/addcategory">
+            <button className="button-style flex hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
+              Add New <LuPlus />
+            </button>
+          </Link>
         </div>
       </div>
       {/* TABLE STARSTS */}
@@ -57,36 +93,57 @@ const CategoryList = () => {
             </thead>
             <tbody className="">
               {/* row 1 */}
-              <tr className="border-b  border-[#4c4f4e] text-center">
-                <th>1</th>
-                <td className="py-5 px-2 whitespace-nowrap">Hart Hagerty</td>
-                <td className="py-5 px-2 whitespace-nowrap">Hart Hagerty</td>
-                <td className="py-5 px-2 whitespace-nowrap">
-                  Desktop Support Technician
-                </td>
-                <td className="py-5 px-2 whitespace-nowrap">Purple</td>
-                <td className="py-5 px-2 whitespace-nowrap">
-                  <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn m-1">
-                      <HiDotsHorizontal />
-                    </label>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu absolute top-0 right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-44">
-                      <li>
-                        <a href="#">
-                          <FaEdit className="text-2xl text-[#44cfbf]" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <MdDelete className="text-3xl text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
+              {categories.map((category, index) => (
+                <tr
+                  key={category._id}
+                  className="border-b  border-[#4c4f4e] text-center">
+                  <th>{index + 1}</th>
+                  <td className="py-5 px-2 whitespace-nowrap ">
+                    <img
+                      className="w-[3rem] justify-self-center h-[3rem] object-cover rounded-full"
+                      src={category.categoryicon}
+                      alt=""
+                    />
+                  </td>
+                  <td className="py-5 px-2 whitespace-nowrap">
+                    {category.name}
+                  </td>
+                  <td className="py-5 px-2 whitespace-nowrap">
+                    <p>
+                      {isExpanded
+                        ? category.description
+                        : category.description.substring(0, 50) + "..."}
+                    </p>
+                  </td>
+                  <td className="py-5 px-2 whitespace-nowrap text-white">
+                    {category.date}
+                  </td>
+                  <td className="py-5 px-2 whitespace-nowrap">
+                    <div className="dropdown dropdown-end">
+                      <label tabIndex={0} className="btn m-1">
+                        <HiDotsHorizontal />
+                      </label>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu absolute top-0 right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-44">
+                        <li>
+                          <a href="#">
+                            <FaEdit className="text-2xl text-[#44cfbf]" />
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <MdDelete
+                              onClick={() => handleDelete(category._id)}
+                              className="text-3xl text-red-600"
+                            />
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              ))}
               {/* row 2 */}
             </tbody>
           </table>

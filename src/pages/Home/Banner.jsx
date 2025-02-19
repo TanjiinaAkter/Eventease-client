@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Banner = () => {
   return (
     <div className="mx-auto w-full   md:w-[70%] md:mt-24 relative md:z-50 space-y-5 flex justify-between">
@@ -7,7 +9,9 @@ const Banner = () => {
         </h3>
         <h1 className="text-3xl md:text-7xl">
           Where Every <br />
-          <span className="text-[#b58753]  md:z-50">Event Becomes Legendary</span>
+          <span className="text-[#b58753]  md:z-50">
+            Event Becomes Legendary
+          </span>
         </h1>
         <p className="font-semibold text-[16px] md:text-lg my-12 text-[#44cfbf] md:z-50">
           From intimate dinners to large-scale celebrations, we specialize in
@@ -15,8 +19,12 @@ const Banner = () => {
           celebrations.
         </p>
         <div className="flex gap-2">
-          <button className="button-style">Plan your event </button>
-          <button className="button-style">Explore your vanues </button>
+          <Link to="/events">
+            <button className="button-style">Plan your event </button>
+          </Link>
+          <Link to="/venues">
+            <button className="button-style">Explore your vanues </button>
+          </Link>
         </div>
       </div>
       <div className="md:flex hidden">

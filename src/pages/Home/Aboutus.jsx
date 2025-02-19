@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Link } from "react-router-dom";
 const Aboutus = () => {
   useEffect(() => {
     AOS.init({
@@ -32,7 +33,9 @@ const Aboutus = () => {
           <div
             data-aos="fade-up"
             className="flex sm:mb-3 md:mb-0 justify-start">
-            <button className="button-style"> Explore Vanues</button>
+            <Link to="/events">
+              <button className="button-style"> Explore Events</button>
+            </Link>
           </div>
         </div>
         <div className="md:w-1/2 mb-5 md:mb-0 ">
@@ -60,7 +63,7 @@ const Aboutus = () => {
           <h1
             data-aos="fade-down"
             className="text-2xl md:text-5xl text-[#44cfbf] ">
-          We have the perfect space to bring your vision to life. 
+            We have the perfect space to bring your vision to life.
           </h1>
           <p className=" text-justify text-[16px] md:text-base my-12 text-[#6a6d6a] z-50">
             Each venue offers a unique ambiance, equipped with modern amenities,
@@ -72,7 +75,9 @@ const Aboutus = () => {
             your perfect venue today and make your event extraordinary!
           </p>
           <div data-aos="fade-up" className="flex justify-start">
-            <button className="button-style"> Explore Vanues</button>
+            <Link to="/venues">
+              <button className="button-style"> Explore Venues</button>
+            </Link>
           </div>
         </div>
       </div>
