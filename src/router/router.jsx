@@ -200,7 +200,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "editcategory",
+        path: "editcategory/:id",
         element: (
           <AdminRoute>
             <EditCategory></EditCategory>

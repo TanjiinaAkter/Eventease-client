@@ -127,9 +127,9 @@ const CategoryList = () => {
                         tabIndex={0}
                         className="dropdown-content menu absolute top-0 right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-44">
                         <li>
-                          <a href="#">
+                          <Link to={`/dashboard/editcategory/${category._id}`}>
                             <FaEdit className="text-2xl text-[#44cfbf]" />
-                          </a>
+                          </Link>
                         </li>
                         <li>
                           <a href="#">
