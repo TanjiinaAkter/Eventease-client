@@ -7,15 +7,21 @@ import RouteTitle from "../../../components/RouteTitle";
 
 import { LuPlus } from "react-icons/lu";
 import useCategories from "../../../hooks/useCategories";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const CategoryList = () => {
+  const [clearBtn, setClearBtn] = useState(false);
+  const [categories, refetch] = useCategories();
+  const [showCatFromSearch, setShowCatFromSearch] = useState("");
+  const [filteredCategory, setfilteredCategory] = useState(categories);
   const axiosSecure = useAxiosSecure();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [categories, refetch] = useCategories();
-  console.log(categories);
+  useEffect(() => {
+    setfilteredCategory(categories);
+  }, [categories]);
+  //console.log(categories);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -29,7 +35,7 @@ const CategoryList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/categories/${id}`).then((res) => {
-          console.log(res.data);
+          //console.log(res.data);
           if (res.data.deletedCount === 1) {
             refetch();
             Swal.fire({
@@ -42,7 +48,22 @@ const CategoryList = () => {
       }
     });
   };
-
+  const handleClear = () => {
+    setShowCatFromSearch("");
+    setfilteredCategory(categories);
+    setClearBtn(false);
+  };
+  const handleSearch = () => {
+    if (showCatFromSearch.trim() === "") {
+      setfilteredCategory(categories);
+    } else {
+      const matchedCategories = categories.filter((cat) =>
+        cat.name.toLowerCase().includes(showCatFromSearch.toLowerCase())
+      );
+      setfilteredCategory(matchedCategories);
+      setClearBtn(true);
+    }
+  };
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -57,17 +78,32 @@ const CategoryList = () => {
         routesubtitle={
           "Manage and organize category  profiles efficiently."
         }></RouteTitle>
-      {/* SEARCH AND ADD NEW BUTTON */}
+      {/* SEARCH  BUTTON */}
       <div className="flex  flex-wrap my-7 justify-between items-center gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <input
             type="text"
             id="text"
-            placeholder="Type here.."
+            value={showCatFromSearch}
+            onChange={(e) => setShowCatFromSearch(e.target.value)}
+            placeholder="Type category name..."
             className="input input-bordered !py-[22px] input-info border !border-[#b58753] bg-[#0f1c1c] text-white w-full max-w-xs placeholder:text-white"
           />
-          <button className="button-style hover:scale-105">Search</button>
+          <button
+            onClick={handleSearch}
+            className="button-style hover:scale-105">
+            Search
+          </button>
+
+          {clearBtn && (
+            <button
+              onClick={handleClear}
+              className="button-style hover:scale-105">
+              Clear
+            </button>
+          )}
         </div>
+        {/*ADD NEW BUTTON */}
         <div className="flex relative justify-center items-center gap-2">
           <Link to="/dashboard/addcategory">
             <button className="button-style flex hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
@@ -93,7 +129,7 @@ const CategoryList = () => {
             </thead>
             <tbody className="">
               {/* row 1 */}
-              {categories.map((category, index) => (
+              {filteredCategory.map((category, index) => (
                 <tr
                   key={category._id}
                   className="border-b  border-[#4c4f4e] text-center">

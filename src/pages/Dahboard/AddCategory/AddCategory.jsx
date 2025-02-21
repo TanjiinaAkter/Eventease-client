@@ -9,7 +9,9 @@ import { IoCalendarOutline } from "react-icons/io5";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./AddCategory.css";
+import useAuth from "../../../hooks/useAuth";
 const AddCategory = () => {
+  const { user } = useAuth();
   const [startDate, setStartDate] = useState(new Date());
   const [loadingToImageUpload, setLoadingToImageUpload] = useState(false);
   const axiosSecure = useAxiosSecure();
@@ -61,6 +63,7 @@ const AddCategory = () => {
             categoryicon: res2.data.data.display_url,
             bannericon: res1.data.data.display_url,
             date: formatdate(startDate),
+            createdBy: user?.email,
           })
           .then((res) => {
             // Category add howar por alert show
@@ -106,7 +109,9 @@ const AddCategory = () => {
                   className="py-3 focus:border-[#b58753] focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
                 />
                 {errors.categoryname && (
-                  <span className="text-amber-400">category name field is required*</span>
+                  <span className="text-amber-400">
+                    category name field is required*
+                  </span>
                 )}
               </div>
               <div className="flex  flex-col w-full  md:w-1/2 space-y-3 relative">
@@ -121,7 +126,9 @@ const AddCategory = () => {
                 </div>
 
                 {errors.categorydate && (
-                  <span className="text-amber-400">categorydate field is required</span>
+                  <span className="text-amber-400">
+                    categorydate field is required
+                  </span>
                 )}
               </div>
             </div>
@@ -141,7 +148,9 @@ const AddCategory = () => {
                 className="py-3 focus:border-[#b58753] focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
                 required></textarea>
               {errors.categorydescription && (
-                <span className="text-amber-400">category description field is required</span>
+                <span className="text-amber-400">
+                  category description field is required
+                </span>
               )}
             </div>
 
@@ -157,7 +166,9 @@ const AddCategory = () => {
                   className="py-3 focus:border-[#b58753]  pl-5 file:px-3  focus:border-2 text-white border  border-gray-500 focus:outline-none rounded-none"
                 />
                 {errors.categoryicon && (
-                  <span className="text-amber-400">category icon field is required</span>
+                  <span className="text-amber-400">
+                    category icon field is required
+                  </span>
                 )}
                 <IoMdCamera className=" absolute top-14 left-1 text-xl text-[#44cfbf]" />
               </div>
@@ -171,7 +182,9 @@ const AddCategory = () => {
                   className="py-3 focus:border-[#b58753]  pl-5 file:px-3  focus:border-2 text-white border  border-gray-500 focus:outline-none rounded-none"
                 />
                 {errors.bannericon && (
-                  <span className="text-amber-400">banner icon field is required</span>
+                  <span className="text-amber-400">
+                    banner icon field is required
+                  </span>
                 )}
                 <IoMdCamera className=" absolute top-14 left-1 text-xl text-[#44cfbf]" />
               </div>

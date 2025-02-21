@@ -7,8 +7,18 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { IoCalendarOutline } from "react-icons/io5";
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
 const EditCategory = () => {
+  const formateDate = (date) => {
+    const day = String(date.getDate()).padStart("2", 0);
+    const month = String(date.getMonth() + 1).padStart("2", 0);
+    const year = String(date.getFullYear());
+    return `${day}/${month}/${year}`;
+  };
+  const [startDate, setStartDate] = useState(new Date());
   const [LoadingToImageUpload, setLoadingToImageUpload] = useState(false);
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
@@ -16,11 +26,9 @@ const EditCategory = () => {
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
   const [inputColor, setInputColor] = useState("text-gray-400");
   const { id } = useParams();
-  const [newGetCat, setNewGetCat] = useState([]);
   const [categories, refetch] = useCategories();
   const {
     register,
-    reset,
     setValue,
     handleSubmit,
     formState: { errors },
@@ -30,16 +38,17 @@ const EditCategory = () => {
   useEffect(() => {
     if (categories.length > 0) {
       const category = categories.find((cat) => cat._id === id);
-      setNewGetCat(category);
       console.log(category);
+
       if (category) {
         setValue("categoryname", category?.name);
         setValue("description", category?.description);
         setValue("categoryicon", category?.categoryicon);
         setValue("bannericon", category?.bannericon);
+        setValue("date", startDate);
       }
     }
-  }, [categories, id, setValue]);
+  }, [categories, id, setValue, refetch, startDate]);
   // console.log(storeCat);
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -73,11 +82,13 @@ const EditCategory = () => {
             description: data.description,
             categoryicon: res1.data.data.display_url,
             bannericon: res2.data.data.display_url,
+            date: formateDate(startDate),
           })
           .then((res) => {
             console.log(res.data);
             if (res.data.modifiedCount || res.data.matchedCount === 1) {
               setLoadingToImageUpload(false);
+              refetch();
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -85,8 +96,6 @@ const EditCategory = () => {
                 showConfirmButton: false,
                 timer: 1500,
               });
-              refetch();
-              reset();
             }
           })
           .catch((error) => {
@@ -110,7 +119,7 @@ const EditCategory = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="form space-y-3">
             {/* ROW-1 */}
             <div className="flex flex-col md:flex-row justify-between w-full items-center gap-5 ">
-              <div className="flex flex-col w-full  space-y-3">
+              <div className="flex flex-col w-full md:w-1/2  space-y-3">
                 <label className="text-white text-lg" htmlFor="categoryname">
                   Category Name
                 </label>
@@ -123,6 +132,15 @@ const EditCategory = () => {
                   className={`py-3 focus:border-[#b58753]  focus:border-2 defaulyValue  border pl-2 border-gray-500 focus:outline-none rounded-none ${inputColor}`}
                   required
                 />
+              </div>
+              <div className="relative flex flex-col w-full md:w-1/2  ">
+                <label className="text-white text-lg pb-3">Create Date</label>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  className="py-3 px-3 pl-9 w-full border border-gray-500 focus:border-[#b58753] focus:outline-none rounded-none  text-white"
+                />
+                <IoCalendarOutline className="absolute left-3 top-[70%] transform -translate-y-1/2 text-[#44cfbf] text-xl cursor-pointer" />
               </div>
             </div>
 
