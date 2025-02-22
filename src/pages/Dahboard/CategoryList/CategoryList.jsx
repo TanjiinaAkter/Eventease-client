@@ -168,12 +168,12 @@ const CategoryList = () => {
                           </Link>
                         </li>
                         <li>
-                          <a href="#">
+                          <button>
                             <MdDelete
                               onClick={() => handleDelete(category._id)}
                               className="text-3xl text-red-600"
                             />
-                          </a>
+                          </button>
                         </li>
                       </ul>
                     </div>

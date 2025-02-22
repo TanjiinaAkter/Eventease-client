@@ -6,9 +6,37 @@ import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
 import useVenues from "../../../hooks/useVenues";
-
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 const VenueList = () => {
-  const [venues] = useVenues();
+  const axiosSecure = useAxiosSecure();
+  const handleDeleteVenue = (venue) => {
+    console.log("hismlsd");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/venues/${venue._id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: `${venue.name} has been deleted.`,
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
+  const [venues, refetch] = useVenues();
   console.log("venues in venue list", venues);
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
@@ -85,9 +113,12 @@ const VenueList = () => {
                           </Link>
                         </li>
                         <li>
-                          <a>
-                            <MdDelete className="text-[25px] text-red-600" />
-                          </a>
+                          <button>
+                            <MdDelete
+                              onClick={() => handleDeleteVenue(venue)}
+                              className="text-[25px] text-red-600"
+                            />
+                          </button>
                         </li>
                       </ul>
                     </div>
@@ -95,38 +126,6 @@ const VenueList = () => {
                 </tr>
               ))}
               {/* row 2 */}
-              {/* <tr className="border-b  border-[#4c4f4e]  ">
-                <th>1</th>
-                <td className="py-2 whitespace-nowrap px-5">Hart Hagerty</td>
-                <td className="py-2 whitespace-nowrap px-5">
-                  Desktop Support Technician
-                </td>
-                <td className="py-2 whitespace-nowrap px-5">Purple</td>
-                <td className="py-2 whitespace-nowrap px-5">
-                  Desktop Support Technician
-                </td>
-                <td className="py-2 whitespace-nowrap px-5">Purple</td>
-                <td className="py-2 whitespace-nowrap px-5 ">
-                  <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
-                    </div>
-                    <ul className="dropdown-content content-center bg-base-100 menu text-white absolute top-0 right-[100%] rounded-box w-32 md:w-52 p-1 shadow">
-                      <li>
-                        <Link to={`/dashboard/editvenue/`}>
-                          <FaEdit className="text-2xl text-amber-300" />
-                        </Link>
-                      </li>
-                      <li>
-                        {" "}
-                        <a>
-                          <MdDelete className="text-[25px] text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr> */}
             </tbody>
           </table>
         </div>
