@@ -184,7 +184,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "editvenue",
+        path: "editvenue/:id",
         element: (
           <AdminRoute>
             <EditVenue></EditVenue>

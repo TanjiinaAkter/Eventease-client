@@ -137,16 +137,17 @@ const AddVenue = () => {
                     Venue Type
                   </option>
                   <option value="conference">Conference Center</option>
-                  <option value="hotel">Hotel</option>
-                  <option value="theater">Theater</option>
-                  <option value="stadium">Stadium</option>
-                  <option value="outdoor">Outdoor Space</option>
-                  <option value="restaurant">Restaurant</option>
-                  <option value="other">Other</option>
+                  <option value="expo">Expos & Conventions</option>
+                  <option value="food">Food & Drink</option>
+                  <option value="sports">Sports</option>
+                  <option value="concerts">Concerts</option>
+                  <option value="wedding">Weddings & Parties</option>
+                  <option value="workshops">Workshops & Training</option>
+                  <option value="others">others</option>
                 </select>
               </div>
               {errors.venuetype && (
-                <span className="text-amber-400">Venue name is required</span>
+                <span className="text-amber-400">Venue type is required</span>
               )}
             </div>
 
@@ -209,6 +210,7 @@ const AddVenue = () => {
                   Capacity
                 </label>
                 <input
+                  min={1}
                   {...register("capacity", { required: true })}
                   type="number"
                   name="capacity"
@@ -284,6 +286,7 @@ const AddVenue = () => {
                   name="description"
                   id=""
                   cols="4"
+                  placeholder="Enter description"
                   rows="3"
                   className="py-3 focus:border-[#b58753] focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
                   required></textarea>
@@ -293,7 +296,7 @@ const AddVenue = () => {
             <div className="flex flex-col md:flex-row justify-between w-full items-center gap-5 ">
               <div className="flex relative flex-col w-full md:1/2  space-y-3">
                 <label className="text-white text-lg" htmlFor="bannericon">
-                  Venue Banner icon
+                  Venue Banner image
                 </label>
 
                 <input

@@ -202,6 +202,7 @@ const VendorAddEvent = () => {
                   Event Images
                 </label>
                 <input
+               
                   type="file"
                   name=""
                   id=""

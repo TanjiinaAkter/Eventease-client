@@ -1,13 +1,15 @@
 import { FaEdit } from "react-icons/fa";
-import { GoPlus } from "react-icons/go";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import RouteTitle from "../../../components/RouteTitle";
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
+import useVenues from "../../../hooks/useVenues";
 
 const VenueList = () => {
+  const [venues] = useVenues();
+  console.log("venues in venue list", venues);
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -34,10 +36,11 @@ const VenueList = () => {
           <button className="button-style hover:scale-105">Search</button>
         </div>
         <div className="flex relative justify-center items-center gap-2">
-          <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white flex hover:!text-white !border-none">
-            Add New <LuPlus />
-          </button>
-        
+          <Link to="/dashboard/addvenue">
+            <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white flex hover:!text-white !border-none">
+              Add New <LuPlus />
+            </button>
+          </Link>
         </div>
       </div>
       {/* TABLE STARSTS */}
@@ -58,40 +61,41 @@ const VenueList = () => {
             </thead>
             <tbody className="">
               {/* row 1 */}
-              <tr className="border-b  border-[#4c4f4e]  ">
-                <th>1</th>
-                <td className="py-2 whitespace-nowrap px-5">Hart Hagerty</td>
-                <td className="py-2 whitespace-nowrap px-5">
-                  Desktop Support Technician
-                </td>
-                <td className="py-2 whitespace-nowrap px-5">Purple</td>
-                <td className="py-2 whitespace-nowrap px-5">
-                  Desktop Support Technician
-                </td>
-                <td className="py-2 whitespace-nowrap px-5">Purple</td>
-                <td className="py-2 whitespace-nowrap px-5 ">
-                  <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
+              {venues.map((venue) => (
+                <tr key={venue._id} className="border-b  border-[#4c4f4e]  ">
+                  <th>1</th>
+                  <td className="py-2 whitespace-nowrap px-5">{venue.name}</td>
+                  <td className="py-2 whitespace-nowrap px-5">{venue.city}</td>
+                  <td className="py-2 whitespace-nowrap px-5">
+                    {venue.country}
+                  </td>
+                  <td className="py-2 whitespace-nowrap px-5">{venue.date}</td>
+                  <td className="py-2 whitespace-nowrap px-5">
+                    {venue.capacity}
+                  </td>
+                  <td className="py-2 whitespace-nowrap px-5 ">
+                    <div className="dropdown">
+                      <div tabIndex={0} role="button" className="btn m-1">
+                        <HiDotsHorizontal />
+                      </div>
+                      <ul className="dropdown-content content-center bg-base-100 menu text-white absolute top-0 right-[100%] rounded-box w-32 md:w-52 p-1 shadow">
+                        <li>
+                          <Link to={`/dashboard/editvenue/${venue._id}`}>
+                            <FaEdit className="text-2xl text-amber-300" />
+                          </Link>
+                        </li>
+                        <li>
+                          <a>
+                            <MdDelete className="text-[25px] text-red-600" />
+                          </a>
+                        </li>
+                      </ul>
                     </div>
-                    <ul className="dropdown-content content-center bg-base-100 menu text-white absolute top-0 right-[100%] rounded-box w-32 md:w-52 p-1 shadow">
-                      <li>
-                        <a>
-                          <FaEdit className="text-2xl text-amber-300" />
-                        </a>
-                      </li>
-                      <li>
-                        {" "}
-                        <a>
-                          <MdDelete className="text-[25px] text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
               {/* row 2 */}
-              <tr className="border-b  border-[#4c4f4e]  ">
+              {/* <tr className="border-b  border-[#4c4f4e]  ">
                 <th>1</th>
                 <td className="py-2 whitespace-nowrap px-5">Hart Hagerty</td>
                 <td className="py-2 whitespace-nowrap px-5">
@@ -109,9 +113,9 @@ const VenueList = () => {
                     </div>
                     <ul className="dropdown-content content-center bg-base-100 menu text-white absolute top-0 right-[100%] rounded-box w-32 md:w-52 p-1 shadow">
                       <li>
-                        <a>
+                        <Link to={`/dashboard/editvenue/`}>
                           <FaEdit className="text-2xl text-amber-300" />
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         {" "}
@@ -122,7 +126,7 @@ const VenueList = () => {
                     </ul>
                   </div>
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>
