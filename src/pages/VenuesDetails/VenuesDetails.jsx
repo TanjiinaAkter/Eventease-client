@@ -7,7 +7,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useParams } from "react-router-dom";
 import { IoLocationSharp } from "react-icons/io5";
 import { IoMdHeartHalf } from "react-icons/io";
-import "./VenuesDetails.css";
+
 const VenuesDetails = () => {
   const axiosPublic = useAxiosPublic();
   useEffect(() => {
@@ -44,7 +44,6 @@ const VenuesDetails = () => {
               backgroundSize: "cover",
               backgroundPosition: "center",
               width: "100%",
-              
             }}></div>
           <div
             data-aos="fade-down"
@@ -60,7 +59,9 @@ const VenuesDetails = () => {
           </div>
         </div>
         <div className="grid mt-24 flex-wrap m-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14">
-          <div  data-aos="fade-left" className=" p-5 border border-[#3a3939] bg-[#0f1c1c]  flex justify-center flex-col items-center space-y-6">
+          <div
+            data-aos="fade-left"
+            className=" p-5 border border-[#3a3939] bg-[#0f1c1c]  flex justify-center flex-col items-center space-y-6">
             <IoLocationSharp className="text-5xl text-white" />
             <div className=" text-lg text-white  flex justify-center items-center flex-col text-left  space-y-3">
               <p className="capitalize">
@@ -91,7 +92,7 @@ const VenuesDetails = () => {
           <div className="w-full relative  flex justify-center items-center ">
             <div className="w-full z-50 p-4">
               <img
-                className="w-full h-[15rem]  md:h-[35rem] object-cover"
+                className="w-full h-[15rem]  md:h-[24rem] object-cover"
                 src={venueInfo.venueimage}
                 alt=""
               />
@@ -99,7 +100,9 @@ const VenuesDetails = () => {
             <div className="absolute top-0 left-0  z-10 h-[5rem] w-[5rem] bg-teal-500"></div>
             <div className="absolute bottom-0 right-0 z-10 h-[5rem] w-[5rem] bg-teal-500"></div>
           </div>
-          <div data-aos="fade-right" className="border p-5  border-[#3a3939] bg-[#0f1c1c] flex justify-center flex-col items-center space-y-6">
+          <div
+            data-aos="fade-right"
+            className="border p-5  border-[#3a3939] bg-[#0f1c1c] flex justify-center flex-col items-center space-y-6">
             <IoMdHeartHalf className="text-white text-5xl" />
             <p className="text-lg text-white text-justify">
               {venueInfo.description}
