@@ -53,6 +53,7 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layout/Dashboard";
 import AdminRoute from "./AdminRoute";
 import VendorRoute from "./VendorRoute";
+import VenuesDetails from "../pages/VenuesDetails/VenuesDetails";
 
 const router = createBrowserRouter([
   // =================== HOME ROUTES ========================//
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
       {
         path: "venues",
         element: <Venues></Venues>,
+      },
+      {
+        path: "venues/:id",
+        element: <VenuesDetails></VenuesDetails>,
       },
       {
         path: "contact",
