@@ -1,14 +1,72 @@
 import { FaEdit } from "react-icons/fa";
-import { GoPlus } from "react-icons/go";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
-
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import RouteTitle from "../../../components/RouteTitle";
 import { LuPlus } from "react-icons/lu";
+import { useEffect, useState } from "react";
+import useVenues from "../../../hooks/useVenues";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const VendorVenueList = () => {
+  const [clearBtn, setClearBtn] = useState(false);
+  const [venues, refetch] = useVenues();
+
+  //console.log("venues in venue list", venues);
+  const [inputSearchValue, setInputSearchValue] = useState("");
+  const [showByInputField, setshowByInputField] = useState(venues);
+  //console.log(inputSearchValue, showByInputField);
+  const axiosSecure = useAxiosSecure();
+  const handleDeleteVenue = (venue) => {
+    console.log("hismlsd");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/venues/${venue._id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: `${venue.name} has been deleted.`,
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
+  const handleSearch = () => {
+    console.log("hisdadddd");
+    if (inputSearchValue.trim() === "") {
+      setshowByInputField(venues);
+    } else {
+      const serchedItem = venues.filter((ven) =>
+        ven.name.toLowerCase().includes(inputSearchValue.toLowerCase())
+      );
+      console.log("serchedItem", serchedItem);
+      setshowByInputField(serchedItem);
+    }
+    setClearBtn(true);
+  };
+  const handleClear = () => {
+    setClearBtn(false);
+    setshowByInputField(venues);
+    setInputSearchValue("");
+  };
+  // useeffect na dile initially kono venue show e korbe na karon, venues update holeo, showByInputField directly update hobe na, karon eta alada ekta state. State independently thake, tai jokhon venues update hoy, showByInputField automatic update hoy na.
+  useEffect(() => {
+    setshowByInputField(venues);
+  }, [venues]);
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -27,18 +85,33 @@ const VendorVenueList = () => {
       <div className="flex  flex-wrap my-7 justify-between items-center gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <input
+            // value na dile search input er value ta theke jabe cleartbn click kore khali  korleo
+            value={inputSearchValue}
+            onChange={(e) => setInputSearchValue(e.target.value)}
             type="text"
             id="text"
-            placeholder="Type here.."
+            placeholder="Type venue name..."
             className="input input-bordered !py-[22px] input-info border !border-[#b58753] bg-[#0f1c1c] text-white w-full max-w-xs placeholder:text-white"
           />
-          <button className="button-style hover:scale-105">Search</button>
+          <button
+            onClick={handleSearch}
+            className="button-style hover:scale-105">
+            Search
+          </button>
+          {clearBtn && (
+            <button
+              onClick={handleClear}
+              className="button-style hover:scale-105">
+              Clear
+            </button>
+          )}
         </div>
         <div className="flex relative justify-center items-center gap-2">
-          <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white flex hover:!text-white !border-none">
-            Add New <LuPlus />
-          </button>
-          <GoPlus className="absolute  top-[13px] z-10 right-0 text-[#d39146] font-extrabold text-xl" />
+          <Link to="/dashboard/vendoraddvenue">
+            <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white flex hover:!text-white !border-none">
+              Add New <LuPlus />
+            </button>
+          </Link>
         </div>
       </div>
       {/* TABLE STARSTS */}
@@ -59,71 +132,43 @@ const VendorVenueList = () => {
             </thead>
             <tbody className="">
               {/* row 1 */}
-              <tr className="border-b  border-[#4c4f4e]  ">
-                <th>1</th>
-                <td className="py-2 whitespace-nowrap px-5">Hart Hagerty</td>
-                <td className="py-2 whitespace-nowrap px-5">
-                  Desktop Support Technician
-                </td>
-                <td className="py-2 whitespace-nowrap px-5">Purple</td>
-                <td className="py-2 whitespace-nowrap px-5">
-                  Desktop Support Technician
-                </td>
-                <td className="py-2 whitespace-nowrap px-5">Purple</td>
-                <td className="py-2 whitespace-nowrap px-5 ">
-                  <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
+              {showByInputField?.map((venue, index) => (
+                <tr key={venue._id} className="border-b  border-[#4c4f4e]  ">
+                  <th>{index + 1}</th>
+                  <td className="py-2 whitespace-nowrap px-5">{venue.name}</td>
+                  <td className="py-2 whitespace-nowrap px-5">{venue.city}</td>
+                  <td className="py-2 whitespace-nowrap px-5">
+                    {venue.country}
+                  </td>
+                  <td className="py-2 whitespace-nowrap px-5">{venue.date}</td>
+                  <td className="py-2 whitespace-nowrap px-5">
+                    {venue.capacity}
+                  </td>
+                  <td className="py-2 whitespace-nowrap px-5 ">
+                    <div className="dropdown">
+                      <div tabIndex={0} role="button" className="btn m-1">
+                        <HiDotsHorizontal />
+                      </div>
+                      <ul className="dropdown-content content-center bg-base-100 menu text-white absolute top-0 right-[100%] rounded-box w-32 md:w-52 p-1 shadow">
+                        <li>
+                          <Link to={`/dashboard/vendoreditvenue/${venue._id}`}>
+                            <FaEdit className="text-2xl text-amber-300" />
+                          </Link>
+                        </li>
+                        <li>
+                          <button>
+                            <MdDelete
+                              onClick={() => handleDeleteVenue(venue)}
+                              className="text-[25px] text-red-600"
+                            />
+                          </button>
+                        </li>
+                      </ul>
                     </div>
-                    <ul className="dropdown-content content-center bg-base-100 menu text-white absolute top-0 right-[100%] rounded-box w-32 md:w-52 p-1 shadow">
-                      <li>
-                        <a>
-                          <FaEdit className="text-2xl text-amber-300" />
-                        </a>
-                      </li>
-                      <li>
-                        {" "}
-                        <a>
-                          <MdDelete className="text-[25px] text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
               {/* row 2 */}
-              <tr className="border-b  border-[#4c4f4e]  ">
-                <th>1</th>
-                <td className="py-2 whitespace-nowrap px-5">Hart Hagerty</td>
-                <td className="py-2 whitespace-nowrap px-5">
-                  Desktop Support Technician
-                </td>
-                <td className="py-2 whitespace-nowrap px-5">Purple</td>
-                <td className="py-2 whitespace-nowrap px-5">
-                  Desktop Support Technician
-                </td>
-                <td className="py-2 whitespace-nowrap px-5">Purple</td>
-                <td className="py-2 whitespace-nowrap px-5 ">
-                  <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
-                    </div>
-                    <ul className="dropdown-content content-center bg-base-100 menu text-white absolute top-0 right-[100%] rounded-box w-32 md:w-52 p-1 shadow">
-                      <li>
-                        <a>
-                          <FaEdit className="text-2xl text-amber-300" />
-                        </a>
-                      </li>
-                      <li>
-                        {" "}
-                        <a>
-                          <MdDelete className="text-[25px] text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>

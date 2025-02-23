@@ -8,7 +8,9 @@ import { IoMdCamera } from "react-icons/io";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
 const AddVenue = () => {
+  const { user } = useAuth();
   const [LoadingToImageUpload, setLoadingToImageUpload] = useState(false);
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -96,7 +98,8 @@ const AddVenue = () => {
   };
   useEffect(() => {
     setValue("date", startDate);
-  }, [setValue, startDate]);
+    setValue("email", user?.email);
+  }, [setValue, startDate, user]);
   console.log(startDate);
   return (
     <div className="relative bg-black w-full h-full min-h-screen p-6">
@@ -265,6 +268,7 @@ const AddVenue = () => {
                   {...register("email", { required: true })}
                   type="email"
                   name="email"
+                  readOnly
                   id=""
                   placeholder="Enter email address"
                   className="py-3 focus:border-[#b58753] focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"

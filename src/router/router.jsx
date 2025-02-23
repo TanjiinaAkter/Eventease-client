@@ -323,7 +323,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "vendoreditvenue",
+        path: "vendoreditvenue/:id",
         element: (
           <VendorRoute>
             <VendorEditVenue></VendorEditVenue>

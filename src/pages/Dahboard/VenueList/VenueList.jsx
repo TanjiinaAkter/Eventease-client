@@ -130,9 +130,9 @@ const VenueList = () => {
             </thead>
             <tbody className="">
               {/* row 1 */}
-              {showByInputField.map((venue) => (
+              {showByInputField.map((venue, index) => (
                 <tr key={venue._id} className="border-b  border-[#4c4f4e]  ">
-                  <th>1</th>
+                  <th>{index + 1}</th>
                   <td className="py-2 whitespace-nowrap px-5">{venue.name}</td>
                   <td className="py-2 whitespace-nowrap px-5">{venue.city}</td>
                   <td className="py-2 whitespace-nowrap px-5">

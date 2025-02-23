@@ -38,7 +38,7 @@ const EditVenue = () => {
 
   const onSubmit = async (data) => {
     setLoadingToImageUpload(true);
-    console.log("lets seee", data);
+    console.log("lets seee", id);
     const image1 = { image: data.bannericon[0] };
     const image2 = { image: data.venueimage[0] };
     try {
@@ -67,7 +67,7 @@ const EditVenue = () => {
             capacity: data.capacity,
             country: data.country,
             phone: data.phone,
-            createdBy: data.createdBy,
+            createdBy: data.email,
             description: data.description,
             bannericon: res1.data.data.display_url,
             venueimage: res2.data.data.display_url,
@@ -112,7 +112,7 @@ const EditVenue = () => {
       setValue("capacity", venue?.capacity);
       setValue("country", venue?.country);
       setValue("phone", venue?.phone);
-      setValue("createdBy", venue?.createdBy);
+      setValue("email", venue?.createdBy);
       setValue("description", venue?.description);
       setValue("bannericon", venue?.bannericon);
       setValue("venueimage", venue?.venueimage);
@@ -285,19 +285,20 @@ const EditVenue = () => {
                 )}
               </div>
               <div className="flex flex-col w-full md:w-1/2 space-y-3">
-                <label className="text-white text-lg" htmlFor="createdBy">
+                <label className="text-white text-lg" htmlFor="email">
                   Email
                 </label>
                 <input
                   onChange={handleInputColor}
-                  {...register("createdBy", { required: true })}
+                  {...register("email", { required: true })}
                   type="email"
-                  name="createdBy"
+                  name="email"
+                  readOnly
                   id=""
                   placeholder="Enter email address"
                   className={`py-3 focus:border-[#b58753] focus:border-2  border pl-2 border-gray-500 focus:outline-none rounded-none ${inputColor}`}
                 />
-                {errors.createdBy && (
+                {errors.email && (
                   <span className="text-amber-400">This field is required</span>
                 )}
               </div>

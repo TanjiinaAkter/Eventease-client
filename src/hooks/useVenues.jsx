@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 
-import useAxiosPublic from "./useAxiosPublic";
+import useAxiosSecure from "./useAxiosSecure";
+import useAuth from "./useAuth";
 
 const useVenues = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
   const { data: venues = [], refetch } = useQuery({
-    queryKey: ["venues"],
+    queryKey: ["venues", user?.email],
     queryFn: async () => {
-      const res = await axiosPublic.get("/venues");
-      //console.log(res.data);
+      const res = await axiosSecure.get(`/venues/${user?.email}`);
+      console.log(res.data);
       return res.data;
     },
   });
