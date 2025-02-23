@@ -8,7 +8,14 @@ import { LuPlus } from "react-icons/lu";
 import useVenues from "../../../hooks/useVenues";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
 const VenueList = () => {
+  const [clearBtn, setClearBtn] = useState(false);
+  const [venues, refetch] = useVenues();
+  //console.log("venues in venue list", venues);
+  const [inputSearchValue, setInputSearchValue] = useState("");
+  const [showByInputField, setshowByInputField] = useState(venues);
+  //console.log(inputSearchValue, showByInputField);
   const axiosSecure = useAxiosSecure();
   const handleDeleteVenue = (venue) => {
     console.log("hismlsd");
@@ -36,8 +43,28 @@ const VenueList = () => {
       }
     });
   };
-  const [venues, refetch] = useVenues();
-  console.log("venues in venue list", venues);
+  const handleSearch = () => {
+    console.log("hisdadddd");
+    if (inputSearchValue.trim() === "") {
+      setshowByInputField(venues);
+    } else {
+      const serchedItem = venues.filter((ven) =>
+        ven.name.toLowerCase().includes(inputSearchValue.toLowerCase())
+      );
+      console.log("serchedItem", serchedItem);
+      setshowByInputField(serchedItem);
+    }
+    setClearBtn(true);
+  };
+  const handleClear = () => {
+    setClearBtn(false);
+    setshowByInputField(venues);
+    setInputSearchValue("");
+  };
+  // useeffect na dile initially kono venue show e korbe na karon, venues update holeo, showByInputField directly update hobe na, karon eta alada ekta state. State independently thake, tai jokhon venues update hoy, showByInputField automatic update hoy na.
+  useEffect(() => {
+    setshowByInputField(venues);
+  }, [venues]);
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -56,12 +83,26 @@ const VenueList = () => {
       <div className="flex  flex-wrap my-7 justify-between items-center gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <input
+            // value na dile search input er value ta theke jabe cleartbn click kore khali  korleo
+            value={inputSearchValue}
+            onChange={(e) => setInputSearchValue(e.target.value)}
             type="text"
             id="text"
-            placeholder="Type here.."
+            placeholder="Type venue name..."
             className="input input-bordered !py-[22px] input-info border !border-[#b58753] bg-[#0f1c1c] text-white w-full max-w-xs placeholder:text-white"
           />
-          <button className="button-style hover:scale-105">Search</button>
+          <button
+            onClick={handleSearch}
+            className="button-style hover:scale-105">
+            Search
+          </button>
+          {clearBtn && (
+            <button
+              onClick={handleClear}
+              className="button-style hover:scale-105">
+              Clear
+            </button>
+          )}
         </div>
         <div className="flex relative justify-center items-center gap-2">
           <Link to="/dashboard/addvenue">
@@ -89,7 +130,7 @@ const VenueList = () => {
             </thead>
             <tbody className="">
               {/* row 1 */}
-              {venues.map((venue) => (
+              {showByInputField.map((venue) => (
                 <tr key={venue._id} className="border-b  border-[#4c4f4e]  ">
                   <th>1</th>
                   <td className="py-2 whitespace-nowrap px-5">{venue.name}</td>
