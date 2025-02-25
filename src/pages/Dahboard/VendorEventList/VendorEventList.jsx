@@ -35,9 +35,11 @@ const VendorEventList = () => {
           <button className="button-style hover:scale-105">Search</button>
         </div>
         <div className="flex relative justify-center items-center gap-2">
+          <Link to='/dashboard/vendoraddevent'>
           <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white flex hover:!text-white !border-none">
             Add New <LuPlus />
-          </button>
+            </button>
+            </Link>
           <GoPlus className="absolute  top-[13px] z-10 right-0 text-[#d39146] font-extrabold text-xl" />
         </div>
       </div>

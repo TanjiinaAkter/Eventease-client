@@ -237,7 +237,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "editevent",
+        path: "editevent/:id",
         element: (
           <AdminRoute>
             <EditEvent></EditEvent>
@@ -339,7 +339,6 @@ const router = createBrowserRouter([
         path: "vendoreventlist",
         element: (
           <VendorRoute>
-            {" "}
             <VendorEventList></VendorEventList>
           </VendorRoute>
         ),
