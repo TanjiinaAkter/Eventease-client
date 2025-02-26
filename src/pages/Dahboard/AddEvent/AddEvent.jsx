@@ -88,13 +88,14 @@ const AddEvent = () => {
             artist: data.artist,
             eventstartdate: formatDate(startDate),
             eventenddate: formatDate(endDate),
-            ticket: data.ticket,
-            ticketprice: data.ticketprice,
+            ticket: parseInt(data.ticket),
+            ticketprice: parseFloat(data.ticketprice),
             email: data.email,
             phone: data.phone,
             eventimage: res1.data.data.display_url,
             eventbanner: res2.data.data.display_url,
             createdAt: formatDate(new Date()),
+            eventstatus: data.eventstatus,
           })
           .then((res) => {
             console.log(res.data);
@@ -126,7 +127,7 @@ const AddEvent = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="form space-y-3">
             {/* ROW-1 */}
             <div className="flex flex-col md:flex-row justify-between w-full  items-center gap-5 ">
-              <div className="flex flex-col w-full md:w-1/2  space-y-3">
+              <div className="flex flex-col w-full md:w-1/2 text-wrap space-y-3">
                 <label className="text-white text-lg" htmlFor="eventtitle">
                   Event Title
                 </label>
@@ -136,7 +137,7 @@ const AddEvent = () => {
                   name="eventtitle"
                   id=""
                   placeholder="Enter event title "
-                  className="py-3 focus:border-[#b58753] focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
+                  className="py-3 focus:border-[#b58753]  focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
                 />
                 {errors.eventtitle && (
                   <span className="text-yellow-400">
@@ -237,7 +238,7 @@ const AddEvent = () => {
             </div>
             {/* ROW-4 */}
             <div className="flex flex-col md:flex-row justify-between w-full  items-center gap-5 ">
-              <div className="flex flex-col w-full  space-y-3">
+              <div className="flex flex-col w-full md:w-1/2  space-y-3">
                 <label className="text-white text-lg" htmlFor="artist">
                   Artist
                 </label>
@@ -257,6 +258,38 @@ const AddEvent = () => {
                   </option>
                   <option className="text-black" value="   solwetiwue">
                     Solwetiwue
+                  </option>
+                </select>
+              </div>
+
+              {/* EVENT STATUS */}
+              <div className="flex flex-col w-full md:w-1/2  space-y-3">
+                <label className="text-white text-lg" htmlFor="eventstatus">
+                  Event Status
+                </label>
+                <select
+                  {...register("eventstatus", { required: true })}
+                  name="eventstatus"
+                  id=""
+                  disabled
+                  defaultValue={"Pending"}
+                  className="py-3 focus:border-[#b58753]  focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
+                  required>
+                  <option className="text-white bg-black" disabled>
+                    {" "}
+                    select status
+                  </option>
+                  <option className="text-black" value="Pending">
+                    Pending
+                  </option>
+                  <option className="text-black" value="Approved">
+                    Upcoming
+                  </option>
+                  <option className="text-black" value="Completed">
+                    Completed
+                  </option>
+                  <option className="text-black" value="Rejected">
+                    Rejected
                   </option>
                 </select>
               </div>

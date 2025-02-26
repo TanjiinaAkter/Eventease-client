@@ -352,7 +352,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "vendoreditevent",
+        path: "vendoreditevent/:id",
         element: (
           <VendorRoute>
             <VendorEditEvent></VendorEditEvent>

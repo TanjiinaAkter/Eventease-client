@@ -5,28 +5,20 @@ import RouteTitle from "../../../components/RouteTitle";
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
-import { useQuery } from "@tanstack/react-query";
+
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useEvents from "../../../hooks/useEvents";
 
 const EventList = () => {
   const axiosSecure = useAxiosSecure();
   const [clearBtn, setClearBtn] = useState(false);
-  const { data: events = [], refetch } = useQuery({
-    queryKey: ["events"],
-    queryFn: async () => {
-      const res = await axiosPublic.get("/events");
-      console.log(res.data);
-      return res.data;
-    },
-  });
-  console.log(events);
+  const [events, refetch] = useEvents();
+
   const [inputSearchValue, setInputSearchValue] = useState("");
   console.log(inputSearchValue);
   const [showByInputField, setshowByInputField] = useState(events);
-  const axiosPublic = useAxiosPublic();
 
   const handleSearch = () => {
     if (inputSearchValue.trim() === "") {
@@ -153,7 +145,32 @@ const EventList = () => {
                   <td className="py-2 whitespace-nowrap px-4 ">
                     {event.eventenddate}
                   </td>
-                  <td className="py-2 whitespace-nowrap px-4 ">status hobe</td>
+                  <td className="py-2 whitespace-nowrap px-4 ">
+                    {/* {event.eventstatus} */}
+                    {event.eventstatus === "Pending" ? (
+                      <p className="bg-yellow-500 text-white rounded-full px-1 py-[1px] hover:bg-gray-500 transition-all duration-500">
+                        {event.eventstatus}
+                      </p>
+                    ) : event.eventstatus === "Approved" ? (
+                      <p className="bg-blue-500  text-white rounded-full px-1 py-[1px] hover:bg-gray-500 transition-all duration-500">
+                        {event.eventstatus}
+                      </p>
+                    ) : event.eventstatus === "Rejected" ? (
+                      <p className=" bg-red-700 text-white rounded-full px-1 py-[1px] hover:bg-gray-500 transition-all duration-500">
+                        {event.eventstatus}
+                      </p>
+                    ) : event.eventstatus === "Completed" ? (
+                      <p className="bg-gray-500 text-white rounded-full px-1 py-[1px] hover:bg-gray-500 transition-all duration-500">
+                        {event.eventstatus}
+                      </p>
+                    ) : event.eventstatus === "Canceled" ? (
+                      <p className="bg-red-500 text-white rounded-full px-1 py-[1px] hover:bg-gray-500 transition-all duration-500">
+                        {event.eventstatus}
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </td>
                   <td className="py-2 whitespace-nowrap px-4 ">
                     {event.ticket}
                   </td>
