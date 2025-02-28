@@ -112,7 +112,7 @@ const EventList = () => {
         </div>
       </div>
       {/* TABLE STARSTS */}
-      <div className="mx-auto md:overflow-x-hidden overflow-auto  border border-[#4b4d4c] w-full flex flex-col gap-4 p-5 pb-8 rounded-md bg-[#0f1c1c] text-white">
+      <div className="mx-auto  overflow-auto md:overflow-hidden  border border-[#4b4d4c] w-full flex flex-col gap-4 p-2 pb-8 rounded-md bg-[#0f1c1c] text-white">
         <div className="">
           <table className="table-auto  w-full min-w-[600px] text-center">
             {/* head           	Start Date	End Date	Status	Total Tickets	Available	Created At	Actions            */}
@@ -135,17 +135,17 @@ const EventList = () => {
                 <tr
                   key={event._id}
                   className="text-white border-b border-[#4c4f4e] ">
-                  <th className="py-2 whitespace-nowrap px-4 ">{index + 1}</th>
-                  <td className="py-2 whitespace-nowrap px-4 ">
+                  <th className="py-1 whitespace-nowrap px-4 ">{index + 1}</th>
+                  <td className="py-1 whitespace-nowrap px-4 ">
                     {event.eventtitle}
                   </td>
-                  <td className="py-2 whitespace-nowrap px-4 ">
+                  <td className="py-1 whitespace-nowrap px-4 ">
                     {event.eventstartdate}
                   </td>
-                  <td className="py-2 whitespace-nowrap px-4 ">
+                  <td className="py-1 whitespace-nowrap px-4 ">
                     {event.eventenddate}
                   </td>
-                  <td className="py-2 whitespace-nowrap px-4 ">
+                  <td className="py-1 whitespace-nowrap px-4 cursor-pointer">
                     {/* {event.eventstatus} */}
                     {event.eventstatus === "Pending" ? (
                       <p className="bg-yellow-500 text-white rounded-full px-1 py-[1px] hover:bg-gray-500 transition-all duration-500">
@@ -171,16 +171,16 @@ const EventList = () => {
                       ""
                     )}
                   </td>
-                  <td className="py-2 whitespace-nowrap px-4 ">
+                  <td className="py-1 whitespace-nowrap px-4 ">
                     {event.ticket}
                   </td>
-                  <td className="py-2 whitespace-nowrap px-4 ">
+                  <td className="py-1 whitespace-nowrap px-4 ">
                     {event.ticketprice}
                   </td>
-                  <td className="py-2 whitespace-nowrap px-4 ">
+                  <td className="py-1 whitespace-nowrap px-4 ">
                     {event.createdAt}
                   </td>
-                  <td className="py-2 whitespace-nowrap px-4 ">
+                  <td className="py-1 whitespace-nowrap px-4 ">
                     <div className="dropdown">
                       <div tabIndex={0} role="button" className="btn m-1">
                         <HiDotsHorizontal />

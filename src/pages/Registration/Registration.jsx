@@ -49,6 +49,11 @@ const Registration = () => {
                 email: data.email,
                 name: data.name,
                 photo: imgUrl,
+                company: "",
+                phone: "",
+                address: "",
+                city: "",
+                state: "",
               };
               console.log(userInfo);
               axiosPublic

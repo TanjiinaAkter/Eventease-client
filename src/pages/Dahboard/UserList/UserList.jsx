@@ -9,8 +9,11 @@ import { CiShop } from "react-icons/ci";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import useRole from "../../../hooks/useRole";
 const UserList = () => {
-  const isAdmin = true;
+  const [role] = useRole();
+  const isAdmin = role === "Admin";
+  // const isAdmin = true;
   const axiosSecure = useAxiosSecure();
   const { data: allusers = [], refetch } = useQuery({
     queryKey: ["allusers"],
@@ -58,12 +61,17 @@ const UserList = () => {
       });
     }
     axiosSecure
-      .patch(`/users/admin/${user._id}`, {
+      .patch(`/users/role/${user._id}`, {
         role: newrole,
       })
       .then((res) => {
-        console.log(res.data);
-        if (res.data.modifiedCount > 0) {
+        console.log(
+          "result from server",
+          res.data,
+          "updated user role we will get to add or delete in vendorcollection :",
+          res.data.updatedUser.role
+        );
+        if (res.data.result.modifiedCount > 0) {
           refetch();
           Swal.fire({
             position: "top-end",
@@ -72,6 +80,56 @@ const UserList = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+        }
+        console.log(
+          {
+            name: user.name,
+            userrole: user.role,
+            email: res.data?.updatedUser?.email,
+            photo: res.data?.updatedUser?.photo,
+            role: res.data?.updatedUser?.role,
+            company: "",
+            phone: "",
+            address: "",
+            city: "",
+            state: "",
+            createdAt: new Date(),
+          },
+          "updatedUser  nnnnnnnnnnnnnnnnnnn"
+        );
+        // ekhn client side theke send kora role ar server side theke pawa updated role jodi vendor hoy tahole vendorcollection e post korbo
+        if (newrole === "Vendor" && res.data?.updatedUser?.role === "Vendor") {
+          axiosSecure
+            .post("/vendors", {
+              name: res.data?.updatedUser?.name,
+              email: res.data?.updatedUser?.email,
+              photo: res.data?.updatedUser?.photo,
+              role: res.data?.updatedUser?.role,
+              company: "",
+              phone: "",
+              address: "",
+              city: "",
+              state: "",
+              createdAt: new Date(),
+            })
+            .then((res) => {
+              console.log("sdvsfffffff", res.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else if (
+          (newrole === "User" || newrole === "Admin") &&
+          res.data?.updatedUser?.role !== "Vendor"
+        ) {
+          axiosSecure
+            .delete(`/vendors/${user.email}`)
+            .then((res) => {
+              console.log("Vendor role removed", res.data);
+            })
+            .catch((error) => {
+              console.error("Error removing vendor:", error);
+            });
         }
       });
   };

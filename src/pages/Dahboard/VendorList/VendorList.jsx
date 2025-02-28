@@ -1,12 +1,24 @@
-
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
 import RouteTitle from "../../../components/RouteTitle";
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const VendorList = () => {
+  const axiosSecure = useAxiosSecure();
+  const { data: vendors = [] } = useQuery({
+    queryKey: ["vendors"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/vendors");
+      console.log(res.data);
+      return res.data;
+    },
+  });
+
+  console.log(vendors);
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -33,10 +45,11 @@ const VendorList = () => {
           <button className="button-style hover:scale-105">Search</button>
         </div>
         <div className="flex relative justify-center items-center gap-2">
-          <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white flex hover:!text-white !border-none">
-            Add New <LuPlus />
-          </button> 
-         
+          <Link to="/dashboard/addvendor">
+            <button className="button-style hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white flex hover:!text-white !border-none">
+              Add New <LuPlus />
+            </button>
+          </Link>
         </div>
       </div>
       {/* TABLE STARSTS */}
@@ -57,33 +70,46 @@ const VendorList = () => {
             </thead>
             <tbody className="">
               {/* row 1 */}
-              <tr className="border-b border-[#4c4f4e] text-center">
-                <th>1</th>
-                <td className="px-5 py-2  whitespace-nowrap">Hart Hagerty</td>
-                <td className="px-5 py-2  whitespace-nowrap">Hart Hagerty</td>
-                <td className="px-5 py-2  whitespace-nowrap">
-                  Desktop Support Technician
-                </td>
-                <td className="px-5 py-2  whitespace-nowrap">Purple</td>
-                <td className="px-5 py-2  whitespace-nowrap">Hart Hagerty</td>
+              {vendors.map((vendor, index) => (
+                <tr
+                  key={vendor._id}
+                  className="border-b border-[#4c4f4e] text-center">
+                  <th>{index + 1}</th>
+                  <td className="px-5 py-2  whitespace-nowrap">
+                    {vendor.company}
+                  </td>
+                  <td className="px-5 py-2  whitespace-nowrap">
+                    {vendor.description}
+                  </td>
+                  <td className="px-5 py-2  whitespace-nowrap">
+                    {vendor.email}
+                  </td>
+                  <td className="px-5 py-2  whitespace-nowrap">
+                    {vendor.phone}
+                  </td>
+                  <td className="px-5 py-2  whitespace-nowrap">
+                    {vendor.createdAt}
+                  </td>
 
-                <td className="px-5 py-2  whitespace-nowrap">
-                  <div className="dropdown ">
-                    <label tabIndex={0} className="btn m-1">
-                      <HiDotsHorizontal />
-                    </label>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content menu absolute top-0 right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-32 md:w-52">
-                      <li>
-                        <a href="#">
-                          <MdDelete className="text-3xl text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
+                  <td className="px-5 py-2  whitespace-nowrap">
+                    <div className="dropdown ">
+                      <label tabIndex={0} className="btn m-1">
+                        <HiDotsHorizontal />
+                      </label>
+                      <ul
+                        tabIndex={0}
+                        className="dropdown-content menu absolute top-0 right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-32 md:w-52">
+                        <li>
+                          <a href="#">
+                            <MdDelete className="text-3xl text-red-600" />
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+
               {/* row 2 */}
             </tbody>
           </table>
