@@ -217,7 +217,7 @@ const Login = () => {
                   : "button-style hover:scale-95"
               }  cursor-pointer w-full grid my-7`}>
               <input
-                className=""
+               
                 type="submit"
                 value="Login"
                 disabled={disabled}

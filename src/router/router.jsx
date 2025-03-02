@@ -304,7 +304,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "vendoreditartists",
+        path: "vendoreditartist/:id",
         element: (
           <VendorRoute>
             <VendorEditArtists></VendorEditArtists>

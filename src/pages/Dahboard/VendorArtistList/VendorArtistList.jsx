@@ -4,11 +4,49 @@ import { Link } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { GoPlus } from "react-icons/go";
 import RouteTitle from "../../../components/RouteTitle";
 import { LuPlus } from "react-icons/lu";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const VendorArtistList = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const { data: artists = [] } = useQuery({
+    queryKey: ["artists"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/artists/${user?.email}`);
+      console.log(res.data);
+      return res.data;
+    },
+  });
+  console.log(artists);
+  // const [artists] = useArtists();
+  console.log(artists);
+  const [btnClose, setBtnClose] = useState(false);
+  const [inputSearchValue, setInputSearchValue] = useState("");
+  const [showByInputField, setshowByInputField] = useState(artists);
+  const handleSearch = () => {
+    if (inputSearchValue.trim() === "") {
+      setshowByInputField(artists);
+    } else {
+      const serchedItem = artists.filter((artist) =>
+        artist.name.toLowerCase().includes(inputSearchValue.toLowerCase())
+      );
+      setshowByInputField(serchedItem);
+      setBtnClose(true);
+    }
+  };
+  useEffect(() => {
+    setshowByInputField(artists);
+  }, [artists]);
+  const handleCloseBtn = () => {
+    setInputSearchValue("");
+    setshowByInputField(artists);
+    setBtnClose(false);
+  };
   return (
     <div className="relative z-0 bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -23,22 +61,36 @@ const VendorArtistList = () => {
         routetitle="Artist Directory"
         routesubtitle="Manage and organize artist profiles efficiently."
       />
-
       {/* SEARCH AND ADD NEW BUTTON */}
       <div className="flex flex-wrap my-7 justify-between items-center gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <input
+            value={inputSearchValue}
+            onChange={(e) => setInputSearchValue(e.target.value)}
             type="text"
-            placeholder="Type here.."
+            placeholder="Type by artist name here.."
             className="input input-bordered !py-[22px] input-info border !border-[#b58753] bg-[#0f1c1c] text-white w-full max-w-xs placeholder:text-white"
           />
-          <button className="button-style hover:scale-105">Search</button>
+          <button
+            onClick={handleSearch}
+            className="button-style hover:scale-105">
+            Search
+          </button>
+
+          {btnClose && (
+            <button
+              onClick={handleCloseBtn}
+              className="button-style hover:scale-105">
+              Reset
+            </button>
+          )}
         </div>
         <div className="relative flex items-center gap-2">
-          <button className="button-style flex hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
-            Add New <LuPlus />
-          </button>
-          <GoPlus className="absolute top-[13px] right-0 text-[#d39146] font-extrabold text-xl" />
+          <Link to='/dashboard/vendoraddartists'>
+            <button className="button-style flex hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
+              Add New <LuPlus />
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -51,63 +103,41 @@ const VendorArtistList = () => {
                 <th className="py-5">#</th>
                 <th className="py-5">Name</th>
                 <th className="py-5">Bio</th>
-                <th className="py-5">Genre</th>
+                <th className="py-5 px-4">Genre</th>
                 <th className="py-5">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="text-white border-b border-[#4c4f4e] ">
-                <th className="py-2">#</th>
-                <td className="py-2">Cy Ganderton</td>
-                <td className="py-2">Cy Ganderton</td>
-                <td className="py-2">Quality Control Specialist</td>
-                <td className="py-2">Blue</td>
-                <td className="py-2">
-                  <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
+              {showByInputField.map((artist, index) => (
+                <tr
+                  key={artist._id}
+                  className="text-white border-b  border-[#4c4f4e] ">
+                  <th className="py-2">{index + 1}</th>
+                  <td className="py-2">{artist.name}</td>
+                  <td className="py-2 px-5 w-fit text-justify">{artist.bio}</td>
+                  <td className="py-2">{artist.genre}</td>
+
+                  <td className="py-2">
+                    <div className="dropdown">
+                      <div tabIndex={0} role="button" className="btn m-1">
+                        <HiDotsHorizontal />
+                      </div>
+                      <ul className="dropdown-content content-center absolute top-0 right-[100%] menu bg-base-100 rounded-box z-10 w-32 md:w-52 p-1 shadow">
+                        <li className="place-self-center">
+                          <Link to={`/dashboard/vendoreditartist/${artist._id}`}>
+                            <FaEdit className="text-2xl text-amber-300" />
+                          </Link>
+                        </li>
+                        <li className="place-self-center">
+                          <button>
+                            <MdDelete className="text-3xl text-red-600" />
+                          </button>
+                        </li>
+                      </ul>
                     </div>
-                    <ul className="dropdown-content content-center absolute top-0 right-[100%] menu bg-base-100 rounded-box z-10 w-32 md:w-52 p-1 shadow">
-                      <li className="place-self-center">
-                        <a>
-                          <FaEdit className="text-2xl text-amber-300" />
-                        </a>
-                      </li>
-                      <li className="place-self-center">
-                        <a>
-                          <MdDelete className="text-3xl text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-white border-b border-[#4c4f4e] ">
-                <th className="py-2">#</th>
-                <td className="py-2">Cy Ganderton</td>
-                <td className="py-2">Cy Ganderton</td>
-                <td className="py-2">Quality Control Specialist</td>
-                <td className="py-2">Blue</td>
-                <td className="py-2">
-                  <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
-                    </div>
-                    <ul className="dropdown-content absolute top-0 right-full menu bg-base-100 rounded-box z-10 w-32 md:w-52 p-1 shadow">
-                      <li className="place-self-center">
-                        <a>
-                          <FaEdit className="text-2xl text-amber-300" />
-                        </a>
-                      </li>
-                      <li className="place-self-center">
-                        <a>
-                          <MdDelete className="text-3xl text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

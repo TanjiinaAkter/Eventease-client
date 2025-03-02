@@ -37,7 +37,7 @@ const SocialLogin = () => {
       <hr className="my-4 bg-white h-[2px] w-full mx-auto" />
       <div
         onClick={handleGoogleSignAuth}
-        className="w-full mx-auto rounded-full bg-[#0000007A] border-[#44cfbf] border-2 flex items-center justify-center ">
+        className="w-full  hover:scale-95 transition-all duration-700 ease-in-out hover:bg-black mx-auto rounded-full bg-[#0000007A] border-[#44cfbf] border-2 flex items-center justify-center ">
         <button className="flex text-white font-semibold  items-center justify-center">
           <FcGoogle className="pr-4 text-5xl " /> GOOGLE
         </button>

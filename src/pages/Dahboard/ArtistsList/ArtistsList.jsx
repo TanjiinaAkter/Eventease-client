@@ -6,10 +6,33 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
 import useArtists from "../../../hooks/useArtists";
+import { useEffect, useState } from "react";
 
 const ArtistsList = () => {
   const [artists] = useArtists();
   console.log(artists);
+  const [btnClose, setBtnClose] = useState(false);
+  const [inputSearchValue, setInputSearchValue] = useState("");
+  const [showByInputField, setshowByInputField] = useState(artists);
+  const handleSearch = () => {
+    if (inputSearchValue.trim() === "") {
+      setshowByInputField(artists);
+    } else {
+      const serchedItem = artists.filter((artist) =>
+        artist.name.toLowerCase().includes(inputSearchValue.toLowerCase())
+      );
+      setshowByInputField(serchedItem);
+      setBtnClose(true);
+    }
+  };
+  useEffect(() => {
+    setshowByInputField(artists);
+  }, [artists]);
+  const handleCloseBtn = () => {
+    setInputSearchValue("");
+    setshowByInputField(artists);
+    setBtnClose(false);
+  };
   return (
     <div className="relative z-0 bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -29,11 +52,25 @@ const ArtistsList = () => {
       <div className="flex flex-wrap my-7 justify-between items-center gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <input
+            value={inputSearchValue}
+            onChange={(e) => setInputSearchValue(e.target.value)}
             type="text"
-            placeholder="Type here.."
+            placeholder="Type by artist name here.."
             className="input input-bordered !py-[22px] input-info border !border-[#b58753] bg-[#0f1c1c] text-white w-full max-w-xs placeholder:text-white"
           />
-          <button className="button-style hover:scale-105">Search</button>
+          <button
+            onClick={handleSearch}
+            className="button-style hover:scale-105">
+            Search
+          </button>
+
+          {btnClose && (
+            <button
+              onClick={handleCloseBtn}
+              className="button-style hover:scale-105">
+              Reset
+            </button>
+          )}
         </div>
         <div className="relative flex items-center gap-2">
           <Link to="/dashboard/addartists">
@@ -58,7 +95,7 @@ const ArtistsList = () => {
               </tr>
             </thead>
             <tbody>
-              {artists.map((artist, index) => (
+              {showByInputField.map((artist, index) => (
                 <tr
                   key={artists._id}
                   className="text-white border-b  border-[#4c4f4e] ">

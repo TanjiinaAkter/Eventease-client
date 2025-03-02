@@ -4,8 +4,10 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
 
 const AddArtists = () => {
+  const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const {
@@ -37,6 +39,7 @@ const AddArtists = () => {
           facebooklink: data.facebook,
           instagramlink: data.instagram,
           photo: res.data.data.display_url,
+          createdBy: user.email,
         })
         .then((res) => {
           console.log(res.data);
