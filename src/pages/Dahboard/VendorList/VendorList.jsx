@@ -4,21 +4,51 @@ import RouteTitle from "../../../components/RouteTitle";
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import useVendors from "../../../hooks/useVendors";
 
 const VendorList = () => {
   const axiosSecure = useAxiosSecure();
-  const { data: vendors = [] } = useQuery({
-    queryKey: ["vendors"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/vendors");
-      console.log(res.data);
-      return res.data;
-    },
-  });
 
-  console.log(vendors);
+  const [vendors, refetch] = useVendors();
+  console.log("vendors are here adadddaddad", vendors);
+  const handleDelete = (vendor) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/vendors/${vendor.email}`).then((res) => {
+          console.log("sdadnldad", res.data.result.deletedCount);
+          if (res.data.result.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: `${vendor.name} has been deleted.`,
+              icon: "success",
+            });
+
+            axiosSecure
+              .patch(`/users/role/${vendor.userId}`, {
+                role: "User",
+              })
+              .then((res) => {
+                console.log(res.data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        });
+      }
+    });
+  };
   return (
     <div className="relative z-0  bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -76,7 +106,7 @@ const VendorList = () => {
                   className="border-b border-[#4c4f4e] text-center">
                   <th>{index + 1}</th>
                   <td className="px-5 py-2  whitespace-nowrap">
-                    {vendor.company}
+                    {vendor.company} {vendor.userId}
                   </td>
                   <td className="px-5 py-2  whitespace-nowrap">
                     {vendor.description}
@@ -91,18 +121,19 @@ const VendorList = () => {
                     {vendor.createdAt}
                   </td>
 
-                  <td className="px-5 py-2  whitespace-nowrap">
+                  <td className=" py-2  whitespace-nowrap">
                     <div className="dropdown ">
                       <label tabIndex={0} className="btn m-1">
                         <HiDotsHorizontal />
                       </label>
                       <ul
                         tabIndex={0}
-                        className="dropdown-content menu absolute top-0 right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-32 md:w-52">
-                        <li>
-                          <a href="#">
-                            <MdDelete className="text-3xl text-red-600" />
-                          </a>
+                        className="dropdown-content  absolute top-0 text-3xl right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-32 md:w-52 ">
+                        <li className="">
+                          <MdDelete
+                            onClick={() => handleDelete(vendor)}
+                            className="justify-self-center text-red-600"
+                          />
                         </li>
                       </ul>
                     </div>

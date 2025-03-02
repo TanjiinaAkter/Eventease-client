@@ -165,7 +165,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "editartists",
+        path: "editartist/:id",
         element: (
           <AdminRoute>
             <EditArtists></EditArtists>

@@ -26,6 +26,7 @@ const AddVendor = () => {
     axiosSecure
       .post("/vendors", {
         name: data.vendorname,
+        userId: selectedUser._id,
         email: data.vendoremail,
         photo: data.photo,
         role: data.role,
@@ -38,7 +39,7 @@ const AddVendor = () => {
       })
       .then((res) => {
         console.log(res.data);
-        if (res.data.insertedId) {
+        if (res.data.result.insertedId) {
           Swal.fire({
             position: "top-end",
             icon: "success",

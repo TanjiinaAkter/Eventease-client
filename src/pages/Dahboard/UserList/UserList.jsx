@@ -102,6 +102,7 @@ const UserList = () => {
           axiosSecure
             .post("/vendors", {
               name: res.data?.updatedUser?.name,
+              userId: user._id,
               email: res.data?.updatedUser?.email,
               photo: res.data?.updatedUser?.photo,
               role: res.data?.updatedUser?.role,

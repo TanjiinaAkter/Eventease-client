@@ -4,10 +4,12 @@ import RouteTitle from "../../../components/RouteTitle";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { GoPlus } from "react-icons/go";
 import { LuPlus } from "react-icons/lu";
+import useArtists from "../../../hooks/useArtists";
 
 const ArtistsList = () => {
+  const [artists] = useArtists();
+  console.log(artists);
   return (
     <div className="relative z-0 bg-black w-full h-full min-h-screen p-6">
       <div className="flex justify-end">
@@ -34,10 +36,11 @@ const ArtistsList = () => {
           <button className="button-style hover:scale-105">Search</button>
         </div>
         <div className="relative flex items-center gap-2">
-          <button className="button-style flex hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
-            Add New <LuPlus />
-          </button>
-          <GoPlus className="absolute top-[13px] right-0 text-[#d39146] font-extrabold text-xl" />
+          <Link to="/dashboard/addartists">
+            <button className="button-style flex hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
+              Add New <LuPlus />
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -50,63 +53,41 @@ const ArtistsList = () => {
                 <th className="py-5">#</th>
                 <th className="py-5">Name</th>
                 <th className="py-5">Bio</th>
-                <th className="py-5">Genre</th>
+                <th className="py-5 px-4">Genre</th>
                 <th className="py-5">Actions</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="text-white border-b border-[#4c4f4e] ">
-                <th className="py-2">#</th>
-                <td className="py-2">Cy Ganderton</td>
-                <td className="py-2">Cy Ganderton</td>
-                <td className="py-2">Quality Control Specialist</td>
-                <td className="py-2">Blue</td>
-                <td className="py-2">
-                  <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
+              {artists.map((artist, index) => (
+                <tr
+                  key={artists._id}
+                  className="text-white border-b  border-[#4c4f4e] ">
+                  <th className="py-2">{index + 1}</th>
+                  <td className="py-2">{artist.name}</td>
+                  <td className="py-2 px-5 w-fit text-justify">{artist.bio}</td>
+                  <td className="py-2">{artist.genre}</td>
+
+                  <td className="py-2">
+                    <div className="dropdown">
+                      <div tabIndex={0} role="button" className="btn m-1">
+                        <HiDotsHorizontal />
+                      </div>
+                      <ul className="dropdown-content content-center absolute top-0 right-[100%] menu bg-base-100 rounded-box z-10 w-32 md:w-52 p-1 shadow">
+                        <li className="place-self-center">
+                          <Link to={`/dashboard/editartist/${artist._id}`}>
+                            <FaEdit className="text-2xl text-amber-300" />
+                          </Link>
+                        </li>
+                        <li className="place-self-center">
+                          <button>
+                            <MdDelete className="text-3xl text-red-600" />
+                          </button>
+                        </li>
+                      </ul>
                     </div>
-                    <ul className="dropdown-content content-center absolute top-0 right-[100%] menu bg-base-100 rounded-box z-10 w-32 md:w-52 p-1 shadow">
-                      <li className="place-self-center">
-                        <a>
-                          <FaEdit className="text-2xl text-amber-300" />
-                        </a>
-                      </li>
-                      <li className="place-self-center">
-                        <a>
-                          <MdDelete className="text-3xl text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-              <tr className="text-white border-b border-[#4c4f4e] ">
-                <th className="py-2">#</th>
-                <td className="py-2">Cy Ganderton</td>
-                <td className="py-2">Cy Ganderton</td>
-                <td className="py-2">Quality Control Specialist</td>
-                <td className="py-2">Blue</td>
-                <td className="py-2">
-                  <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn m-1">
-                      <HiDotsHorizontal />
-                    </div>
-                    <ul className="dropdown-content absolute top-0 right-full menu bg-base-100 rounded-box z-10 w-32 md:w-52 p-1 shadow">
-                      <li className="place-self-center">
-                        <a>
-                          <FaEdit className="text-2xl text-amber-300" />
-                        </a>
-                      </li>
-                      <li className="place-self-center">
-                        <a>
-                          <MdDelete className="text-3xl text-red-600" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
