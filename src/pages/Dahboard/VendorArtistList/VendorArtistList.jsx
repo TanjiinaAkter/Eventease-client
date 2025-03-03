@@ -10,11 +10,12 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const VendorArtistList = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: artists = [] } = useQuery({
+  const { data: artists = [], refetch } = useQuery({
     queryKey: ["artists"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/artists/${user?.email}`);
@@ -46,6 +47,34 @@ const VendorArtistList = () => {
     setInputSearchValue("");
     setshowByInputField(artists);
     setBtnClose(false);
+  };
+  const handleDeleteArtist = (artist) => {
+    console.log(artist);
+    axiosSecure;
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/artists/${artist._id}`).then((res) => {
+          //console.log(res.data);
+          if (res.data.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: `${artist.name} has been deleted from artists list.`,
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
   return (
     <div className="relative z-0 bg-black w-full h-full min-h-screen p-6">
@@ -86,7 +115,7 @@ const VendorArtistList = () => {
           )}
         </div>
         <div className="relative flex items-center gap-2">
-          <Link to='/dashboard/vendoraddartists'>
+          <Link to="/dashboard/vendoraddartists">
             <button className="button-style flex hover:scale-105 !text-[#daa05d] font-semibold !py-[10px] !px-6 !bg-white hover:!text-white !border-none">
               Add New <LuPlus />
             </button>
@@ -124,12 +153,13 @@ const VendorArtistList = () => {
                       </div>
                       <ul className="dropdown-content content-center absolute top-0 right-[100%] menu bg-base-100 rounded-box z-10 w-32 md:w-52 p-1 shadow">
                         <li className="place-self-center">
-                          <Link to={`/dashboard/vendoreditartist/${artist._id}`}>
+                          <Link
+                            to={`/dashboard/vendoreditartist/${artist._id}`}>
                             <FaEdit className="text-2xl text-amber-300" />
                           </Link>
                         </li>
                         <li className="place-self-center">
-                          <button>
+                          <button onClick={() => handleDeleteArtist(artist)}>
                             <MdDelete className="text-3xl text-red-600" />
                           </button>
                         </li>

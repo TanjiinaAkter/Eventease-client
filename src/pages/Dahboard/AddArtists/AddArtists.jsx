@@ -13,7 +13,7 @@ const AddArtists = () => {
   const {
     register,
     handleSubmit,
-
+    reset,
     formState: { errors },
   } = useForm();
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -51,7 +51,7 @@ const AddArtists = () => {
               showConfirmButton: false,
               timer: 1500,
             });
-            // reset();
+            reset();
           }
         })
         .catch((error) => {

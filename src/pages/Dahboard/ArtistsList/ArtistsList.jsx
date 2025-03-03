@@ -7,9 +7,12 @@ import { MdDelete } from "react-icons/md";
 import { LuPlus } from "react-icons/lu";
 import useArtists from "../../../hooks/useArtists";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const ArtistsList = () => {
-  const [artists] = useArtists();
+  const axiosSecure = useAxiosSecure();
+  const [artists, refetch] = useArtists();
   console.log(artists);
   const [btnClose, setBtnClose] = useState(false);
   const [inputSearchValue, setInputSearchValue] = useState("");
@@ -32,6 +35,34 @@ const ArtistsList = () => {
     setInputSearchValue("");
     setshowByInputField(artists);
     setBtnClose(false);
+  };
+  const handleDeleteArtist = (artist) => {
+    console.log(artist);
+    axiosSecure;
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/artists/${artist._id}`).then((res) => {
+          //console.log(res.data);
+          if (res.data.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: `${artist.name} has been deleted from artists list.`,
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
   };
   return (
     <div className="relative z-0 bg-black w-full h-full min-h-screen p-6">
@@ -116,7 +147,7 @@ const ArtistsList = () => {
                           </Link>
                         </li>
                         <li className="place-self-center">
-                          <button>
+                          <button onClick={() => handleDeleteArtist(artist)}>
                             <MdDelete className="text-3xl text-red-600" />
                           </button>
                         </li>
