@@ -13,6 +13,7 @@ const useVenues = () => {
       console.log(res.data);
       return res.data;
     },
+    enabled: !!user?.email,
   });
   return [venues, refetch];
 };

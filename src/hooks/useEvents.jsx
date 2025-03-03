@@ -12,6 +12,7 @@ const useEvents = () => {
       console.log("events from email based", res.data);
       return res.data;
     },
+    enabled: !!user?.email,
   });
   return [events, refetch];
 };

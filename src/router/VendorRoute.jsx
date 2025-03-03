@@ -4,7 +4,7 @@ import useRole from "../hooks/useRole";
 import animation from "../assets/Animation.gif";
 const VendorRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  const [role, roleloading] = useRole();
+  const [role, roleloading ] = useRole();
   const location = useLocation();
   if (!user && !loading) {
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
