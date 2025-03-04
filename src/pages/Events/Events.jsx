@@ -10,18 +10,38 @@ import { useEffect, useState } from "react";
 import useAllevents from "../../hooks/useAllevents";
 
 const Events = () => {
+  const [clearBtn, setClearBtn] = useState(false);
+  const [allevents] = useAllevents();
+  const [inputSearchValue, setInputSearchValue] = useState("");
+  const [showByInputField, setshowByInputField] = useState(allevents);
+
   const [hidebtn, setHideBtn] = useState(false);
   const [showCard, setShowCard] = useState(6);
-  const [allevents] = useAllevents();
-
-  console.log(allevents);
+  const handleSearch = () => {
+    if (inputSearchValue.trim() === "") {
+      setshowByInputField(allevents);
+    } else {
+      const serchedItem = allevents.filter((event) =>
+        event.eventtitle.toLowerCase().includes(inputSearchValue.toLowerCase())
+      );
+      setshowByInputField(serchedItem);
+      setClearBtn(true);
+    }
+  };
+  console.log("hi", showByInputField);
   const seeMoreEvent = () => {
     setShowCard(allevents.length);
     setHideBtn(true);
   };
   useEffect(() => {
     setShowCard(6);
-  }, []);
+    setshowByInputField(allevents);
+  }, [allevents]);
+  const handleClear = () => {
+    setClearBtn(false);
+    setshowByInputField("");
+    setshowByInputField(allevents);
+  };
   return (
     <div className="bg-[#0a1316] mx-auto sm:w-[88%] md:w-full ">
       <Header></Header>
@@ -36,8 +56,10 @@ const Events = () => {
             "Secure your spot at the most exciting events around you!"
           }></RouteTitle>
         <div className="py-12 flex items-center justify-center gap-0">
+          {/* =========== INPUT SEARCH ===========*/}
           <div className="container-input">
             <input
+              onChange={(e) => setInputSearchValue(e.target.value)}
               type="text"
               placeholder="Search event here..."
               name="text"
@@ -55,10 +77,17 @@ const Events = () => {
               />
             </svg>
           </div>
-          <button className="button-style">Search</button>
+          <button onClick={handleSearch} className="button-style">
+            Search
+          </button>
+          {clearBtn && (
+            <button onClick={handleClear} className="button-style ml-3">
+              Reset
+            </button>
+          )}
         </div>
         <div className="grid  grid-cols-1 px-4  w-full pt-4 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {allevents.slice(0, showCard).map((event) => (
+          {showByInputField.slice(0, showCard).map((event) => (
             <div
               key={event._id}
               className="card border  border-[#4c4f4e]  rounded-md relative w-full   bg-[#0f1c1c] shadow-md">

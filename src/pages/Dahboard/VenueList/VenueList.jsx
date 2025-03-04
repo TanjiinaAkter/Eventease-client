@@ -50,6 +50,7 @@ const VenueList = () => {
     } else {
       const serchedItem = venues.filter((ven) =>
         ven.name.toLowerCase().includes(inputSearchValue.toLowerCase())
+        
       );
       console.log("serchedItem", serchedItem);
       setshowByInputField(serchedItem);
