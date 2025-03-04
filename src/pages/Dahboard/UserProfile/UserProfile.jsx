@@ -1,4 +1,9 @@
+import { Link } from "react-router-dom";
+import useSingleUserDetail from "../../../hooks/useSingleUserDetail";
+
 const UserProfile = () => {
+  const [userinfo] = useSingleUserDetail();
+  console.log(userinfo);
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
       {/* FIRST DIV */}
@@ -6,58 +11,79 @@ const UserProfile = () => {
         <div className="flex mb-12 justify-start items-center space-y-4 flex-col">
           <img
             className="w-[12rem] h-[12rem] border-8 border-[#b58753] inset-3 object-cover rounded-full"
-            src="https://i.ibb.co.com/Xzx84Jx/colorful-paper-shopping-bags-blue-surface.jpg"
+            src={userinfo?.photo}
             alt=""
           />
           <h2 className=" text-lg md:text-2xl font-semibold text-white">
             Name :
-            <span className="text-[#44cfbf] pl-1 md:text-xl">Money honey</span>{" "}
+            <span className="text-[#44cfbf] pl-1 md:text-xl">
+              {userinfo?.name}
+            </span>
           </h2>
           <h2 className="text-lg md:text-2xl font-semibold">
             Email :
-            <span className="text-[#44cfbf] md:text-xl pr-1">a@gmail.com</span>{" "}
+            <span className="text-[#44cfbf] md:text-xl pr-1">
+              {userinfo?.email}
+            </span>
           </h2>
         </div>
       </div>
       {/* SECOND DIV */}
-      <div className="p-5 my-6 bg-[#0f1c1c] flex flex-col justify-center items-center mx-auto w-[90%]  md:w-[70%] text-white border-2 border-dotted border-[#4c4f4e]">
+      <div className="p-5 my-6 bg-[#0f1c1c] flex flex-col justify-center  mx-auto w-[90%]  md:w-[70%] text-white border-2 border-dotted border-[#4c4f4e]">
         <div className=" space-y-3">
           <div className="flex  items-center gap-3">
             <h2 className="md:text-xl font-semibold ">Name : </h2>
             <h3 className="text-base md:text-lg font-semibold text-[#44cfbf]">
-              sehdesd
+              {userinfo?.name}
             </h3>
           </div>
           <div className="flex  items-center gap-3">
             <h2 className="md:text-xl font-semibold ">Email : </h2>
             <h3 className="text-base md:text-lg font-semibold text-[#44cfbf]">
-              {" "}
-              a@gmail.com
+              {userinfo?.email}
             </h3>
           </div>
           <div className="flex  items-center gap-3">
             <h2 className="md:text-xl font-semibold ">Role : </h2>
             <h3 className="text-base md:text-lg font-semibold text-[#44cfbf]">
-              {" "}
-              User
+              {userinfo?.role}
             </h3>
           </div>
           <div className="flex  items-center gap-3">
             <h2 className="md:text-xl font-semibold ">Contact no : </h2>
             <h3 className="text-base md:text-lg font-semibold text-[#44cfbf]">
-              {" "}
-              34572345824
+              {userinfo?.phone}
+            </h3>
+          </div>
+          <div className="hidden  items-center gap-3">
+            <h2 className="md:text-xl font-semibold ">Company : </h2>
+            <h3 className="text-base md:text-lg font-semibold text-[#44cfbf]">
+              {userinfo?.company}
             </h3>
           </div>
           <div className="flex  items-center gap-3">
             <h2 className="md:text-xl font-semibold ">Address : </h2>
             <h3 className="text-base md:text-lg font-semibold text-[#44cfbf]">
-              uk, los angeles
+              {userinfo?.address}
+            </h3>
+          </div>
+          <div className="flex  items-center gap-3">
+            <h2 className="md:text-xl font-semibold ">City : </h2>
+            <h3 className="text-base md:text-lg font-semibold text-[#44cfbf]">
+              {userinfo?.city}
+            </h3>
+          </div>
+          <div className="flex  items-center gap-3">
+            <h2 className="md:text-xl font-semibold ">State : </h2>
+            <h3 className="text-base md:text-lg font-semibold text-[#44cfbf]">
+              {userinfo?.state}
             </h3>
           </div>
         </div>
         <div className="grid my-10 w-[90%] md:w-[40%] gap-3">
-          <button className="button-style">Edit Profile</button>
+          <Link to={`/dashboard/userprofileedit/${userinfo?._id}`}>
+            <button className="button-style">Edit Profile</button>
+          </Link>
         </div>
       </div>
     </div>

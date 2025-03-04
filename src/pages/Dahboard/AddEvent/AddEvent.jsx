@@ -11,7 +11,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
+import useArtists from "../../../hooks/useArtists";
 const AddEvent = () => {
+  const [artists] = useArtists();
+  console.log(artists);
   const [LoadingToImageUpload, setLoadingToImageUpload] = useState(false);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -246,19 +249,20 @@ const AddEvent = () => {
                   {...register("artist", { required: true })}
                   name="artist"
                   id=""
-                  className="py-3 focus:border-[#b58753]  focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
+                  className="py-3 focus:border-[#b58753]  focus:border-2 text-white bg-black border pl-2 border-gray-500 focus:outline-none rounded-none"
                   required>
                   {/* TO DO: ARTIST NAME WILL BE DYNAMIC */}
-                  <option className="text-white bg-black" disabled></option>
-                  <option className="text-black" value="sidnipiko">
-                    Sidnipikoer
+                  <option className="text-white bg-black " selected disabled>
+                    Select artist
                   </option>
-                  <option className="text-black" value="elonmask">
-                    Elon mask
-                  </option>
-                  <option className="text-black" value="   solwetiwue">
-                    Solwetiwue
-                  </option>
+                  {artists.map((artist) => (
+                    <option
+                      key={artist._id}
+                      value={artist.name}
+                      className="text-white bg-black">
+                      {artist.name}
+                    </option>
+                  ))}
                 </select>
               </div>
 

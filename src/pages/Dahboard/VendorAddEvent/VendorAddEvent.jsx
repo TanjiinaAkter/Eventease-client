@@ -9,10 +9,13 @@ import useCategories from "../../../hooks/useCategories";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
 import DatePicker from "react-datepicker";
+import useArtists from "../../../hooks/useArtists";
 
 const VendorAddEvent = () => {
-  const [LoadingToImageUpload, setLoadingToImageUpload] = useState(false);
   const { user } = useAuth();
+  const [artists] = useArtists();
+  const [LoadingToImageUpload, setLoadingToImageUpload] = useState(false);
+
   const axiosSecure = useAxiosSecure();
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -245,19 +248,20 @@ const VendorAddEvent = () => {
                   {...register("artist", { required: true })}
                   name="artist"
                   id=""
-                  className="py-3 focus:border-[#b58753]  focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
+                  className="py-3 focus:border-[#b58753]  focus:border-2 text-white bg-black border pl-2 border-gray-500 focus:outline-none rounded-none"
                   required>
                   {/* TO DO: ARTIST NAME WILL BE DYNAMIC */}
-                  <option className="text-white bg-black" disabled></option>
-                  <option className="text-black" value="sidnipiko">
-                    Sidnipikoer
+                  <option className="text-white bg-black " selected disabled>
+                    Select artist
                   </option>
-                  <option className="text-black" value="elonmask">
-                    Elon mask
-                  </option>
-                  <option className="text-black" value="   solwetiwue">
-                    Solwetiwue
-                  </option>
+                  {artists.map((artist) => (
+                    <option
+                      key={artist._id}
+                      value={artist.name}
+                      className="text-white bg-black">
+                      {artist.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               {/* EVENT STATUS */}

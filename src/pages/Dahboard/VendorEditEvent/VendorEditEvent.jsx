@@ -10,8 +10,10 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import DatePicker from "react-datepicker";
 import { useParams } from "react-router-dom";
+import useArtists from "../../../hooks/useArtists";
 
 const VendorEditEvent = () => {
+  const [artists] = useArtists();
   const [inputColor, setInputColor] = useState("text-gray-400");
   const { id } = useParams();
   const [LoadingToImageUpload, setLoadingToImageUpload] = useState(false);
@@ -76,6 +78,7 @@ const VendorEditEvent = () => {
     setValue("phone", event?.phone);
     setValue("eventstartdate", startDate);
     setValue("eventenddate", endDate);
+   setValue("eventstatus", event.eventstatus);
     setValue("email", user?.email);
   }, [venues, categories, user, setValue, events, id]);
   const onSubmit = async (data) => {
@@ -276,19 +279,20 @@ const VendorEditEvent = () => {
                   {...register("artist", { required: true })}
                   name="artist"
                   id=""
-                  className="py-3 focus:border-[#b58753]  focus:border-2 text-white border pl-2 border-gray-500 focus:outline-none rounded-none"
+                  className="py-3 focus:border-[#b58753]  focus:border-2 text-white bg-black border pl-2 border-gray-500 focus:outline-none rounded-none"
                   required>
                   {/* TO DO: ARTIST NAME WILL BE DYNAMIC */}
-                  <option className="text-white bg-black" disabled></option>
-                  <option className="text-black" value="sidnipiko">
-                    Sidnipikoer
+                  <option className="text-white bg-black " selected disabled>
+                    Select artist
                   </option>
-                  <option className="text-black" value="elonmask">
-                    Elon mask
-                  </option>
-                  <option className="text-black" value="   solwetiwue">
-                    Solwetiwue
-                  </option>
+                  {artists.map((artist) => (
+                    <option
+                      key={artist._id}
+                      value={artist.name}
+                      className="text-white bg-black">
+                      {artist.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="flex flex-col w-full md:w-1/2  space-y-3">

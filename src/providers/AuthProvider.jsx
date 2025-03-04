@@ -34,19 +34,24 @@ const AuthProvider = ({ children }) => {
         const userInfo = {
           email: currentUser.email,
         };
-        axiosPublic.post("/jwt", userInfo).then((res) => {
-          console.log(res.data.token);
-          if (res.data.token) {
-            localStorage.setItem("access-token", res.data.token);
-            setLoading(false);
-          }
-        });
+        axiosPublic
+          .post("/jwt", userInfo)
+          .then((res) => {
+            console.log(res.data.token);
+            if (res.data.token) {
+              localStorage.setItem("access-token", res.data.token);
+            }
+          })
+          .catch((err) => {
+            console.error("JWT Error:", err);
+          })
+          .finally(() => setLoading(false));
       } else {
         localStorage.removeItem("access-token");
         setLoading(false);
       }
     });
-    //clean up function 
+    //clean up function
     return () => {
       return unSubscribe();
     };
@@ -68,14 +73,36 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
   // UPDATE USER NAME AND PHOTO
-  const updateUserProfile = (name, photo) => {
-    setLoading(true);
-    // just authprovider ei same firebase er moto photoURL ar displayName dite hobe
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo,
-    });
+  const updateUserProfile = async (name, photo) => {
+    setLoading(true); // Start loading
+  
+    try {
+      // Update the Firebase auth profile
+       // just authprovider ei same firebase er moto photoURL ar displayName dite hobe
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: photo,
+      });
+  
+      // Optionally, handle any additional logic here (e.g., notifications, etc.)
+      console.log("Profile updated successfully!");
+      
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      // Optionally, handle errors (show a message to the user, etc.)
+    } finally {
+      setLoading(false); // Stop loading after the update process
+    }
   };
+  
+  // const updateUserProfile = (name, photo) => {
+  //   setLoading(true);
+  //   // just authprovider ei same firebase er moto photoURL ar displayName dite hobe
+  //   return updateProfile(auth.currentUser, {
+  //     displayName: name,
+  //     photoURL: photo,
+  //   });
+  // };
 
   //============ EMAIL VERIFICATION TO THE USER ===============//
   const verifyEmail = () => {

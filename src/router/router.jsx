@@ -133,7 +133,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "adminprofileedit",
+        path: "adminprofileedit/:id",
         element: (
           <AdminRoute>
             <AdminProfileEdit></AdminProfileEdit>
@@ -377,7 +377,7 @@ const router = createBrowserRouter([
       },
       // TO DO : EI ROUTE ADD korte hobe
       {
-        path: "vendorprofileedit",
+        path: "vendorprofileedit/:id",
         element: (
           <VendorRoute>
             <VendorProfileEdit></VendorProfileEdit>
@@ -410,7 +410,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "userprofileedit",
+        path: "userprofileedit/:id",
         element: (
           <PrivateRoute>
             <UserProfileEdit></UserProfileEdit>
