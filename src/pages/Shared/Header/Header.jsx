@@ -148,7 +148,7 @@ const Header = () => {
         </div>
         {user ? (
           <>
-            <div>
+            <div >
               <Link
                 to={
                   role === "Admin"
@@ -158,7 +158,7 @@ const Header = () => {
                     : "/dashboard/userdashboard"
                 }>
                 <img
-                  className="w-[4rem] h-[4rem] rounded-full  border-white border-4 object-cover "
+                  className="w-[4rem]  h-[4rem] rounded-full hover:opacity-65 hover:scale-105 transition-all duration-300 border-white hover:border-teal-300 border-4 object-cover "
                   src={user?.photoURL}
                   alt=""
                 />
