@@ -49,7 +49,7 @@ const Events = () => {
         <title>EventEase | Events</title>
       </Helmet>
 
-      <div className="mx-auto w-[80%] md:w-[97%]">
+      <div className="mx-auto w-[88%] md:w-[97%]">
         <RouteTitle
           routetitle={"Uncover Unforgettable Experiences"}
           routesubtitle={
@@ -86,47 +86,52 @@ const Events = () => {
             </button>
           )}
         </div>
-        <div className="grid  grid-cols-1 px-4  w-full pt-4 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid  grid-cols-1 md:px-4  w-full pt-4 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {showByInputField.slice(0, showCard).map((event) => (
             <div
               key={event._id}
               className="card border  border-[#4c4f4e]  rounded-md relative w-full   bg-[#0f1c1c] shadow-md">
-              <figure className="w-full">
-                <img
-                  className="rounded-none h-[10rem] w-full object-cover hover:scale-105 transition-transform duration-300"
-                  src={event.eventimage}
-                  alt="Shoes"
-                />
-              </figure>
+              <Link to={`/eventdetail/${event._id}`}>
+                <figure className="w-full">
+                  <img
+                    className="rounded-none h-[10rem] w-full object-cover hover:scale-105 transition-transform duration-300"
+                    src={event.eventimage}
+                    alt="Shoes"
+                  />
+                </figure>
+              </Link>
+
               <div className="absolute top-3 p-2 rounded-sm right-3 bg-black text-white font-semibold">
                 ${event.ticketprice}
               </div>
-              <div className="card-body p-4">
-                <h2 className="card-title text-white">{event.eventtitle}</h2>
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center  gap-2">
-                    <SlCalender className="text-white font-semibold"></SlCalender>
-                    <p className="text-white ">{event.eventstartdate}</p>
+              <Link to={`/eventdetail/${event._id}`}>
+                <div className="card-body p-4">
+                  <h2 className="card-title text-white">{event.eventtitle}</h2>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center  gap-2">
+                      <SlCalender className="text-white font-semibold"></SlCalender>
+                      <p className="text-white ">{event.eventstartdate}</p>
+                    </div>
+                    <div className="flex items-center  gap-2">
+                      <SlCalender className="text-white font-semibold"></SlCalender>
+                      <p className="text-white ">{event.eventenddate}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center  gap-2">
-                    <SlCalender className="text-white font-semibold"></SlCalender>
-                    <p className="text-white ">{event.eventenddate}</p>
+                  <div className="flex items-center gap-2">
+                    <FaLocationDot className="text-white font-semibold"></FaLocationDot>
+                    <p className="text-white">{event.venue}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <FaTicketAlt className="text-white  font-semibold"></FaTicketAlt>
+                    <p className="text-white ">{event.ticket}</p>
+                  </div>
+                  <div className="card-actions md:absolute md:my-4 md:right-3 md:bottom-0 justify-end">
+                    <Link to={`/eventdetail/${event._id}`}>
+                      <button className="button-style ">View details</button>
+                    </Link>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <FaLocationDot className="text-white font-semibold"></FaLocationDot>
-                  <p className="text-white">{event.venue}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <FaTicketAlt className="text-white  font-semibold"></FaTicketAlt>
-                  <p className="text-white ">{event.ticket}</p>
-                </div>
-                <div className="card-actions md:absolute md:my-4 md:right-3 md:bottom-0 justify-end">
-                  <Link to={`/eventdetail/${event._id}`}>
-                    <button className="button-style ">View details</button>
-                  </Link>
-                </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
