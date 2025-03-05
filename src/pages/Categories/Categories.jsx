@@ -4,8 +4,18 @@ import Header from "../../pages/Shared/Header/Header";
 import { IoIosTime } from "react-icons/io";
 import { IoLocation } from "react-icons/io5";
 import { BsTicketPerforatedFill } from "react-icons/bs";
+import useCategories from "../../hooks/useCategories";
+import useAllevents from "../../hooks/useAllevents";
 
 const Categories = () => {
+  const [categories] = useCategories();
+  const [allevents] = useAllevents();
+  // CATEGORY BASED DYNAMIC EVENTS
+  const categorizedEvents = categories.map((category) => ({
+    name: category.name,
+    icon: category.categoryicon,
+    events: allevents.filter((event) => event.category === category.name),
+  }));
   return (
     <div className="bg-[#0a1316] mx-auto sm:w-[88%] md:w-full ">
       <Header></Header>
@@ -16,195 +26,79 @@ const Categories = () => {
         }></RouteTitle>
       <div className="grid grid-cols-1 gap-5 space-y-3 mt-5 ">
         {/*============= CATEGORY-1 DESIGN ============= */}
-        <div className="bg-[#152626] rounded-lg mx-auto w-full md:w-[97%] p-4">
-          <div className="flex items-center gap-2">
-            <img
-              className="h-[3rem] bg-white w-[3rem] rounded-full object-cover"
-              src="https://i.ibb.co.com/v6FvBqzq/academic.png"
-              alt=""
-            />
-            <div className="text-white">
-              <h2 className="text-xl text-[#44cfbf]">Concert</h2>
-              <p>3 events available</p>
-            </div>
-          </div>
-          {/*============= CARD DESIGN ============= */}
-          <div className="grid grid-cols-1 mx-auto w-[88%] md:w-[97%]   md:grid-cols-2 lg:grid-cols-2 gap-16 space-y-3 my-5">
-            <div className="card  hover:scale-105 transition-all ease-in-out duration-500 flex md:h-[18rem] lg:h-[15rem] rounded-none flex-col md:flex-row card-side bg-base-100 shadow-xl">
-              <figure className="flex justify-center items-center">
-                <img
-                  className=" w-full"
-                  src="https://i.ibb.co.com/4wpbwvwr/product-school-Gajr-OEN6m4-unsplash.jpg"
-                  alt="Movie"
-                />
-              </figure>
-              <div className="card-body p-[1rem]  relative   rounded-none">
-                <h2 className="text-[#b58753] capitalize font-semibold text-2xl">
-                  Global Creative Minds Festival
-                </h2>
 
-                <p className="text-[#6a6d6a]">
-                  A premier event for tech leaders and enthusiasts to explore
-                  innovations, network, and gain insights into the
-                </p>
-                <div className="card-actions justify-between flex shadow-md p-2 ">
-                  <div className="flex items-center gap-1">
-                    <MdOutlineDateRange className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">12/02/25</p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <IoIosTime className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">05:00 </p>
-                  </div>
-                </div>
-                <div className="card-actions justify-between flex shadow-md p-2 ">
-                  <div className="flex items-center gap-1">
-                    <IoLocation className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">London</p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <BsTicketPerforatedFill className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">$ 100 </p>
-                  </div>
-                </div>
+        {categorizedEvents.map((category) => (
+          <div
+            key={category.name}
+            className="bg-[#152626] rounded-lg mx-auto h-max w-full md:w-[97%] p-4">
+            <div className="flex items-center gap-2">
+              <img
+                className="h-[3rem] bg-white w-[3rem] rounded-full object-cover"
+                src={category.icon}
+                alt=""
+              />
+              <div className="text-white">
+                <h2 className="text-xl text-[#44cfbf]">{category.name}</h2>
+                <p>{category.events.length} events available</p>
               </div>
             </div>
-            <div className="card  hover:scale-105 transition-all ease-in-out duration-500 flex md:h-[18rem] lg:h-[15rem] rounded-none flex-col md:flex-row card-side bg-base-100 shadow-xl">
-              <figure className="flex justify-center items-center">
-                <img
-                  className=" w-full"
-                  src="https://i.ibb.co.com/4wpbwvwr/product-school-Gajr-OEN6m4-unsplash.jpg"
-                  alt="Movie"
-                />
-              </figure>
-              <div className="card-body p-[1rem]  relative   rounded-none">
-                <h2 className="text-[#b58753] capitalize font-semibold text-2xl">
-                  Global Creative Minds Festival
-                </h2>
+            {/*============= CARD DESIGN ============= */}
+            <div className="grid grid-cols-1 mx-auto w-[88%] md:w-[97%]   md:grid-cols-2 lg:grid-cols-2 gap-16 space-y-3 my-5">
+              {category.events.length > 0 ? (
+                category.events.map((event) => (
+                  <div
+                    key={event._id}
+                    className="card  hover:scale-105 transition-all ease-in-out duration-500 flex md:h-[20rem] rounded-none flex-col md:flex-row card-side bg-base-100 shadow-xl">
+                    <div className="flex w-full justify-center items-center">
+                      <img
+                        className=" w-[20rem] h-full object-cover"
+                        src={event.eventimage}
+                        alt="Movie"
+                      />
+                    </div>
+                    <div className="card-body p-[1rem]  relative   rounded-none">
+                      <h2 className="text-[#b58753] capitalize font-semibold text-2xl">
+                        {event.eventtitle}
+                      </h2>
 
-                <p className="text-[#6a6d6a]">
-                  A premier event for tech leaders and enthusiasts to explore
-                  innovations, network, and gain insights into the
-                </p>
-                <div className="card-actions justify-between flex shadow-md p-2 ">
-                  <div className="flex items-center gap-1">
-                    <MdOutlineDateRange className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">12/02/25</p>
+                      <p className="text-[#6a6d6a]">{event.description}</p>
+                      <div className="card-actions justify-between flex shadow-md p-2 ">
+                        <div className="flex items-center gap-1">
+                          <MdOutlineDateRange className="text-[#b58753]" />
+                          <p className="text-[#6a6d6a] font-semibold ">
+                            {event.eventstartdate}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <IoIosTime className="text-[#b58753]" />
+                          <p className="text-[#6a6d6a] font-semibold ">
+                            {event.eventstartdate}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="card-actions justify-between flex shadow-md p-2 ">
+                        <div className="flex items-center gap-1">
+                          <IoLocation className="text-[#b58753]" />
+                          <p className="text-[#6a6d6a] font-semibold ">
+                            {event.venue}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <BsTicketPerforatedFill className="text-[#b58753]" />
+                          <p className="text-[#6a6d6a] font-semibold ">
+                            $ {event.ticketprice}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <IoIosTime className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">05:00 </p>
-                  </div>
-                </div>
-                <div className="card-actions justify-between flex shadow-md p-2 ">
-                  <div className="flex items-center gap-1">
-                    <IoLocation className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">London</p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <BsTicketPerforatedFill className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">$ 100 </p>
-                  </div>
-                </div>
-              </div>
+                ))
+              ) : (
+                <p className="text-center text-white">No events available</p>
+              )}
             </div>
           </div>
-        </div>
-        {/*============= CATEGORY-1 DESIGN ============= */}
-        <div className="bg-[#152626]  rounded-lg mx-auto w-full md:w-[97%] p-4">
-          <div className="flex items-center gap-2">
-            <img
-              className="h-[3rem] bg-white w-[3rem] rounded-full object-cover"
-              src="https://i.ibb.co.com/v6FvBqzq/academic.png"
-              alt=""
-            />
-            <div className="text-white">
-              <h2 className="text-xl text-[#44cfbf]">Concert</h2>
-              <p>3 events available</p>
-            </div>
-          </div>
-          {/*============= CARD DESIGN ============= */}
-          <div className="grid grid-cols-1 mx-auto w-[88%] md:w-[97%]   md:grid-cols-2 lg:grid-cols-2 gap-16 space-y-3 my-5">
-            <div className="card  hover:scale-105 transition-all ease-in-out duration-500 flex md:h-[18rem] lg:h-[15rem] rounded-none flex-col md:flex-row card-side bg-base-100 shadow-xl">
-              <figure className="flex justify-center items-center">
-                <img
-                  className=" w-full"
-                  src="https://i.ibb.co.com/4wpbwvwr/product-school-Gajr-OEN6m4-unsplash.jpg"
-                  alt="Movie"
-                />
-              </figure>
-              <div className="card-body p-[1rem]  relative   rounded-none">
-                <h2 className="text-[#b58753] capitalize font-semibold text-2xl">
-                  Global Creative Minds Festival
-                </h2>
-
-                <p className="text-[#6a6d6a]">
-                  A premier event for tech leaders and enthusiasts to explore
-                  innovations, network, and gain insights into the
-                </p>
-                <div className="card-actions justify-between flex shadow-md p-2 ">
-                  <div className="flex items-center gap-1">
-                    <MdOutlineDateRange className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">12/02/25</p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <IoIosTime className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">05:00 </p>
-                  </div>
-                </div>
-                <div className="card-actions justify-between flex shadow-md p-2 ">
-                  <div className="flex items-center gap-1">
-                    <IoLocation className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">London</p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <BsTicketPerforatedFill className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">$ 100 </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="card  hover:scale-105 transition-all ease-in-out duration-500 flex md:h-[18rem] lg:h-[15rem] rounded-none flex-col md:flex-row card-side bg-base-100 shadow-xl">
-              <figure className="flex justify-center items-center">
-                <img
-                  className=" w-full"
-                  src="https://i.ibb.co.com/4wpbwvwr/product-school-Gajr-OEN6m4-unsplash.jpg"
-                  alt="Movie"
-                />
-              </figure>
-              <div className="card-body p-[1rem]  relative   rounded-none">
-                <h2 className="text-[#b58753] capitalize font-semibold text-2xl">
-                  Global Creative Minds Festival
-                </h2>
-
-                <p className="text-[#6a6d6a]">
-                  A premier event for tech leaders and enthusiasts to explore
-                  innovations, network, and gain insights into the
-                </p>
-                <div className="card-actions justify-between flex shadow-md p-2 ">
-                  <div className="flex items-center gap-1">
-                    <MdOutlineDateRange className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">12/02/25</p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <IoIosTime className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">05:00 </p>
-                  </div>
-                </div>
-                <div className="card-actions justify-between flex shadow-md p-2 ">
-                  <div className="flex items-center gap-1">
-                    <IoLocation className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">London</p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <BsTicketPerforatedFill className="text-[#b58753]" />
-                    <p className="text-[#6a6d6a] font-semibold ">$ 100 </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
