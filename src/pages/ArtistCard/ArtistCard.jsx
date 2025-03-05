@@ -3,13 +3,22 @@ import RouteTitle from "../../components/RouteTitle";
 import Header from "../Shared/Header/Header";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useArtists from "../../hooks/useArtists";
 const ArtistCard = () => {
+  const [artist, setArtist] = useState([]);
+  const { id } = useParams();
+  const [artists] = useArtists();
   useEffect(() => {
     AOS.init({
       duration: 1200,
     });
-  }, []);
+    if (artists.length > 0) {
+      const getArtistData = artists.find((artist) => artist._id === id);
+      setArtist(getArtistData);
+    }
+  }, [id, artists]);
   return (
     <div className="bg-[#0a1316]  mx-auto sm:w-[88%] md:w-full ">
       <Header></Header>
@@ -21,8 +30,8 @@ const ArtistCard = () => {
       <div className="flex mx-3 mb-5 relative flex-col justify-between items-center gap-5 md:flex-row ">
         <div className="md:w-[50%] flex justify-center items-center  w-full ">
           <img
-            className="h-[20rem] md:h-[36rem] object-cover "
-            src="https://i.ibb.co.com/tpWTj9p7/high-angle-buisness-man-23-2148479585.jpg"
+            className="h-[20rem] w-full md:h-[36rem] object-cover "
+            src={artist.photo}
             alt=""
           />
         </div>
@@ -32,23 +41,28 @@ const ArtistCard = () => {
           <div className="absolute opacity-55 inset-0  bg-[#44cfbf]"></div>
           <div className="flex  flex-col w-full text-center  z-50 top-[50%] left-[50%] transform  translate-x-[-50%] translate-y-[-50%] absolute  space-y-5">
             <h3 className="text-3xl md:text-2xl font-semibold ">
-              welqun roiun
+              {artist.name}
             </h3>
-            <h3 className="text-xl md:text-2xl  font-semibold">Comedian</h3>
             <h3 className="text-xl md:text-2xl  font-semibold">
-              email : a@gmail.com
+              {artist.genre}
             </h3>
-            <h3 className="text-xl md:text-2xl  font-semibold">982e32282775</h3>
+            <h3 className="text-xl md:text-2xl  font-semibold">
+              email : {artist.email}
+            </h3>
+            <h3 className="text-xl md:text-2xl  font-semibold">
+              {artist.phone}
+            </h3>
             <div className="flex justify-center my-6 items-center gap-3">
-              <div className="p-3  hover:scale-125 hover:ease-in-out transform hover:duration-1000  rounded-sm border border-white text-959590">
+              <a target="_blank"
+                href={artist.facebooklink}
+                className="p-3  hover:scale-125 hover:ease-in-out transform hover:duration-1000  rounded-sm border border-white text-959590">
                 <FaFacebookF></FaFacebookF>
-              </div>
-              <div className="p-3  hover:scale-125 hover:ease-out transform hover:duration-1000  rounded-sm border border-white text-959590">
+              </a>
+              <a
+                href={artist.instagramlink} target="_blank"
+                className="p-3  hover:scale-125 hover:ease-out transform hover:duration-1000  rounded-sm border border-white text-959590">
                 <FaInstagram />
-              </div>
-              <div className="p-3  hover:scale-125 hover:ease-in-out transform hover:duration-1000  rounded-sm border border-white text-959590">
-                <FaFacebookF></FaFacebookF>
-              </div>
+              </a>
             </div>
           </div>
         </div>

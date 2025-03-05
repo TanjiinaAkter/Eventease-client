@@ -26,7 +26,7 @@ const Featured = () => {
       <div>
         <Swiper
           slidesPerView={4}
-          spaceBetween={30}
+          spaceBetween={40}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,

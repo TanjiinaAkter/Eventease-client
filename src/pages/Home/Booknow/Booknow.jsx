@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { SlCalender } from "react-icons/sl";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Link } from "react-router-dom";
 const Booknow = () => {
   useEffect(() => {
     AOS.init({
@@ -20,9 +21,11 @@ const Booknow = () => {
           <p className="text-[#b58753]  text-[33px] font-semibold md:text-4xl">
             Ready to Create Your Next Event?
           </p>
-          <div className="flex justify-start">
-            <button className="button-style">Plan your event </button>
-          </div>
+          <Link to='/events'>
+            <div className="flex justify-start">
+              <button className="button-style">Plan your event </button>
+            </div>
+          </Link>
         </div>
         <div className="flex flex-col my-4 gap-5 w-full md:w-1/2 justify-between items-start">
           <div

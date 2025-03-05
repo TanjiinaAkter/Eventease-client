@@ -1,4 +1,5 @@
 import { BsTicketPerforated } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Joinevent = () => {
   return (
@@ -15,9 +16,11 @@ const Joinevent = () => {
             Streamline, engage, and elevate every event with our game-changing
             platform!
           </p>
-          <button className="button-style flex items-center my-5 gap-2">
-            Buy ticket <BsTicketPerforated className="text-xl" />
-          </button>
+          <Link to="/events">
+            <button className="button-style flex items-center my-5 gap-2">
+              Buy ticket <BsTicketPerforated className="text-xl" />
+            </button>
+          </Link>
         </div>
         <div className="grid w-full md:w-1/2 grid-cols-1 md:grid-cols-2 gap-6">
           <div className=" singleCard h-40 duration-500 group overflow-hidden relative rounded bg-[#0f1c1c] text-neutral-50 p-4 flex flex-col justify-evenly">

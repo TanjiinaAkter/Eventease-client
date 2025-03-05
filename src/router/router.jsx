@@ -78,7 +78,7 @@ const router = createBrowserRouter([
         element: <Singleenventcard></Singleenventcard>,
       },
       {
-        path: "artistdetail",
+        path: "artistdetail/:id",
         element: <ArtistCard></ArtistCard>,
       },
       {

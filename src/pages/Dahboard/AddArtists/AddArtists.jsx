@@ -5,11 +5,14 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
+import { useState } from "react";
 
 const AddArtists = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  const [LoadingToImageUpload, setLoadingToImageUpload] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -21,6 +24,7 @@ const AddArtists = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
+    setLoadingToImageUpload(true);
     const image = { image: data.photo[0] };
     const res = await axiosPublic.post(image_hosting_api, image, {
       headers: {
@@ -44,6 +48,7 @@ const AddArtists = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data.insertedId) {
+            setLoadingToImageUpload(false);
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -55,6 +60,7 @@ const AddArtists = () => {
           }
         })
         .catch((error) => {
+          setLoadingToImageUpload(false);
           console.log(error);
         });
     }
@@ -226,8 +232,11 @@ const AddArtists = () => {
               </div>
             </div>
             <div className="grid md:w-full my-7">
-              <button type="submit" className="button-style">
-                CREATE ARTIST
+              <button
+                className={`button-style ${
+                  LoadingToImageUpload ? "cursor-not-allowed bg-gray-500" : ""
+                }`}>
+                {LoadingToImageUpload ? "Processing..." : " CREATE ARTIST"}
               </button>
             </div>
           </form>
