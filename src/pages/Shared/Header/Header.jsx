@@ -4,10 +4,12 @@ import "./header.css";
 import { FaShoppingCart } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
 import useRole from "../../../hooks/useRole";
+import useCarts from "../../../hooks/useCarts";
 const Header = () => {
   const { user, logOut } = useAuth();
+  const [allcarts] = useCarts();
   const [role] = useRole();
-  console.log(role);
+  console.log(role, allcarts);
   const location = useLocation();
   const isHome = location.pathname === "/";
   const lists = (
@@ -138,10 +140,16 @@ const Header = () => {
         {role === "User" ? (
           <div className="hover:bg-[#3cac9f] hover:rotate-12 group relative bg-amber-300transition-transform ease-in-out duration-300 p-2 border border-[#3cac9f] rounded-full">
             <Link to="/cart">
-              <FaShoppingCart className="text-xl group-hover:text-black text-[#3cac9f] "></FaShoppingCart>
-              <div className="absolute   -top-3 -right-2 h-5 w-5 flex justify-center items-center bg-red-600 rounded-full font-semibold text-xl text-white">
-                <span>1</span>
-              </div>
+              {user ? (
+                <>
+                  <FaShoppingCart className="text-xl group-hover:text-black text-[#3cac9f] "></FaShoppingCart>
+                  <div className="absolute   -top-3 -right-2 h-5 w-5 flex justify-center items-center bg-red-600 rounded-full font-semibold text-xl text-white">
+                    <span>{allcarts?.length}</span>
+                  </div>
+                </>
+              ) : (
+                0
+              )}
             </Link>
           </div>
         ) : (
