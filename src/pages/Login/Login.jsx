@@ -53,7 +53,7 @@ const Login = () => {
     // );
     signIn(data.email, data.password)
       .then((res) => {
-        console.log(res.user);
+        console.log('user info in signin page',res.user);
         if (res.user.emailVerified) {
           Swal.fire({
             title: "logged in successfull!!",

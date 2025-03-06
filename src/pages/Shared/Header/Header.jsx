@@ -7,6 +7,7 @@ import useRole from "../../../hooks/useRole";
 const Header = () => {
   const { user, logOut } = useAuth();
   const [role] = useRole();
+  console.log(role);
   const location = useLocation();
   const isHome = location.pathname === "/";
   const lists = (
@@ -66,17 +67,7 @@ const Header = () => {
           Venues
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "text-[#b58753] relative after:absolute after:w-full after:bg-[#b58753] after:left-0 after:bottom-0 after:h-[2px] after:scale-x-100 after:transition-transform after:duration-300 after:ease-in-out"
-              : "text-[#3cac9f] relative after:absolute after:w-full after:bg-[#3cac9f] after:h-[2px] after:left-0 after:bottom-0 after:scale-x-0 hover:after:scale-x-100 after:duration-300 after:ease-in-out after:transition-transform"
-          }
-          to="/cart">
-          cartPage
-        </NavLink>
-      </li>
+
       <li>
         <NavLink
           className={({ isActive }) =>
@@ -142,13 +133,23 @@ const Header = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{lists}</ul>
       </div>
-      <div className="flex mb-2 md:mb-0 items-center  gap-3 md:navbar-end">
-        <div className="hover:text-black hover:bg-[#3cac9f] transition-transform ease-in-out duration-300 p-2 border border-[#3cac9f] rounded-full">
-          <FaShoppingCart className="text-xl text-[#3cac9f] hover:text-black"></FaShoppingCart>
-        </div>
+      {/* //text-[#3cac9f]  bg-[#3cac9f] */}
+      <div className="flex  mb-2 md:mb-0 items-center  gap-3 md:navbar-end">
+        {role === "User" ? (
+          <div className="hover:bg-[#3cac9f] hover:rotate-12 group relative bg-amber-300transition-transform ease-in-out duration-300 p-2 border border-[#3cac9f] rounded-full">
+            <Link to="/cart">
+              <FaShoppingCart className="text-xl group-hover:text-black text-[#3cac9f] "></FaShoppingCart>
+              <div className="absolute   -top-3 -right-2 h-5 w-5 flex justify-center items-center bg-red-600 rounded-full font-semibold text-xl text-white">
+                <span>1</span>
+              </div>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
         {user ? (
           <>
-            <div >
+            <div>
               <Link
                 to={
                   role === "Admin"

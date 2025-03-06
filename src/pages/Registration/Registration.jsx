@@ -55,7 +55,7 @@ const Registration = () => {
                 city: "",
                 state: "",
               };
-              console.log(userInfo);
+              console.log("userInfo in signup page", userInfo);
               axiosPublic
                 .post("/users", userInfo)
                 .then((res) => {

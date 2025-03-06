@@ -6,25 +6,85 @@ import { FaFacebookF, FaInstagram, FaPhone } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import useAllevents from "../../hooks/useAllevents";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MdGroup } from "react-icons/md";
 import useAllVenues from "../../hooks/useAllVenues";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import useCarts from "../../hooks/useCarts";
 const Singleenventcard = () => {
   const { id } = useParams();
+  const [isIncart, setIsInCart] = useState(false);
+  const [allcarts, refetch] = useCarts();
+  const [event, setEvent] = useState([]);
+  console.log(event, id);
+  const navigate = useNavigate();
   const [allevents] = useAllevents();
   const [venues] = useAllVenues();
-  const [event, setEvent] = useState([]);
   const [location, setlocation] = useState("");
-  console.log("location", location);
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+
   useEffect(() => {
     if (allevents.length > 0 && venues.length > 0) {
       const eventDetail = allevents.find((event) => event._id === id);
       setEvent(eventDetail);
+      if (eventDetail) {
+        const cartitemfound = allcarts.some((item) => item.eventId === id);
+        setIsInCart(cartitemfound);
+      }
       const venueLocation = venues.find((venue) => venue.name === event.venue);
-
       setlocation(venueLocation);
     }
-  }, [allevents, id, venues, event]);
+  }, [allevents, id, venues, event, allcarts]);
+  const handleAddToCart = (event) => {
+    if (user && user?.email) {
+      axiosSecure
+        .post("/carts", {
+          userEmail: user?.email,
+          eventId: event._id,
+          name: event.eventtitle,
+          photo: event.eventimage,
+          startdate: event.eventstartdate,
+          enddate: event.eventenddate,
+          price: event.ticketprice,
+          quantity: 1,
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            refetch();
+            setIsInCart(true);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${event.eventtitle} id added to the cart`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      Swal.fire({
+        title: "You are not logged in",
+        text: "Please login to add to cart",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Login",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          //{ state: { from: location } }
+          navigate("/login");
+        }
+      });
+    }
+  };
   return (
     <div className=" bg-[#0a1316]">
       <Header></Header>
@@ -45,11 +105,6 @@ const Singleenventcard = () => {
               <div className="flex flex-col gap-3">
                 <h3 className="text-white text-center text-lg font-semibold">
                   - ORGANIZED BY -
-                  {/* <h3 className="text-center text-base">
-                    {" "}
-                    <MdGroup className="text-[#b58753] text-2xl font-semibold" />
-                    {event.vendor}
-                  </h3> */}
                 </h3>
                 <h2 className=" text-white text-base md:text-lg flex items-center gap-1 md:gap-2 justify-center">
                   <MdGroup className="text-[#b58753] text-2xl font-semibold" />
@@ -104,9 +159,16 @@ const Singleenventcard = () => {
               <p className="text-white mt-4 border-l-4 pl-1 border-white">
                 {event.category} -
               </p>
-              {/* // TO DO: CARTPAGE E NIYE JABO */}
+              {/* // TO DO: CART PAGE E NIYE JABO */}
               <div className="flex justify-start my-6">
-                <button className="button-style">Buy Tickets</button>
+                <button
+                  disabled={isIncart}
+                  onClick={() => handleAddToCart(event)}
+                  className={`button-style ${
+                    isIncart ? " cursor-not-allowed bg-green-400" : ""
+                  }`}>
+                  {isIncart ? "Already Booked" : " BOOK NOW"}
+                </button>
               </div>
             </div>
           </div>
@@ -137,15 +199,12 @@ const Singleenventcard = () => {
           <div className=" flex border-[1px] border-t-[#4c4f4e] bg-[#0a1316] col-span-3 flex-col justify-center  items-center">
             <div className="py-7  space-y-7  mx-auto w-[70%]">
               <p className="text-semibold  text-justify text-white text-xl">
-                EVENET DESCRIPTION
+                EVENT DESCRIPTION
               </p>
 
               <p className="text-white  text-justify text-base">
                 {event.description}
               </p>
-              <div className="flex md:flex-row items-center justify-start my-3">
-                <button className="button-style">Book Now </button>
-              </div>
             </div>
           </div>
         </div>

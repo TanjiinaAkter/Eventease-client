@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import { FaClipboardList, FaStore, FaUserFriends } from "react-icons/fa";
+import {
+  FaClipboardList,
+  FaShoppingBasket,
+  FaStore,
+  FaUserFriends,
+} from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoIosLogOut } from "react-icons/io";
 import { IoPeople } from "react-icons/io5";
@@ -173,6 +178,11 @@ const Dashboard = () => {
                     label: "Your Orders",
                   },
 
+                  {
+                    to: "/cart",
+                    icon: <FaShoppingBasket />,
+                    label: "My Cart",
+                  },
                   {
                     to: "/",
                     icon: <IoIosLogOut />,

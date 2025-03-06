@@ -12,9 +12,9 @@ const SocialLogin = () => {
     googleSign()
       .then((res) => {
         const userInfo = {
-          email: res.user.email,
-          name: res.user.displayName,
-          photo: res.user.photoURL,
+          email: res.user?.email,
+          name: res.user?.displayName,
+          photo: res.user?.photoURL,
           company: "",
           phone: "",
           address: "",
@@ -24,8 +24,8 @@ const SocialLogin = () => {
 
         axiosPublic.post("/users", userInfo).then((res) => {
           console.log(res.data);
+          navigate("/");
         });
-        navigate("/");
       })
 
       .catch((error) => {

@@ -3,7 +3,10 @@ import Header from "../Shared/Header/Header";
 import { IoLocation } from "react-icons/io5";
 import { FaCirclePlus } from "react-icons/fa6";
 import emoji from "../../assets/Animation - 1738737330342.gif";
+import { Link, useLocation } from "react-router-dom";
 const CartPage = () => {
+  const location = useLocation();
+  console.log("state of location", location.state);
   return (
     <div className="bg-[#0a1316] pb-12">
       <Header></Header>
@@ -103,7 +106,9 @@ const CartPage = () => {
 
               <p className="text-sm">45999</p>
             </div>
-            <button className="my-4 button-style">Proceed to checkout</button>
+            <Link to='/checkout'>
+              <button className="my-4 button-style">Proceed to checkout</button>
+            </Link>
           </div>
           {/*Cart item na thakle */}
         </div>

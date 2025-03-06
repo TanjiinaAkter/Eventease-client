@@ -8,6 +8,7 @@ const useRole = () => {
   const { data: role, isPending: roleloading } = useQuery({
     queryKey: ["role", user?.email],
     queryFn: async () => {
+      // TO DO: RETURN USER NULL COMMENTED
       if (!user?.email) return null;
       const res = await axiosSecure.get(`/users/role/${user?.email}`);
       console.log("role check", res.data);

@@ -21,42 +21,44 @@ const CheckoutPage = () => {
           </p>
           <form className="form">
             <div className="form-group">
-              <label htmlFor="name">Your Name</label>
+              <label className="text-gray-300 " htmlFor="name">
+                Your Name
+              </label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 placeholder="Enter your name"
-                className="text-white w-full p-3 rounded-md border-[#4c4f4e]"
+                className="text-white w-full p-3 mt-2 rounded-md border-[#4c4f4e]"
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
+            <div className="form-group my-2">
+              <label className="text-gray-300 " htmlFor="email">
+                Email
+              </label>
               <input
                 type="text"
                 id="email"
                 name="email"
                 placeholder="Enter your email"
-                className="text-white w-full p-3 rounded-md border-[#4c4f4e]"
+                className="text-white w-full p-3  mt-2 rounded-md border-[#4c4f4e]"
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="phone">Phone number</label>
+            <div className="form-group my-2">
+              <label className="text-gray-300 " htmlFor="phone">
+                Phone number
+              </label>
               <input
                 type="text"
                 id="phone"
                 name="phone"
                 placeholder="Enter your phone number"
-                className="text-white w-full p-3 rounded-md border-[#4c4f4e]"
+                className="text-white w-full p-3  mt-2 rounded-md border-[#4c4f4e]"
                 required
               />
             </div>
-
-            <button className="form-submit-btn button-style my-6" type="submit">
-              Proceed to chackout
-            </button>
           </form>
         </div>
 
@@ -68,6 +70,7 @@ const CheckoutPage = () => {
 
           <div>
             <ul className="text-white flex flex-row text-xl gap-4">
+            
               <li onClick={() => handleTab(1)}>
                 <input
                   className={` ${

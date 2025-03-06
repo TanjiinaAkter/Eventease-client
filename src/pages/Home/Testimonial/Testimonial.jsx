@@ -12,6 +12,7 @@ import { Scrollbar, Autoplay, Pagination, Navigation } from "swiper/modules";
 import Sectiontitle from "../../../components/Sectiontitle";
 const Testimonial = () => {
   return (
+    //TO DO:ইভেন্ট রিভিউ/রেটিং সিস্টেম: ব্যবহারকারীরা ইভেন্টের পর রেটিং এবং রিভিউ দিতে পারবে।
     <div className="mx-auto w-[88%] md:w-[97%]  my-24">
       <Sectiontitle
         title={"Testimonial"}
