@@ -1,7 +1,14 @@
 import { useState } from "react";
 import RouteTitle from "../../components/RouteTitle";
+import useCarts from "../../hooks/useCarts";
+import { useLocation } from "react-router-dom";
 
 const CheckoutPage = () => {
+  const location = useLocation();
+  const finalCalculation = location.state.finalCalculation;
+  const discount = location.state.discount;
+  console.log(finalCalculation);
+  const [allcarts] = useCarts();
   const [toggle, setToggle] = useState(1);
   const handleTab = (id) => {
     setToggle(id);
@@ -70,7 +77,6 @@ const CheckoutPage = () => {
 
           <div>
             <ul className="text-white flex flex-row text-xl gap-4">
-            
               <li onClick={() => handleTab(1)}>
                 <input
                   className={` ${
@@ -95,40 +101,98 @@ const CheckoutPage = () => {
               </li>
             </ul>
             <div className={toggle === 1 ? "block text-white" : "hidden"}>
-              <div className="artist-card mt-8 bg-[#192f2f] border  border-[#b58753]   mb-4 p-4 mx-auto w-full red ">
-                <h2 className="text-[#44cfbf]">Complete Your Order</h2>
-                <p>Review your ticket details before confirming</p>
-                <div className="flex justify-between items-center gap-3">
-                  <div>
-                    <h3 className="text-[#44cfbf] mt-8  text-lg">
-                      Gaming Expo Unlimited 2024
-                    </h3>
-                    <p className="tip text-[#6a6d6a] text-start mb-1">
-                      Quantity - 1 tickets
-                    </p>
-                    <p className="tip text-[#6a6d6a] text-start mb-2">
-                      Price per ticket: $40.00
+              <div className="artist-card mt-8 bg-[#192f2f] border  border-[#b58753]   mb-4 px-4 mx-auto w-full red ">
+                <div className="artist-card mt-8 bg-[#192f2f]  mb-4 p-4 mx-auto w-full red ">
+                  <h2 className="text-[#44cfbf] text-lg">
+                    Complete Your Order
+                  </h2>
+                  <p>Review your ticket details before confirming</p>
+                  {allcarts.map((item) => (
+                    <div
+                      key={item._id}
+                      className="flex justify-between items-center gap-3">
+                      <div>
+                        <h3 className="text-[#44cfbf] mt-8  text-base">
+                          {item.name}
+                        </h3>
+                        <p className="tip text-[#b8c3b8] text-start mb-1">
+                          Quantity - {item.quantity} tickets
+                        </p>
+                        <p className="tip text-[#b8c3b8] text-start mb-2">
+                          Price per ticket: ${item.price}
+                        </p>
+                      </div>
+                      <p className="font-semibold">
+                        ${item.price * item.quantity}
+                      </p>
+                    </div>
+                  ))}
+                  <p className="font-semibold text-[#b8c3b8] my-2">
+                    Getting discount :{" "}
+                    <span className="text-yellow-400 "> {discount}%</span>
+                  </p>
+                  <hr className="h-[1px] w-full text-[#6a6d6a]" />
+                  <div className="flex justify-between items-center">
+                    <h2 className=" text-lg mt-2 text-[#44cfbf]">
+                      Total Amount
+                    </h2>
+                    <p className="text-[#b58753] font-semibold text-lg">
+                      $ {finalCalculation}
                     </p>
                   </div>
-                  <p className="font-semibold">$120</p>
-                </div>
-                <hr className="h-[1px] w-full text-[#6a6d6a]" />
-                <div className="flex justify-between items-center">
-                  <h2 className=" text-lg mt-2 text-[#44cfbf]">Total Amount</h2>
-                  <p className="text-[#b58753] font-semibold text-lg">$ 490</p>
-                </div>
-                <div className="flex my-8 justify-center items-center ">
-                  <button className="button-style">Place order</button>
+                  <div className="flex my-8 justify-center items-center ">
+                    <button className="button-style">Place order</button>
+                  </div>
                 </div>
               </div>
             </div>
             <div className={toggle === 2 ? "block text-white" : "hidden"}>
-              <div className="artist-card mt-8 bg-[#192f2f] border  border-[#b58753]   mb-4 p-4 mx-auto w-full red ">
-                <h2 className="text-[#44cfbf]">Card Payment</h2>
-                <p>Enter your card details securely</p>
+              <div className="artist-card mt-8 bg-[#192f2f] border  border-[#b58753] px-4  mb-4 mx-auto w-full red ">
+                <div className="artist-card mt-8 bg-[#192f2f]  mb-4 p-4 mx-auto w-full red ">
+                  <h2 className="text-[#44cfbf] text-lg">
+                    Complete Your Order
+                  </h2>
+                  <p>Review your ticket details before confirming</p>
+                  {allcarts.map((item) => (
+                    <div
+                      key={item._id}
+                      className="flex justify-between items-center gap-3">
+                      <div>
+                        <h3 className="text-[#44cfbf] mt-8  text-base">
+                          {item.name}
+                        </h3>
+                        <p className="tip text-[#b8c3b8] text-start mb-1">
+                          Quantity - {item.quantity} tickets
+                        </p>
+                        <p className="tip text-[#b8c3b8] text-start mb-2">
+                          Price per ticket: ${item.price}
+                        </p>
+                      </div>
+                      <p className="font-semibold">
+                        ${item.price * item.quantity}
+                      </p>
+                    </div>
+                  ))}
+                  <p className="font-semibold text-[#b8c3b8] my-2">
+                    Getting discount :
+                    <span className="text-yellow-400"> {discount}%</span>
+                  </p>
+                  <hr className="h-[1px] w-full text-[#6a6d6a]" />
+                  <div className="flex justify-between items-center">
+                    <h2 className=" text-lg mt-2 text-[#44cfbf]">
+                      Total Amount
+                    </h2>
+                    <p className="text-[#b58753] font-semibold text-lg">
+                      $ {finalCalculation}
+                    </p>
+                  </div>
+                </div>
+
+                <h2 className="text-[#44cfbf] px-4">Card Payment</h2>
+                <p className="px-4">Enter your card details securely</p>
 
                 <hr className="h-[1px] my-5 w-full text-[#6a6d6a]" />
-                <div>ekhane stripe elementcard hobe</div>
+                <div></div>
                 <div className="flex my-8 justify-center items-center ">
                   <button className="button-style">Pay Now</button>
                 </div>

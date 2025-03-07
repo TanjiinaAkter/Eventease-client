@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../pages/Shared/Footer/Footer";
 
 const Main = () => {
+
   const location = useLocation();
   const isLoginOrRegistration =
     location.pathname === "/login" || location.pathname === "/registration";

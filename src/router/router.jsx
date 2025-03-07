@@ -105,10 +105,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "checkout",
-        element: <CheckoutPage></CheckoutPage>,
-      },
+
       {
         path: "login",
         element: <Login></Login>,
@@ -124,6 +121,14 @@ const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     children: [
       // =================== ADMIN DASHBOARD ========================//
+      {
+        path: "checkout",
+        element: (
+          <PrivateRoute>
+            <CheckoutPage></CheckoutPage>
+          </PrivateRoute>
+        ),
+      },
       {
         path: "adminprofile",
         element: (

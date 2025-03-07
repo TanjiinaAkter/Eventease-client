@@ -100,7 +100,7 @@ const Singleenventcard = () => {
                 />
               </div>
               <h3 className="text-white font-semibold text-3xl md:text-2xl border-y-2 border-dotted border-[#b58753]">
-                Total Ticket - {event.ticket}
+                Ticket Price- {event.ticketprice}
               </h3>
               <div className="flex flex-col gap-3">
                 <h3 className="text-white text-center text-lg font-semibold">
@@ -152,19 +152,24 @@ const Singleenventcard = () => {
                 </p>
               </div>
             </div>
-            <div className="absolute w-[80%]  md:mt-12 flex flex-col text-start left-[12%] bottom-[22%]  md:top-1/2 z-50 md:left-1/2 transform md:-translate-x-1/2 md:-translate-y-1/2">
-              <h2 className="text-white text-2xl  font-semibold md:text-5xl ">
+            <div className="absolute w-[80%]  md:mt-5 flex flex-col text-start left-[12%] bottom-[22%]  md:top-1/2 z-50 md:left-1/2 transform md:-translate-x-1/2 md:-translate-y-1/2">
+              <h2 className="text-[#29dcc7] text-2xl  font-semibold md:text-5xl ">
                 {event.eventtitle}
               </h2>
-              <p className="text-white mt-4 border-l-4 pl-1 border-white">
-                {event.category} -
-              </p>
+              <div className="flex flex-col gap-1">
+                <p className="text-white mt-4 border-l-4 pl-1 text-xl font-semibold border-white">
+                  {event.category} -
+                </p>
+                <p className="text-white mt-4  font-semibold border-l-4 pl-1  text-xl border-white">
+                Total ticket -  {event.ticket} 
+                </p>
+              </div>
               {/* // TO DO: CART PAGE E NIYE JABO */}
               <div className="flex justify-start my-6">
                 <button
                   disabled={isIncart}
                   onClick={() => handleAddToCart(event)}
-                  className={`button-style ${
+                  className={`button-style font-bold ${
                     isIncart ? " cursor-not-allowed bg-green-400" : ""
                   }`}>
                   {isIncart ? "Already Booked" : " BOOK NOW"}
