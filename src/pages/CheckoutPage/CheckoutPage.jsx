@@ -2,12 +2,14 @@ import { useState } from "react";
 import RouteTitle from "../../components/RouteTitle";
 import useCarts from "../../hooks/useCarts";
 import { useLocation } from "react-router-dom";
+import useSingleUserDetail from "../../hooks/useSingleUserDetail";
 
 const CheckoutPage = () => {
+  const [userinfo] = useSingleUserDetail();
   const location = useLocation();
   const finalCalculation = location.state.finalCalculation;
   const discount = location.state.discount;
-  console.log(finalCalculation);
+  console.log(userinfo);
   const [allcarts] = useCarts();
   const [toggle, setToggle] = useState(1);
   const handleTab = (id) => {
@@ -19,8 +21,8 @@ const CheckoutPage = () => {
         routetitle={"Checkout"}
         routesubtitle={"Complete your bookings "}></RouteTitle>
       <div className="w-[97%] mx-auto pb-12 grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="card bg-[#0f1c1c]  p-4  w-full border border-[#4c4f4e] shrink-0 shadow-2xl">
-          <h2 className="text-2xl border-l-4 pl-1 pb-2 border-l-[#b58753] font-semibold text-white mb-1">
+        <div className="card bg-[#0f1c1c]  p-6  w-full border border-[#4c4f4e] shrink-0 shadow-2xl">
+          <h2 className="text-2xl border-l-4 pl-3 pb-2 border-l-[#b58753] font-semibold text-white mb-1">
             Contact Information
           </h2>
           <p className="text-lg mb-3  text-white">
@@ -32,6 +34,8 @@ const CheckoutPage = () => {
                 Your Name
               </label>
               <input
+                defaultValue={userinfo.name}
+                readOnly
                 type="text"
                 id="name"
                 name="name"
@@ -45,7 +49,9 @@ const CheckoutPage = () => {
                 Email
               </label>
               <input
-                type="text"
+                defaultValue={userinfo.email}
+                readOnly
+                type="email"
                 id="email"
                 name="email"
                 placeholder="Enter your email"
@@ -58,6 +64,8 @@ const CheckoutPage = () => {
                 Phone number
               </label>
               <input
+                defaultValue={userinfo.phone}
+                readOnly
                 type="text"
                 id="phone"
                 name="phone"
@@ -69,8 +77,8 @@ const CheckoutPage = () => {
           </form>
         </div>
 
-        <div className="card bg-[#0f1c1c]  p-4  w-full border border-[#4c4f4e] shrink-0 shadow-2xl">
-          <h2 className="border-l-4 pl-1 pb-2   border-l-[#b58753] text-2xl font-semibold text-white mb-1">
+        <div className="card bg-[#0f1c1c]  p-6  w-full border border-[#4c4f4e] shrink-0 shadow-2xl">
+          <h2 className="border-l-4 pl-3 pb-2   border-l-[#b58753] text-2xl font-semibold text-white mb-1">
             Payment Method
           </h2>
           <p className="text-lg mb-3  text-white">Choose how you want to pay</p>
