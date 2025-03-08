@@ -1,18 +1,50 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
+import useCarts from "../../hooks/useCarts";
+import Swal from "sweetalert2";
 
 const CheckoutForm = () => {
+  const [finalCalculation, setFinalCalculation] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [allcarts, refetch] = useCarts();
+  useEffect(() => {
+    if (allcarts && allcarts.length > 0) {
+      const finalCalculation = allcarts.reduce(
+        (acc, item) => acc + (item.totalprice || item.price),
+        0
+      );
+
+      if (finalCalculation > 300) {
+        setDiscount(10);
+        const minusPercentage = (finalCalculation * 10) / 100;
+        const value = finalCalculation - minusPercentage;
+        setFinalCalculation(value);
+      } else {
+        setFinalCalculation(0);
+      }
+    }
+  }, [allcarts]);
+  const navigate = useNavigate();
+
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
   const { user } = useAuth();
   const [transactionId, setTransactionId] = useState("");
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const axiosSecure = useAxiosSecure();
-  const location = useLocation();
-  const finalCalculation = location.state.finalCalculation;
-  console.log(clientSecret, "transactionId", transactionId);
+  // const location = useLocation();
+  // const finalCalculation = location.state.finalCalculation;
+
+  // console.log(
+  //   clientSecret,
+  //   "transactionId",
+  //   transactionId,
+  //   "allcarts",
+  //   allcarts
+  // );
 
   useEffect(() => {
     if (finalCalculation > 0) {
@@ -37,6 +69,7 @@ const CheckoutForm = () => {
   const elements = useElements();
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setPaymentSuccess("");
     if (!stripe || !elements) {
       return;
     }
@@ -76,6 +109,52 @@ const CheckoutForm = () => {
       if (paymentIntent.status === "succeeded") {
         console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
+
+        // NOW SAVE PAYMENT IN THE DATABASE
+        const payment = {
+          transactionId: paymentIntent.id,
+          eventIds: allcarts.map((cart) => cart.eventId),
+          cartIds: allcarts.map((cart) => cart._id),
+          email: user?.email,
+          userName: user?.displayName,
+          totalPrice: finalCalculation,
+          orderStatus: "Pending",
+          paymentStatus: "Paid",
+          date: new Date(),
+          quantity: allcarts.reduce((acc, cart) => acc + cart.quantity, 0),
+        };
+        console.log(payment, "ghgghhhh");
+        axiosSecure
+          .post("/payments", payment)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.insertedId) {
+              setPaymentSuccess(true);
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Thank you for your payment!!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+
+              axiosSecure
+                .delete(`/carts/userdelete/${user?.email}`)
+                .then((res) => {
+                  if (res.data.deletedCount > 0) {
+                    console.log(res.data);
+                    refetch();
+                    navigate("/dashboard/checkout");
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     }
   };
@@ -101,10 +180,15 @@ const CheckoutForm = () => {
         <div className=" w-full grid mt-7">
           <button
             className="px-3 py-2 rounded-lg hover:scale-[98%] duration-500 transition-all hover:bg-gray-500 text-white font-semibold bg-teal-600 "
-            disabled={!stripe || !elements}>
-            Pay
+            disabled={!stripe || !elements || !allcarts.length > 0}>
+            {allcarts.length < 1 ? "Add items to proceed" : " Pay"}
           </button>
           {error && <p className="text-red-600 font-semibold">**{error}!</p>}
+          {paymentSuccess && (
+            <p className="text-green-600 my-2 font-semibold">
+              Your transaction id is {transactionId}!
+            </p>
+          )}
         </div>
       </form>
     </div>

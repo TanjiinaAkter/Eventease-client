@@ -1,18 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RouteTitle from "../../components/RouteTitle";
 import useCarts from "../../hooks/useCarts";
-import { useLocation } from "react-router-dom";
 import useSingleUserDetail from "../../hooks/useSingleUserDetail";
 import Payment from "../Payment/Payment";
 
 const CheckoutPage = () => {
+  const [discount, setDiscount] = useState(0);
+
   const [userinfo] = useSingleUserDetail();
-  const location = useLocation();
-  const finalCalculation = location.state.finalCalculation;
-  const discount = location.state.discount;
+  const [finalCalculation, setFinalCalculation] = useState(0);
+  // const location = useLocation();
+  // const discount = location.state.discount;
   console.log(userinfo);
   const [allcarts] = useCarts();
   const [toggle, setToggle] = useState(1);
+  useEffect(() => {
+    if (allcarts && allcarts.length > 0) {
+      const finalCalculation = allcarts.reduce(
+        (acc, item) => acc + (item.totalprice || item.price),
+        0
+      );
+
+      if (finalCalculation > 300) {
+        setDiscount(10);
+        const minusPercentage = (finalCalculation * 10) / 100;
+        const value = finalCalculation - minusPercentage;
+        setFinalCalculation(value);
+      } else {
+        setFinalCalculation(0);
+      }
+    } else {
+      setFinalCalculation(0); // Set to 0 if the cart is empty
+      setDiscount(0); // Reset discount if cart is empty
+    }
+  }, [allcarts]);
   const handleTab = (id) => {
     setToggle(id);
   };
