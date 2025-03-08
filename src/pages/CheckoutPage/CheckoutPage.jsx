@@ -3,6 +3,7 @@ import RouteTitle from "../../components/RouteTitle";
 import useCarts from "../../hooks/useCarts";
 import { useLocation } from "react-router-dom";
 import useSingleUserDetail from "../../hooks/useSingleUserDetail";
+import Payment from "../Payment/Payment";
 
 const CheckoutPage = () => {
   const [userinfo] = useSingleUserDetail();
@@ -199,11 +200,9 @@ const CheckoutPage = () => {
                 <h2 className="text-[#44cfbf] px-4">Card Payment</h2>
                 <p className="px-4">Enter your card details securely</p>
 
-                <hr className="h-[1px] my-5 w-full text-[#6a6d6a]" />
-                <div></div>
-                <div className="flex my-8 justify-center items-center ">
-                  <button className="button-style">Pay Now</button>
-                </div>
+                {/* <hr className="h-[1px] my-5 w-full text-[#6a6d6a]" /> */}
+
+                <Payment state={{ finalCalculation }}></Payment>
               </div>
             </div>
           </div>
