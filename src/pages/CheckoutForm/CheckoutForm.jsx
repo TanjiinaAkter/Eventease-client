@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import useCarts from "../../hooks/useCarts";
@@ -181,7 +181,7 @@ const CheckoutForm = () => {
           <button
             className="px-3 py-2 rounded-lg hover:scale-[98%] duration-500 transition-all hover:bg-gray-500 text-white font-semibold bg-teal-600 "
             disabled={!stripe || !elements || !allcarts.length > 0}>
-            {allcarts.length < 1 ? "Add items to proceed" : " Pay"}
+            {allcarts.length < 1 ? "Paid" : " Pay"}
           </button>
           {error && <p className="text-red-600 font-semibold">**{error}!</p>}
           {paymentSuccess && (

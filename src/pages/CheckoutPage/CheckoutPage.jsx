@@ -3,16 +3,23 @@ import RouteTitle from "../../components/RouteTitle";
 import useCarts from "../../hooks/useCarts";
 import useSingleUserDetail from "../../hooks/useSingleUserDetail";
 import Payment from "../Payment/Payment";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
   const [discount, setDiscount] = useState(0);
-
+  const { user } = useAuth();
   const [userinfo] = useSingleUserDetail();
   const [finalCalculation, setFinalCalculation] = useState(0);
   // const location = useLocation();
   // const discount = location.state.discount;
   console.log(userinfo);
-  const [allcarts] = useCarts();
+  const [allcarts, refetch] = useCarts();
   const [toggle, setToggle] = useState(1);
   useEffect(() => {
     if (allcarts && allcarts.length > 0) {
@@ -27,8 +34,12 @@ const CheckoutPage = () => {
         const value = finalCalculation - minusPercentage;
         setFinalCalculation(value);
       } else {
-        setFinalCalculation(0);
+        if (finalCalculation < 300) {
+          setFinalCalculation(finalCalculation);
+          setDiscount(0);
+        }
       }
+      // if we do not use this below  else then totalprice will be show as >300 , because we just give condition if >300 but not other conditions like if card will empty what to show
     } else {
       setFinalCalculation(0); // Set to 0 if the cart is empty
       setDiscount(0); // Reset discount if cart is empty
@@ -36,6 +47,55 @@ const CheckoutPage = () => {
   }, [allcarts]);
   const handleTab = (id) => {
     setToggle(id);
+  };
+  const handleManualOrderPlace = () => {
+    setPaymentSuccess(false);
+    if (user && user?.email) {
+      const payment = {
+        transactionId: "null",
+        eventIds: allcarts.map((cart) => cart.eventId),
+        cartIds: allcarts.map((cart) => cart._id),
+        email: user?.email,
+        userName: user?.displayName,
+        totalPrice: finalCalculation,
+        orderStatus: "Pending",
+        paymentStatus: "Unpaid",
+        date: new Date(),
+        quantity: allcarts.reduce((acc, cart) => acc + cart.quantity, 0),
+      };
+      console.log("payment", payment);
+      axiosSecure
+        .post(`/payments`, payment)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            setPaymentSuccess(true);
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Thank you for your order confirmation!!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            axiosSecure
+              .delete(`/carts/userdelete/${user?.email}`)
+              .then((res) => {
+                if (res.data.deletedCount > 0) {
+                  console.log(res.data);
+                  refetch();
+                  navigate("/dashboard/checkout");
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
   return (
     <div className="mx-auto bg-[#0a1316]  ">
@@ -130,6 +190,8 @@ const CheckoutPage = () => {
                 Pay By Stripe
               </li>
             </ul>
+
+            {/*  PAYMENT AT VENUE */}
             <div className={toggle === 1 ? "block text-white" : "hidden"}>
               <div className="artist-card mt-8 bg-[#192f2f] border  border-[#b58753]   mb-4 px-4 mx-auto w-full red ">
                 <div className="artist-card mt-8 bg-[#192f2f]  mb-4 p-4 mx-auto w-full red ">
@@ -170,12 +232,31 @@ const CheckoutPage = () => {
                       $ {finalCalculation}
                     </p>
                   </div>
-                  <div className="flex my-8 justify-center items-center ">
-                    <button className="button-style">Place order</button>
+                  <div
+                    className={`w-full grid mt-7 ${
+                      allcarts.length === 0
+                        ? "cursor-not-allowed bg-gray-700"
+                        : ""
+                    }`}>
+                    <button
+                      disabled={allcarts.length === 0}
+                      onClick={handleManualOrderPlace}
+                      className={`grid  justify-center items-center text-center ${
+                        allcarts.length > 0 ? "button-style" : "px-3 py-2 rounded-lg hover:scale-[98%] duration-500 transition-all hover:bg-gray-500 text-white font-semibold bg-teal-600 cursor-not-allowed"
+                      }`}>
+                      {allcarts.length > 0 ? "Place order" : " Order Placed"}
+                    </button>
                   </div>
+                  {paymentSuccess && (
+                    <p className="text-green-600 my-2 font-semibold">
+                      Your order has been placed successfully. Please pay at the
+                      venue.!
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
+            {/*  PAYMENT WITH STRIPE */}
             <div className={toggle === 2 ? "block text-white" : "hidden"}>
               <div className="artist-card mt-8 bg-[#192f2f] border  border-[#b58753] px-4  mb-4 mx-auto w-full red ">
                 <div className="artist-card mt-8 bg-[#192f2f]  mb-4 p-4 mx-auto w-full red ">
