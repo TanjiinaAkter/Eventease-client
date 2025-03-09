@@ -1,11 +1,39 @@
 import { MdDelete } from "react-icons/md";
 import RouteTitle from "../../../components/RouteTitle";
 import useSinglePaymentUser from "../../../hooks/useSinglePaymentUser";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const UserOrders = () => {
-  // TO DO : COLOR CHANGE TO PAID UNPAID
-  const [userpayments] = useSinglePaymentUser();
-  console.log("userpayments", userpayments);
+  const axiosSecure = useAxiosSecure();
+  const [userpayments, refetch] = useSinglePaymentUser();
+
+  const handleDelete = (payment) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/payments/${payment._id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.deletedCount === 1) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: `${payment._id} has been deleted from the payments list.`,
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
       <RouteTitle
@@ -33,35 +61,61 @@ const UserOrders = () => {
             </thead>
             <tbody>
               {/* row 1 */}
-              {userpayments.map((payment) => (
+              {userpayments.map((payment, index) => (
                 <tr
                   key={payment._id}
                   className="border-b-[1px]  border-[#4c4f4e]  text-center">
-                  <td className="px-1 py-4">1</td>
+                  <td className="px-1 py-4">{index + 1}</td>
                   <td className="px-1 py-4">{payment.transactionId}</td>
                   <td className="px-1 py-4">{payment.paymentMethod}</td>
                   <td className="px-1 py-4">{payment.eventIds.length}</td>
                   <td className="px-1 py-4">{payment.quantity}</td>
                   <td className="px-1 py-4">${payment.totalPrice}</td>
                   <td className="px-1 py-4 ">
-                    <span className="px-5 py-[1px] hover:bg-gray-700 duration-300 transition-all font-semibold  bg-green-600 text-white rounded-full">
-                      {payment.paymentStatus}
-                    </span>
+                    {payment.paymentStatus === "Paid" && (
+                      <span className="px-5 py-[1px] hover:bg-gray-700 duration-300 transition-all font-semibold  bg-green-600 text-white rounded-full">
+                        {payment.paymentStatus}
+                      </span>
+                    )}
+                    {payment.paymentStatus === "Unpaid" && (
+                      <span className="px-3 py-[1px] hover:bg-gray-700 duration-300 transition-all font-semibold  bg-red-600 text-white rounded-full">
+                        {payment.paymentStatus}
+                      </span>
+                    )}
                   </td>
                   <td className="px-3 py-2">
-                    <span className="px-2 py-[1px] font-semibold bg-[#d7797c] text-[#eb1920] rounded-full">
-                      {payment.orderStatus}
-                    </span>
+                    {payment.orderStatus === "Pending" && (
+                      <span className="px-2 py-[1px] font-semibold bg-[#ffc107] text-[#000000] rounded-full">
+                        {payment.orderStatus}
+                      </span>
+                    )}
+                    {payment.orderStatus === "Canceled" && (
+                      <span className="px-2 py-[1px] font-semibold    bg-[#dc3545] text-white rounded-full">
+                        {payment.orderStatus}
+                      </span>
+                    )}
+                    {payment.orderStatus === "Confirmed" && (
+                      <span className="px-2 py-[1px] font-semibold    bg-[#28a745] text-white rounded-full">
+                        {payment.orderStatus}
+                      </span>
+                    )}
                   </td>
 
                   <td className="px-3 py-2">
                     <div className="flex justify-center items-center gap-5">
-                      <span className="px-5 hover:bg-gray-700 transition-all duration-500 hover:text-white py-1 font-semibold cursor-pointer bg-teal-300 text-[#0c0606] rounded-md">
-                        Details
-                      </span>
-                      <span className="w-8 h-8 hover:bg-gray-600 rounded-full flex justify-center items-center">
+                      <Link
+                        to={`/dashboard/orderdetail/${payment._id}`}
+                        state={{ payment:payment }}>
+                        <span className="px-5 hover:bg-gray-700 transition-all duration-500 hover:text-white py-1 font-semibold cursor-pointer bg-teal-300 text-[#0c0606] rounded-md">
+                          Details
+                        </span>
+                      </Link>
+
+                      <button
+                        onClick={() => handleDelete(payment)}
+                        className="w-10 h-10 hover:bg-gray-500 rounded-md flex justify-center items-center">
                         <MdDelete className="text-[27px] text-red-600" />
-                      </span>
+                      </button>
                     </div>
                   </td>
                 </tr>

@@ -65,7 +65,7 @@ const OrderManagement = () => {
                 <td className="px-5 py-2 whitespace-nowrap ">
                   <div className="flex items-center justify-center gap-4">
                     <p className=" py-1 px-5  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-lg">
-                      cancelled
+                      canceled
                     </p>
                     <div className="dropdown ">
                       <div

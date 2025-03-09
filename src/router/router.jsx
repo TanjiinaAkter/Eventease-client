@@ -54,6 +54,7 @@ import Dashboard from "../layout/Dashboard";
 import AdminRoute from "./AdminRoute";
 import VendorRoute from "./VendorRoute";
 import VenuesDetails from "../pages/VenuesDetails/VenuesDetails";
+import UserOrderDetail from "../pages/Dahboard/UserOrderDetail/UserOrderDetail";
 
 const router = createBrowserRouter([
   // =================== HOME ROUTES ========================//
@@ -403,6 +404,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserOrders></UserOrders>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "orderdetail/:id",
+        element: (
+          <PrivateRoute>
+            <UserOrderDetail></UserOrderDetail>
           </PrivateRoute>
         ),
       },

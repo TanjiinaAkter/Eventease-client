@@ -18,12 +18,12 @@ const Banner = () => {
           creating memories that last forever,From intimate experiences to grand
           celebrations.
         </p>
-        <div className="flex gap-2">
+        <div className="flex gap-2 md:gap-6 md:flex-row flex-col">
           <Link to="/events">
-            <button className="button-style">Plan your event </button>
+            <button className="button-style  w-full">Plan your event </button>
           </Link>
           <Link to="/venues">
-            <button className="button-style">Explore your vanues </button>
+            <button className="button-style  w-full">Explore your vanues </button>
           </Link>
         </div>
       </div>
