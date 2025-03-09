@@ -16,17 +16,22 @@ const CheckoutForm = () => {
         (acc, item) => acc + (item.totalprice || item.price),
         0
       );
-
+      console.log(finalCalculation);
       if (finalCalculation > 300) {
         setDiscount(10);
         const minusPercentage = (finalCalculation * 10) / 100;
         const value = finalCalculation - minusPercentage;
+        console.log("value after discount", value);
         setFinalCalculation(value);
       } else {
-        setFinalCalculation(0);
+        setFinalCalculation(finalCalculation);
+        setDiscount(0);
       }
+    } else {
+      setFinalCalculation(finalCalculation);
+      setDiscount(0);
     }
-  }, [allcarts]);
+  }, [allcarts, discount, finalCalculation]);
   const navigate = useNavigate();
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
@@ -53,7 +58,7 @@ const CheckoutForm = () => {
           price: finalCalculation,
         })
         .then((res) => {
-          // console.log(res.data.clientSecret);
+          console.log("clientSecret", res.data.clientSecret);
           if (res.data.clientSecret) {
             setClientSecret(res.data.clientSecret);
           }
@@ -112,6 +117,7 @@ const CheckoutForm = () => {
 
         // NOW SAVE PAYMENT IN THE DATABASE
         const payment = {
+          paymentMethod: "stripe",
           transactionId: paymentIntent.id,
           eventIds: allcarts.map((cart) => cart.eventId),
           cartIds: allcarts.map((cart) => cart._id),
@@ -180,7 +186,7 @@ const CheckoutForm = () => {
         <div className=" w-full grid mt-7">
           <button
             className="px-3 py-2 rounded-lg hover:scale-[98%] duration-500 transition-all hover:bg-gray-500 text-white font-semibold bg-teal-600 "
-            disabled={!stripe || !elements || !allcarts.length > 0}>
+            disabled={!stripe || !elements}>
             {allcarts.length < 1 ? "Paid" : " Pay"}
           </button>
           {error && <p className="text-red-600 font-semibold">**{error}!</p>}

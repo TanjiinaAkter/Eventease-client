@@ -52,7 +52,8 @@ const CheckoutPage = () => {
     setPaymentSuccess(false);
     if (user && user?.email) {
       const payment = {
-        transactionId: "null",
+        paymentMethod: "pay_at_venue",
+        transactionId: null,
         eventIds: allcarts.map((cart) => cart.eventId),
         cartIds: allcarts.map((cart) => cart._id),
         email: user?.email,
@@ -242,7 +243,9 @@ const CheckoutPage = () => {
                       disabled={allcarts.length === 0}
                       onClick={handleManualOrderPlace}
                       className={`grid  justify-center items-center text-center ${
-                        allcarts.length > 0 ? "button-style" : "px-3 py-2 rounded-lg hover:scale-[98%] duration-500 transition-all hover:bg-gray-500 text-white font-semibold bg-teal-600 cursor-not-allowed"
+                        allcarts.length > 0
+                          ? "button-style"
+                          : "px-3 py-2 rounded-lg hover:scale-[98%] duration-500 transition-all hover:bg-gray-500 text-white font-semibold bg-teal-600 cursor-not-allowed"
                       }`}>
                       {allcarts.length > 0 ? "Place order" : " Order Placed"}
                     </button>

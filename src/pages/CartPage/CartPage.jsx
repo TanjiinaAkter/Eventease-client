@@ -38,7 +38,7 @@ const CartPage = () => {
       <Header></Header>
       <div className="text-white mx-auto w-[94%] px-6 pb-12 md:w-full">
         <h1 className="text-2xl font-semibold">Your Cart </h1>
-        <p className="text-xl font-semibold mb-12">1 item in your bag</p>
+        <p className="text-xl font-semibold mb-12">{allcarts.length} item in your bag</p>
         {allcarts.length >= 1 ? (
           <div className="grid z-10 relative grid-cols-1 md:grid-cols-4 gap-4 space-y-5">
             {/* FIRST CARD */}
