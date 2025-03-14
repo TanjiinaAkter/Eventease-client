@@ -9,7 +9,7 @@ const useEvents = () => {
     queryKey: ["events", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/events/${user?.email}`);
-      console.log("events from email based", res.data);
+      //console.log("events from email based", res.data);
       return res.data;
     },
     enabled: !!user?.email,

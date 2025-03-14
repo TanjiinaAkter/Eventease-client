@@ -20,6 +20,8 @@ const CheckoutPage = () => {
   // const discount = location.state.discount;
   console.log(userinfo);
   const [allcarts, refetch] = useCarts();
+  console.log("allcarts ddhadka;sdjdlasd", allcarts);
+
   const [toggle, setToggle] = useState(1);
   useEffect(() => {
     if (allcarts && allcarts.length > 0) {
@@ -52,6 +54,7 @@ const CheckoutPage = () => {
     setPaymentSuccess(false);
     if (user && user?.email) {
       const payment = {
+        eventDetails: allcarts,
         paymentMethod: "pay_at_venue",
         transactionId: null,
         eventIds: allcarts.map((cart) => cart.eventId),

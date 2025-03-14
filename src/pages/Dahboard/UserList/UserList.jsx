@@ -175,7 +175,7 @@ const UserList = () => {
                 <th className=" py-2 ">User Name</th>
                 <th className=" py-2 ">Email</th>
                 <th className=" py-2 ">Phone</th>
-                <th className=" py-2 ">Gender</th>
+                <th className=" py-2 ">City</th>
                 <th className=" py-2 ">Role</th>
                 <th className=" py-2 ">Action</th>
               </tr>
@@ -202,7 +202,7 @@ const UserList = () => {
                   <td className=" py-2">{user.name}</td>
                   <td className=" py-2">{user.email}</td>
                   <td className=" py-2">{user.phone || "N/A"}</td>
-                  <td className=" py-2">{user.gender || "N/A"}</td>
+                  <td className=" py-2">{user.city || "N/A"}</td>
                   {/* ============  MAKE ADMIN OR VENDOR  ================*/}
                   <td className=" py-2 flex justify-center gap-4 text-center mt-5 items-center ">
                     <span className="font-semibold">{user.role || "User"}</span>

@@ -55,6 +55,7 @@ import AdminRoute from "./AdminRoute";
 import VendorRoute from "./VendorRoute";
 import VenuesDetails from "../pages/VenuesDetails/VenuesDetails";
 import UserOrderDetail from "../pages/Dahboard/UserOrderDetail/UserOrderDetail";
+import AdminOrderDetail from "../pages/Dahboard/AdminOrderDetail/AdminOrderDetail";
 
 const router = createBrowserRouter([
   // =================== HOME ROUTES ========================//
@@ -279,6 +280,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <OrderManagement></OrderManagement>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/ordermanagement/orderdetail/:id",
+        element: (
+          <AdminRoute>
+            <AdminOrderDetail></AdminOrderDetail>
           </AdminRoute>
         ),
       },

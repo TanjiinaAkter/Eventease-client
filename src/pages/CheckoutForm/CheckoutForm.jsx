@@ -117,6 +117,7 @@ const CheckoutForm = () => {
 
         // NOW SAVE PAYMENT IN THE DATABASE
         const payment = {
+          eventDetails: allcarts,
           paymentMethod: "stripe",
           transactionId: paymentIntent.id,
           eventIds: allcarts.map((cart) => cart.eventId),

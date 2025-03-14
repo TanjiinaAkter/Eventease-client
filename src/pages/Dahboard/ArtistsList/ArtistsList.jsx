@@ -38,7 +38,7 @@ const ArtistsList = () => {
   };
   const handleDeleteArtist = (artist) => {
     console.log(artist);
-    axiosSecure;
+    
 
     Swal.fire({
       title: "Are you sure?",
