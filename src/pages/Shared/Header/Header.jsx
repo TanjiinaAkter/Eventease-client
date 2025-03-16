@@ -9,7 +9,7 @@ const Header = () => {
   const { user, logOut } = useAuth();
   const [allcarts] = useCarts();
   const [role] = useRole();
-  console.log(role, allcarts);
+  console.log('role is ',role, allcarts);
   const location = useLocation();
   const isHome = location.pathname === "/";
   const lists = (

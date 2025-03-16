@@ -5,7 +5,7 @@ import useArtists from "../../hooks/useArtists";
 import { Link } from "react-router-dom";
 const Artists = () => {
   const [artists] = useArtists();
-  console.log(artists);
+  console.log('artists', artists);
   return (
     <div className="bg-[#0a1316]  mx-auto sm:w-[88%] md:w-full ">
       <Header></Header>

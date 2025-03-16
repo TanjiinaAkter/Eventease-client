@@ -50,6 +50,7 @@ const Singleenventcard = () => {
           enddate: event.eventenddate,
           price: event.ticketprice,
           quantity: 1,
+          orderStatus: "Pending",
         })
         .then((res) => {
           console.log(res.data);
@@ -161,10 +162,10 @@ const Singleenventcard = () => {
                   {event.category} -
                 </p>
                 <p className="text-white mt-4  font-semibold border-l-4 pl-1  text-xl border-white">
-                Total ticket -  {event.ticket} 
+                  Total ticket - {event.ticket}
                 </p>
               </div>
-              {/* // TO DO: CART PAGE E NIYE JABO */}
+             
               <div className="flex justify-start my-6">
                 <button
                   disabled={isIncart}

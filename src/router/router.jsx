@@ -260,6 +260,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "orderdetail/:id",
+        element: (
+          <PrivateRoute>
+            <UserOrderDetail></UserOrderDetail>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "addvendor",
         element: (
           <AdminRoute>
@@ -390,7 +398,7 @@ const router = createBrowserRouter([
           </VendorRoute>
         ),
       },
-      // TO DO : EI ROUTE ADD korte hobe
+
       {
         path: "vendorprofileedit/:id",
         element: (
@@ -416,14 +424,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "orderdetail/:id",
-        element: (
-          <PrivateRoute>
-            <UserOrderDetail></UserOrderDetail>
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "userprofile",
         element: (
@@ -440,7 +441,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      //TO DO: THIS route is not added
+
       {
         path: "usereventdetail",
         element: (

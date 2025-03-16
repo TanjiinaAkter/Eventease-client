@@ -14,7 +14,6 @@ const HomeCategories = () => {
       <div className="">
         {/* <Categorycard></Categorycard> */}
         <div className="cards flex mx-auto w-[97%] justify-between items-center gap-4 flex-wrap">
-          {/* TO DO: CATEGORY WISE EVENTS WILL BE SHOW IN CATEGORY PAGE  */}
           {categories.map((category) => (
             <div
               key={category._id}

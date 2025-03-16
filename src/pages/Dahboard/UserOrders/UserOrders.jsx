@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 const UserOrders = () => {
   const axiosSecure = useAxiosSecure();
   const [userpayments, refetch] = useSinglePaymentUser();
+  console.log("userpayments user er payments ", userpayments);
 
   const handleDelete = (payment) => {
     Swal.fire({
@@ -20,17 +21,19 @@ const UserOrders = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/payments/${payment._id}`).then((res) => {
-          console.log(res.data);
-          if (res.data.deletedCount === 1) {
-            refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: `${payment._id} has been deleted from the payments list.`,
-              icon: "success",
-            });
-          }
-        });
+        axiosSecure
+          .delete(`/payments/singleevent/${payment._id}`)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.deletedCount === 1) {
+              refetch();
+              Swal.fire({
+                title: "Deleted!",
+                text: `${payment._id} has been deleted from the payments list.`,
+                icon: "success",
+              });
+            }
+          });
       }
     });
   };
@@ -105,12 +108,12 @@ const UserOrders = () => {
                     <div className="flex justify-center items-center gap-5">
                       <Link
                         to={`/dashboard/orderdetail/${payment._id}`}
-                        state={{ payment:payment }}>
+                        state={{ payment: payment }}>
                         <span className="px-5 hover:bg-gray-700 transition-all duration-500 hover:text-white py-1 font-semibold cursor-pointer bg-teal-300 text-[#0c0606] rounded-md">
                           Details
                         </span>
                       </Link>
-
+                      {/* TO DO: user can delete if paymentstatus is paid unless btn will be disabled */}
                       <button
                         onClick={() => handleDelete(payment)}
                         className="w-10 h-10 hover:bg-gray-500 rounded-md flex justify-center items-center">

@@ -250,7 +250,7 @@ const VendorAddEvent = () => {
                   id=""
                   className="py-3 focus:border-[#b58753]  focus:border-2 text-white bg-black border pl-2 border-gray-500 focus:outline-none rounded-none"
                   required>
-                  {/* TO DO: ARTIST NAME WILL BE DYNAMIC */}
+               
                   <option className="text-white bg-black " selected disabled>
                     Select artist
                   </option>

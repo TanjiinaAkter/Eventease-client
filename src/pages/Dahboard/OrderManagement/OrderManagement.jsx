@@ -57,7 +57,7 @@ const OrderManagement = () => {
       />
 
       {/* Table Wrapper */}
-      <div className="mx-auto mt-15 overflow-auto border border-[#4b4d4c] w-full flex flex-col gap-4 p-5 pb-8 rounded-md bg-[#0f1c1c]">
+      <div className="mx-auto mt-7 overflow-auto border border-[#4b4d4c] w-full flex flex-col gap-4 p-5 pb-8 rounded-md bg-[#0f1c1c]">
         <div className="">
           <table className="table-auto w-full min-w-[600px] text-white text-center">
             {/* head */}

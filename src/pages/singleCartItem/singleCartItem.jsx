@@ -12,6 +12,7 @@ const SingleCartItem = ({ cart }) => {
   const { user } = useAuth();
   const [, refetch] = useCarts();
   const axiosSecure = useAxiosSecure();
+  console.log(cart);
   const { name, photo, startdate, enddate, price, eventId, quantity } = cart;
   const [newprice, setNewPrice] = useState(() => price * quantity);
   // ====== quantity || 1 neyar karon only quantity dile NaN ashbe tai handle korte 1 ditesi
@@ -43,6 +44,7 @@ const SingleCartItem = ({ cart }) => {
           quantity: newQuantity,
           totalprice: newprice,
           eventId: eventId,
+        
         })
         .then((res) => {
           console.log(res.data);
