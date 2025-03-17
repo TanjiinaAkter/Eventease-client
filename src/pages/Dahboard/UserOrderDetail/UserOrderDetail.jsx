@@ -24,40 +24,52 @@ const UserOrderDetail = () => {
   }, [userpayments, getPaymentId]);
   const handleCancelOrder = (event) => {
     console.log(event.eventId, event.orderStatus);
-    if (user && user?.email) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+
+    if (event.orderStatus === "Confirmed" || event.orderStatus === "Canceled") {
+      return Swal.fire({
+        title: `Payment already ${event.orderStatus} ! `,
+        text: "you can not change order status",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Cancel this event booking !",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axiosSecure
-            .patch(
-              `/payments/singleevent/paymentid/${payment._id}/eventid/${event.eventId}`,
-              {
-                orderStatus: "Canceled",
-              }
-            )
-            .then((res) => {
-              console.log(res.data);
-              if (res.data.modifiedCount === 1) {
-                refetch();
-                Swal.fire({
-                  title: "Canceled!",
-                  text: `${event._id} has been Canceled from the Order list.`,
-                  icon: "success",
-                });
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
       });
+    } else {
+      if (user && user?.email) {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, Cancel this event booking !",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axiosSecure
+              .patch(
+                `/payments/singleevent/paymentid/${payment._id}/eventid/${event.eventId}`,
+                {
+                  orderStatus: "Canceled",
+                }
+              )
+              .then((res) => {
+                console.log(res.data);
+                if (res.data.modifiedCount === 1) {
+                  refetch();
+                  Swal.fire({
+                    title: "Canceled!",
+                    text: `${event._id} has been Canceled from the Order list.`,
+                    icon: "success",
+                  });
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        });
+      }
     }
   };
   return (
@@ -162,16 +174,37 @@ const UserOrderDetail = () => {
                         </p>
                       </div>
                     ) : (
+                      // <button
+                      //   onClick={() => handleCancelOrder(event)}
+                      //   className={`badge cursor-pointer hover:bg-gray-600 sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none ${
+                      //     event.orderStatus === "Canceled"
+                      //       ? "bg-gray-600"
+                      //       : "bg-[#da490b]"
+                      //   }`}>
+                      //   {event.orderStatus
+                      //     ? event.orderStatus
+                      //     : event.orderStatus === "Canceled"
+                      //     ? event.orderStatus
+                      //     : "Cancel Order"}
+                      // </button>
                       <button
                         onClick={() => handleCancelOrder(event)}
-                        className={`badge cursor-pointer hover:bg-gray-600 sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none ${
-                          event.orderStatus === "Canceled"
-                            ? "bg-gray-600"
-                            : "bg-[#da490b]"
-                        }`}>
-                        {event.orderStatus === "Canceled"
-                          ? event.orderStatus
-                          : "Cancel Order"}
+                        className={` cursor-pointer  sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none `}>
+                        {event.orderStatus === "Pending" && (
+                          <p className="bg-[#da490b] hover:bg-gray-600 px-3 py-1 rounded-full">
+                            {event.orderStatus}
+                          </p>
+                        )}
+                        {event.orderStatus === "Canceled" && (
+                          <p className="bg-[#3e3c3b] hover:bg-gray-600 px-3 py-1 rounded-full">
+                            {event.orderStatus}
+                          </p>
+                        )}
+                        {event.orderStatus === "Confirmed" && (
+                          <p className="bg-[#32cd54] hover:bg-gray-600 px-3 py-1 rounded-full">
+                            {event.orderStatus}
+                          </p>
+                        )}
                       </button>
                     )}
                   </div>

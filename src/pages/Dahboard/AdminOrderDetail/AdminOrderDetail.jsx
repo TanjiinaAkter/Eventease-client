@@ -161,9 +161,9 @@ const AdminOrderDetail = () => {
                     <button
                       disabled={eDetail.orderStatus === "Canceled"}
                       onClick={() => handleCancelOrder(eDetail)}
-                      className={`badge  cursor-pointer hover:bg-gray-600 sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none bg-[#da490b] ${
+                      className={`badge   cursor-pointer hover:bg-gray-600 sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none bg-[#da490b] ${
                         eDetail.orderStatus === "Canceled"
-                          ? "bg-gray-600 "
+                          ? "bg-gray-600 disabled cursor-not-allowed"
                           : "Cancel Order"
                       }`}>
                       {eDetail.orderStatus === "Pending"

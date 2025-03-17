@@ -13,6 +13,7 @@ const OrderManagement = () => {
     "paymentByRole mane ADMIN er events  payment  gulo holo ",
     paymentByRole
   );
+
   const handleDelete = (id) => {
     console.log(id);
     Swal.fire({
@@ -39,6 +40,8 @@ const OrderManagement = () => {
       }
     });
   };
+  // update order status FOR WHOLE ORDER
+
   return (
     <div className="relative z-0 bg-black w-full h-full min-h-screen p-6">
       {/* Back to Home Button */}

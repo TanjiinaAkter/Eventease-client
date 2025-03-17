@@ -1,19 +1,94 @@
 import { Link } from "react-router-dom";
 import { IoHome } from "react-icons/io5";
 import RouteTitle from "../../../components/RouteTitle";
-import useEventRoleBased from "../../../hooks/useEventRoleBased";
+
 import { GrUpdate } from "react-icons/gr";
 import { RxCross2 } from "react-icons/rx";
+import { useEffect, useState } from "react";
+import usePaymentByRole from "../../../hooks/usePaymentByRole";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const VendorOrderManagement = () => {
   //VENDOR CREATED EVENTS GET
 
-  const [paymentByRole, refetch] = useEventRoleBased();
-  console.log(
-    "paymentByRole mane vendor er events jei payment gulate included ache oi full payments obj gulo holo ",
-    paymentByRole
-  );
-
+  const [paymentDetailsByRole, refetch] = usePaymentByRole();
+  const [payments, setPayments] = useState([]);
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  useEffect(() => {
+    if (paymentDetailsByRole?.data) {
+      console.log(paymentDetailsByRole?.data);
+      setPayments(paymentDetailsByRole?.data);
+    }
+  }, [paymentDetailsByRole]);
+  //ORDER STATUS UPDATE OPERATION
+  const handleCancelOrder = (
+    paymentStatus,
+    paymentid,
+    eDetail,
+    changestatus
+  ) => {
+    console.log(
+      "paymentStatus",
+      paymentStatus,
+      "paymentid",
+      paymentid,
+      "eventId",
+      eDetail.eventId,
+      "changestatus",
+      changestatus
+    );
+    if (paymentStatus === "Paid") {
+      return Swal.fire({
+        title: "Payment already done! ",
+        text: "you can not change order status",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Go Back!",
+      });
+    } else {
+      if (user && user?.email) {
+        Swal.fire({
+          title: "Are you sure?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, Update this event booking !",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axiosSecure
+              .patch(
+                `/payments/singleevent/paymentid/${paymentid}/eventid/${eDetail.eventId}`,
+                {
+                  orderStatus: changestatus,
+                }
+              )
+              .then((res) => {
+                console.log(res.data);
+                if (res.data.modifiedCount === 1) {
+                  refetch();
+                  Swal.fire({
+                    title: `${changestatus}`,
+                    text: `${paymentid} has been ${changestatus} .`,
+                    icon: "success",
+                  });
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        });
+      } else {
+        return;
+      }
+    }
+  };
   return (
     <div className="relative z-0 bg-black w-full h-full min-h-screen p-6">
       {/* Back to Home Button */}
@@ -69,8 +144,8 @@ const VendorOrderManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {paymentByRole.map((payment, index) =>
-                payment.eventDetails.map((eDetail) => (
+              {payments.map((payment) =>
+                payment.eventDetails.map((eDetail, index) => (
                   <tr
                     key={eDetail._id}
                     className="text-white border-b border-[#4c4f4e]">
@@ -84,7 +159,7 @@ const VendorOrderManagement = () => {
                     </td>
 
                     <td className="px-2 py-2 whitespace-nowrap">
-                      {new Date(payment.date).toLocaleDateString("en-GB")}
+                      {new Date(payment.date).toLocaleDateString("EN-GB")}
                     </td>
                     <td className="px-2 py-2 whitespace-nowrap">
                       {eDetail.quantity}
@@ -92,7 +167,8 @@ const VendorOrderManagement = () => {
                     <td className="px-2 py-2 whitespace-nowrap ">
                       <div className="flex items-center justify-center gap-4">
                         <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-lg">
-                          {/* {eDetail._id} */} Pending ha
+                          {/* {eDetail._id} */}{" "}
+                          {eDetail.orderStatus || "Pending"}
                         </p>
                         <div className="dropdown ">
                           <div
@@ -104,14 +180,38 @@ const VendorOrderManagement = () => {
                           <ul
                             tabIndex={0}
                             className="dropdown-content text-black content-center menu bg-base-100 absolute -top-8 right-[100%] rounded-box z-[1] w-32 md:w-52 p-1 shadow">
-                            <li>
-                              <a className="font-semibold">Cancelled</a>
+                            <li
+                              onClick={() =>
+                                handleCancelOrder(
+                                  payment.paymentStatus,
+                                  payment._id,
+                                  eDetail,
+                                  "Canceled"
+                                )
+                              }>
+                              <a className="font-semibold">Canceled</a>
                             </li>
-                            <li>
-                              <a className="font-semibold ">pending</a>
+                            <li
+                              onClick={() =>
+                                handleCancelOrder(
+                                  payment.paymentStatus,
+                                  payment._id,
+                                  eDetail,
+                                  "Pending"
+                                )
+                              }>
+                              <a className="font-semibold ">Pending</a>
                             </li>
-                            <li>
-                              <a className="font-semibold">confirmed</a>
+                            <li
+                              onClick={() =>
+                                handleCancelOrder(
+                                  payment.paymentStatus,
+                                  payment._id,
+                                  eDetail,
+                                  "Confirmed"
+                                )
+                              }>
+                              <a className="font-semibold">Confirmed</a>
                             </li>
                           </ul>
                         </div>
@@ -120,7 +220,7 @@ const VendorOrderManagement = () => {
                     <td className="px-2 py-2 whitespace-nowrap ">
                       <div className="flex items-center justify-end gap-4">
                         <p className=" py-1 px-2 hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-lg">
-                          {/* {eDetail._id} */} pending pa
+                          {payment.paymentStatus}
                         </p>
                         <div className="dropdown ">
                           <div
@@ -143,7 +243,7 @@ const VendorOrderManagement = () => {
                       </div>
                     </td>
                     <td className=" py-2 whitespace-nowrap">
-                      $ {eDetail.price * eDetail.quantity}
+                      {eDetail.price * eDetail.quantity}
                     </td>
 
                     <td className="px-2 py-2 whitespace-nowrap flex justify-center items-center gap">
