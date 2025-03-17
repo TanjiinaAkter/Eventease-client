@@ -6,6 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import usePaymentByRole from "../../../hooks/usePaymentByRole";
+import { GrUpdate } from "react-icons/gr";
 
 const AdminOrderDetail = () => {
   const { user } = useAuth();
@@ -27,41 +28,70 @@ const AdminOrderDetail = () => {
       setPayment(payment);
     }
   }, [paymentDetailsByRole, getPaymentId]);
-  const handleCancelOrder = (eDetail) => {
-    if (user && user?.email) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+  //ORDER STATUS UPDATE OPERATION
+  const handleCancelOrder = (
+    paymentStatus,
+    paymentid,
+    eDetail,
+    changestatus
+  ) => {
+    console.log(
+      "paymentStatus",
+      paymentStatus,
+      "paymentid",
+      paymentid,
+      "eventId",
+      eDetail.eventId,
+      "changestatus",
+      changestatus
+    );
+    if (paymentStatus === "Paid") {
+      return Swal.fire({
+        title: "Payment already done! ",
+        text: "you can not change order status",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, Cancel this event booking !",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axiosSecure
-            .patch(
-              `/payments/singleevent/paymentid/${payment._id}/eventid/${eDetail.eventId}`,
-              {
-                orderStatus: "Canceled",
-              }
-            )
-            .then((res) => {
-              console.log(res.data);
-              if (res.data.modifiedCount === 1) {
-                refetch();
-                Swal.fire({
-                  title: "Canceled!",
-                  text: `${eDetail._id} has been Canceled from the Order list.`,
-                  icon: "success",
-                });
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
+        confirmButtonText: "Go Back!",
       });
+    } else {
+      if (user && user?.email) {
+        Swal.fire({
+          title: "Are you sure?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, Update this event booking !",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axiosSecure
+              .patch(
+                `/payments/singleevent/paymentid/${paymentid}/eventid/${eDetail.eventId}`,
+                {
+                  orderStatus: changestatus,
+                }
+              )
+              .then((res) => {
+                console.log(res.data);
+                if (res.data.modifiedCount === 1) {
+                  refetch();
+                  Swal.fire({
+                    title: `${changestatus}`,
+                    text: `${paymentid} has been ${changestatus} .`,
+                    icon: "success",
+                  });
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        });
+      } else {
+        return;
+      }
     }
   };
 
@@ -147,7 +177,7 @@ const AdminOrderDetail = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex  gap-3 justify-center flex-col items-center">
+                  <div className="flex   gap-3 justify-center flex-col items-center">
                     <div className="flex row flex-wrap justify-center items-center lg:justify-normal lg:items-start lg:flex-nowrap gap-3">
                       <div className="badge badge-md font-semibold badge-ghost">
                         ${eDetail.price}
@@ -158,7 +188,7 @@ const AdminOrderDetail = () => {
                           eDetail.price * eDetail.quantity}
                       </div>
                     </div>
-                    <button
+                    {/* <button
                       disabled={eDetail.orderStatus === "Canceled"}
                       onClick={() => handleCancelOrder(eDetail)}
                       className={`badge   cursor-pointer hover:bg-gray-600 sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none bg-[#da490b] ${
@@ -171,7 +201,70 @@ const AdminOrderDetail = () => {
                         : eDetail.orderStatus === "Canceled"
                         ? eDetail.orderStatus
                         : "Cancel Order"}
-                    </button>
+                    </button> */}
+                    <div className="flex items-center justify-center gap-4">
+                      {eDetail.orderStatus === "Canceled" && (
+                        <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-lg">
+                          {eDetail.orderStatus}
+                        </p>
+                      )}
+                      {eDetail.orderStatus === "Pending" && (
+                        <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-yellow-600 text-white rounded-lg">
+                          {eDetail.orderStatus}
+                        </p>
+                      )}
+                      {eDetail.orderStatus === "Confirmed" && (
+                        <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-lg">
+                          {eDetail.orderStatus}
+                        </p>
+                      )}
+
+                      <div className="dropdown ">
+                        <div
+                          tabIndex={0}
+                          role="button"
+                          className="btn border bg-white hover:bg-gray-800 hover:text-white border-white px-2 py-0 btn-ghost m-1">
+                          <GrUpdate className="text-lg" />
+                        </div>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content text-black content-center menu bg-base-100 absolute -top-8 right-[100%] rounded-box  z-[1] w-32 md:w-52 p-1 shadow">
+                          <li
+                            onClick={() =>
+                              handleCancelOrder(
+                                payment.paymentStatus,
+                                payment._id,
+                                eDetail,
+                                "Canceled"
+                              )
+                            }>
+                            <a className="font-semibold">Canceled</a>
+                          </li>
+                          <li
+                            onClick={() =>
+                              handleCancelOrder(
+                                payment.paymentStatus,
+                                payment._id,
+                                eDetail,
+                                "Pending"
+                              )
+                            }>
+                            <a className="font-semibold ">Pending</a>
+                          </li>
+                          <li
+                            onClick={() =>
+                              handleCancelOrder(
+                                payment.paymentStatus,
+                                payment._id,
+                                eDetail,
+                                "Confirmed"
+                              )
+                            }>
+                            <a className="font-semibold">Confirmed</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 {/* <div className=" flex flex-row items-center gap-2 font-semibold text-yellow-400 border-none "> */}
