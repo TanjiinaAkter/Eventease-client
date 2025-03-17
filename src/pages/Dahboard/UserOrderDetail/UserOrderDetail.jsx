@@ -2,12 +2,10 @@ import { IoCalendarOutline } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useaxiosSecure from "../../../hooks/useAxiosSecure";
-import { MdCancel } from "react-icons/md";
 import Swal from "sweetalert2";
 import useSinglePaymentUser from "../../../hooks/useSinglePaymentUser";
 import useAuth from "../../../hooks/useAuth";
 const UserOrderDetail = () => {
-  const [cancelMsg, setCancelMsg] = useState(false);
   const { user } = useAuth();
   const [payment, setPayment] = useState([]);
   const location = useLocation();
@@ -22,12 +20,6 @@ const UserOrderDetail = () => {
       );
 
       setPayment(payment);
-      if (payment && payment.eventDetails) {
-        const isCanceled = payment.eventDetails.some(
-          (event) => event.orderStatus === "Canceled"
-        );
-        setCancelMsg(isCanceled);
-      }
     }
   }, [userpayments, getPaymentId]);
   const handleCancelOrder = (event) => {
@@ -53,7 +45,6 @@ const UserOrderDetail = () => {
             .then((res) => {
               console.log(res.data);
               if (res.data.modifiedCount === 1) {
-                setCancelMsg(true);
                 refetch();
                 Swal.fire({
                   title: "Canceled!",
@@ -63,7 +54,6 @@ const UserOrderDetail = () => {
               }
             })
             .catch((error) => {
-              setCancelMsg(false);
               console.log(error);
             });
         }
@@ -173,22 +163,20 @@ const UserOrderDetail = () => {
                       </div>
                     ) : (
                       <button
-                        disabled={cancelMsg}
                         onClick={() => handleCancelOrder(event)}
-                        className={`badge w-full cursor-pointer hover:bg-gray-600 py-4  text-nowrap font-semibold text-white border-none bg-[#da150b] ${
-                          cancelMsg
-                            ? "bg-gray-600 text-white cursor-not-allowed"
-                            : ""
-                        } `}>
-                        <MdCancel className="text-white text-xl" />{" "}
-                        {cancelMsg ? "Canceled" : " Cancel order"}
+                        className={`badge cursor-pointer hover:bg-gray-600 sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none ${
+                          event.orderStatus === "Canceled"
+                            ? "bg-gray-600"
+                            : "bg-[#da490b]"
+                        }`}>
+                        {event.orderStatus === "Canceled"
+                          ? event.orderStatus
+                          : "Cancel Order"}
                       </button>
                     )}
                   </div>
                 </div>
-                <div className=" flex flex-row items-center gap-2 font-semibold text-yellow-400 border-none ">
-                 
-                </div>
+                <div className=" flex flex-row items-center gap-2 font-semibold text-yellow-400 border-none "></div>
               </div>
             ))}
           </div>
