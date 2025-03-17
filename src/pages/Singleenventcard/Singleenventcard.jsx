@@ -51,6 +51,7 @@ const Singleenventcard = () => {
           price: event.ticketprice,
           quantity: 1,
           orderStatus: "Pending",
+          eventpaymentStatus: "Pending",
         })
         .then((res) => {
           console.log(res.data);
@@ -165,7 +166,7 @@ const Singleenventcard = () => {
                   Total ticket - {event.ticket}
                 </p>
               </div>
-             
+
               <div className="flex justify-start my-6">
                 <button
                   disabled={isIncart}

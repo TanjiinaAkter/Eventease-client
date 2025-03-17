@@ -166,9 +166,23 @@ const VendorOrderManagement = () => {
                     </td>
                     <td className="px-2 py-2 whitespace-nowrap ">
                       <div className="flex items-center justify-center gap-4">
-                        <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-lg">
-                          {/* {eDetail._id} */}{" "}
-                          {eDetail.orderStatus || "Pending"}
+                        <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out 0 text-white rounded-lg">
+                          {/* {eDetail._id} */}
+                          {eDetail.orderStatus === "Canceled" && (
+                            <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-lg">
+                              {eDetail.orderStatus}
+                            </p>
+                          )}
+                          {eDetail.orderStatus === "Pending" && (
+                            <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-yellow-600 text-white rounded-lg">
+                              {eDetail.orderStatus}
+                            </p>
+                          )}
+                          {eDetail.orderStatus === "Confirmed" && (
+                            <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-lg">
+                              {eDetail.orderStatus}
+                            </p>
+                          )}
                         </p>
                         <div className="dropdown ">
                           <div
@@ -232,6 +246,7 @@ const VendorOrderManagement = () => {
                           <ul
                             tabIndex={0}
                             className="dropdown-content text-black content-center menu bg-base-100 absolute -top-8 right-[100%] rounded-box z-[1] w-32 md:w-52 p-1 shadow">
+                            {/* TO DO: PAYMENT STATUS FOR VENDOR EVENT SPECIFIC CGANGE */}
                             <li>
                               <a className="font-semibold">paid</a>
                             </li>

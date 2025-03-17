@@ -188,20 +188,7 @@ const AdminOrderDetail = () => {
                           eDetail.price * eDetail.quantity}
                       </div>
                     </div>
-                    {/* <button
-                      disabled={eDetail.orderStatus === "Canceled"}
-                      onClick={() => handleCancelOrder(eDetail)}
-                      className={`badge   cursor-pointer hover:bg-gray-600 sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none bg-[#da490b] ${
-                        eDetail.orderStatus === "Canceled"
-                          ? "bg-gray-600 disabled cursor-not-allowed"
-                          : "Cancel Order"
-                      }`}>
-                      {eDetail.orderStatus === "Pending"
-                        ? "Cancel Order"
-                        : eDetail.orderStatus === "Canceled"
-                        ? eDetail.orderStatus
-                        : "Cancel Order"}
-                    </button> */}
+                   {/* ORDER STATUS UPDATE */}
                     <div className="flex items-center justify-center gap-4">
                       {eDetail.orderStatus === "Canceled" && (
                         <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-lg">
