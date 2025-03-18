@@ -236,25 +236,7 @@ const VendorOrderManagement = () => {
                         <p className=" py-1 px-2 hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-lg">
                           {payment.paymentStatus}
                         </p>
-                        <div className="dropdown ">
-                          <div
-                            tabIndex={0}
-                            role="button"
-                            className="btn border border-white px-3 py-0 btn-ghost m-1">
-                            <GrUpdate className="text-lg" />
-                          </div>
-                          <ul
-                            tabIndex={0}
-                            className="dropdown-content text-black content-center menu bg-base-100 absolute -top-8 right-[100%] rounded-box z-[1] w-32 md:w-52 p-1 shadow">
-                            {/* TO DO: PAYMENT STATUS FOR VENDOR EVENT SPECIFIC CGANGE */}
-                            <li>
-                              <a className="font-semibold">paid</a>
-                            </li>
-                            <li>
-                              <a className="font-semibold">unpaid</a>
-                            </li>
-                          </ul>
-                        </div>
+                       
                       </div>
                     </td>
                     <td className=" py-2 whitespace-nowrap">
