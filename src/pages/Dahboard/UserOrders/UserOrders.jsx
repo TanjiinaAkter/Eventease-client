@@ -87,8 +87,13 @@ const UserOrders = () => {
                     )}
                   </td>
                   <td className="px-3 py-2">
+                    {payment.orderStatus === "Completed" && (
+                      <span className="px-2 py-[1px] font-semibold bg-green-900 text-white rounded-full">
+                        {payment.orderStatus}
+                      </span>
+                    )}
                     {payment.orderStatus === "Pending" && (
-                      <span className="px-2 py-[1px] font-semibold bg-[#ffc107] text-[#000000] rounded-full">
+                      <span className="px-2 py-[1px] font-semibold bg-yellow-600 text-white rounded-full">
                         {payment.orderStatus}
                       </span>
                     )}

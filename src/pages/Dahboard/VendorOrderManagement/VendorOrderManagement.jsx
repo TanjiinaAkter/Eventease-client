@@ -166,20 +166,20 @@ const VendorOrderManagement = () => {
                     </td>
                     <td className="px-2 py-2 whitespace-nowrap ">
                       <div className="flex items-center justify-center gap-4">
-                        <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out 0 text-white rounded-lg">
+                        <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out 0 text-white rounded-full">
                           {/* {eDetail._id} */}
                           {eDetail.orderStatus === "Canceled" && (
-                            <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-lg">
+                            <p className=" px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-full">
                               {eDetail.orderStatus}
                             </p>
                           )}
                           {eDetail.orderStatus === "Pending" && (
-                            <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-yellow-600 text-white rounded-lg">
+                            <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-yellow-600 text-white rounded-full">
                               {eDetail.orderStatus}
                             </p>
                           )}
                           {eDetail.orderStatus === "Confirmed" && (
-                            <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-lg">
+                            <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-full">
                               {eDetail.orderStatus}
                             </p>
                           )}
@@ -233,10 +233,9 @@ const VendorOrderManagement = () => {
                     </td>
                     <td className="px-2 py-2 whitespace-nowrap ">
                       <div className="flex items-center justify-end gap-4">
-                        <p className=" py-1 px-2 hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-lg">
+                        <p className="px-2 text-center py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-full">
                           {payment.paymentStatus}
                         </p>
-                       
                       </div>
                     </td>
                     <td className=" py-2 whitespace-nowrap">

@@ -6,8 +6,11 @@ import useEventRoleBased from "../../../hooks/useEventRoleBased";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { MdDelete } from "react-icons/md";
+import useAuth from "../../../hooks/useAuth";
 
 const OrderManagement = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [paymentByRole, refetch] = useEventRoleBased();
   console.log(
     "paymentByRole mane ADMIN er events  payment  gulo holo ",
@@ -41,6 +44,32 @@ const OrderManagement = () => {
     });
   };
   // update order status FOR WHOLE ORDER
+  const handleOrderUpdate = (changeStatus, paymentId, paymentStatus) => {
+    console.log(changeStatus, paymentId, paymentStatus);
+    if (paymentStatus === "Paid") {
+      return Swal.fire(
+        "This order has already been paid. You cannot mark it as unpaid.!"
+      );
+    } else {
+      if (user && user?.email) {
+        axiosSecure
+          .patch(`/payments/fullorderstatus/${paymentId}`, {
+            orderStatus: changeStatus,
+          })
+          .then((res) => {
+            console.log(res.data);
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+      }
+    }
+  };
   return (
     <div className="relative z-0 bg-black w-full h-full min-h-screen p-6">
       {/* Back to Home Button */}
@@ -95,8 +124,29 @@ const OrderManagement = () => {
                   </td>
                   <td className="px-2 py-2 whitespace-nowrap ">
                     <div className="flex items-center justify-center gap-4">
-                      <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-lg">
-                        {payment.orderStatus}
+                      <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out 0 text-white rounded-lg">
+                        {/* {eDetail._id} */}
+
+                        {payment.orderStatus === "Completed" && (
+                          <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-900 text-white rounded-full">
+                            {payment.orderStatus}
+                          </p>
+                        )}
+                        {payment.orderStatus === "Canceled" && (
+                          <p className=" px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-full">
+                            {payment.orderStatus}
+                          </p>
+                        )}
+                        {payment.orderStatus === "Pending" && (
+                          <p className=" px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-yellow-600 text-white rounded-full">
+                            {payment.orderStatus}
+                          </p>
+                        )}
+                        {payment.orderStatus === "Confirmed" && (
+                          <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-full">
+                            {payment.orderStatus}
+                          </p>
+                        )}
                       </p>
                       <div className="dropdown ">
                         <div
@@ -108,14 +158,35 @@ const OrderManagement = () => {
                         <ul
                           tabIndex={0}
                           className="dropdown-content text-black content-center menu bg-base-100 absolute -top-8 right-[100%] rounded-box z-[1] w-32 md:w-52 p-1 shadow">
-                          <li>
-                            <a className="font-semibold">Cancelled</a>
+                          <li
+                            onClick={() =>
+                              handleOrderUpdate(
+                                "Canceled",
+                                payment._id,
+                                payment.paymentStatus
+                              )
+                            }>
+                            <a className="font-semibold">Canceled</a>
                           </li>
-                          <li>
-                            <a className="font-semibold ">pending</a>
+                          <li
+                            onClick={() =>
+                              handleOrderUpdate(
+                                "Pending",
+                                payment._id,
+                                payment.paymentStatus
+                              )
+                            }>
+                            <a className="font-semibold ">Pending</a>
                           </li>
-                          <li>
-                            <a className="font-semibold">confirmed</a>
+                          <li
+                            onClick={() =>
+                              handleOrderUpdate(
+                                "Confirmed",
+                                payment._id,
+                                payment.paymentStatus
+                              )
+                            }>
+                            <a className="font-semibold">Confirmed</a>
                           </li>
                         </ul>
                       </div>
