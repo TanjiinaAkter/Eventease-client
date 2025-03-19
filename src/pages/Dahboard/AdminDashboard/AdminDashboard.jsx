@@ -1,7 +1,17 @@
 import { FaCalendar, FaDollarSign } from "react-icons/fa";
 import { MdOutlinePendingActions, MdShoppingBag } from "react-icons/md";
+import useEventRoleBased from "../../../hooks/useEventRoleBased";
 
 const AdminDashboard = () => {
+  const [paymentByRole] = useEventRoleBased();
+  console.log(paymentByRole);
+  const revenue = paymentByRole.reduce(
+    (acc, total) => acc + total.totalPrice,
+    0
+  );
+  
+  const pendingOrder = paymentByRole.filter((payment) => (payment.orderStatus === 'Pending'));
+  console.log(pendingOrder.length);
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
       <div className=" mx-auto mb-5 text-center md:text-start">
@@ -20,11 +30,8 @@ const AdminDashboard = () => {
           <div>
             <h2 className="text-xl text-white">Total Orders</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
-              2
+              {paymentByRole.length}
             </h1>
-            <p className="px-3 py-[1px] mt-4  bg-red-600 text-white flex  rounded-2xl">
-              completed
-            </p>
           </div>
           <div>
             <MdShoppingBag className="text-[#44cfbf] text-2xl" />
@@ -34,7 +41,7 @@ const AdminDashboard = () => {
           <div>
             <h2 className="text-xl text-white">Revenue</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
-              $ 100
+              $ {revenue}
             </h1>
           </div>
           <div>
@@ -45,7 +52,7 @@ const AdminDashboard = () => {
           <div>
             <h2 className="text-xl text-white">Pending Orders</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
-              2
+            {pendingOrder.length}
             </h1>
             <p className="px-3 py-[1px] mt-4  bg-[#23ce2e] text-white flex  rounded-2xl">
               needs attention
