@@ -100,10 +100,10 @@ const UserDashboard = () => {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-3 justify-center items-center">
-                  <div className="badge badge-sm font-semibold badge-ghost">
+                  <div className="badge sm:badge-sm md:badge-md font-semibold badge-ghost">
                     $ {lastEventFromEventDetails.price}
                   </div>
-                  <div className="badge badge-sm font-semibold text-white border-none bg-[#0BDA51]">
+                  <div className="badge sm:badge-sm md:badge-md  font-semibold text-white border-none bg-[#0BDA51]">
                     {payment.paymentStatus}
                   </div>
                 </div>
@@ -134,10 +134,10 @@ const UserDashboard = () => {
               </div>
             </div>
             <div className="flex flex-wrap gap-3 justify-center items-center">
-              <div className="badge badge-sm font-semibold badge-ghost">
+              <div className="badge sm:badge-sm md:badge-md font-semibold badge-ghost">
                 $320
               </div>
-              <div className="badge badge-md font-semibold text-white border-none bg-[#0BDA51]">
+              <div className="badge badge-md font-semibold text-white border-none bg-[#0b8bda]">
                 {event.venue}
               </div>
             </div>
