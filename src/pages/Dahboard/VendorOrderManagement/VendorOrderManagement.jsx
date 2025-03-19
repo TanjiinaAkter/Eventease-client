@@ -89,6 +89,44 @@ const VendorOrderManagement = () => {
       }
     }
   };
+  // EVENT DELETE OPERATION
+  const handleDelete = (eventId, paymentStatus, paymentId) => {
+    console.log(eventId, paymentStatus, paymentId);
+    if (paymentStatus === "Paid") {
+      return Swal.fire(
+        "Payment is already done, you can not cancel  this order !"
+      );
+    }
+    if (user && user?.email) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, cancel this event order!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure
+            .patch(
+              `/payments/paymentId/${paymentId}/vendorCreatedEventDelete/${eventId}`
+            )
+            .then((res) => {
+              console.log(res.data);
+              if (res.data.deletedCount === 1) {
+                refetch();
+                Swal.fire({
+                  title: "Deleted!",
+                  text: `${eventId} has been deleted from the payments list.`,
+                  icon: "success",
+                });
+              }
+            });
+        }
+      });
+    }
+  };
   return (
     <div className="relative z-0 bg-black w-full h-full min-h-screen p-6">
       {/* Back to Home Button */}
@@ -233,9 +271,16 @@ const VendorOrderManagement = () => {
                     </td>
                     <td className="px-2 py-2 whitespace-nowrap ">
                       <div className="flex items-center justify-end gap-4">
-                        <p className="px-2 text-center py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-full">
-                          {payment.paymentStatus}
-                        </p>
+                        {payment.paymentStatus === "Paid" && (
+                          <p className="px-2 text-center py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-full">
+                            {payment.paymentStatus}
+                          </p>
+                        )}
+                        {payment.paymentStatus === "Unpaid" && (
+                          <p className="px-2 text-center py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-full">
+                            {payment.paymentStatus}
+                          </p>
+                        )}
                       </div>
                     </td>
                     <td className=" py-2 whitespace-nowrap">
@@ -245,7 +290,16 @@ const VendorOrderManagement = () => {
                     <td className="px-2 py-2 whitespace-nowrap flex justify-center items-center gap">
                       {/* to={`/dashboard/orderdetail/${payment._id}`} */}
 
-                      <button className=" py-2 px-2  bg-red-600 hover:bg-gray-400 rounded-full text-white ">
+                      <button
+                        // TO DO: vendor tar event delete korbe
+                        onClick={() =>
+                          handleDelete(
+                            eDetail.eventId,
+                            payment.paymentStatus,
+                            payment._id
+                          )
+                        }
+                        className=" py-2 px-2  bg-red-600 hover:bg-gray-400 rounded-full text-white ">
                         <RxCross2 className=" font-semibold text-lg " />
                       </button>
                     </td>

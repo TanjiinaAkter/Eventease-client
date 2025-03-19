@@ -174,25 +174,12 @@ const UserOrderDetail = () => {
                         </p>
                       </div>
                     ) : (
-                      // <button
-                      //   onClick={() => handleCancelOrder(event)}
-                      //   className={`badge cursor-pointer hover:bg-gray-600 sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none ${
-                      //     event.orderStatus === "Canceled"
-                      //       ? "bg-gray-600"
-                      //       : "bg-[#da490b]"
-                      //   }`}>
-                      //   {event.orderStatus
-                      //     ? event.orderStatus
-                      //     : event.orderStatus === "Canceled"
-                      //     ? event.orderStatus
-                      //     : "Cancel Order"}
-                      // </button>
                       <button
                         onClick={() => handleCancelOrder(event)}
                         className={` cursor-pointer  sm:badge-lg md:badge-lg text-nowrap font-semibold text-white border-none `}>
                         {event.orderStatus === "Pending" && (
                           <p className="bg-[#da490b] hover:bg-gray-600 px-3 py-1 rounded-full">
-                            {event.orderStatus}
+                            Cancel order
                           </p>
                         )}
                         {event.orderStatus === "Canceled" && (

@@ -9,6 +9,7 @@ import { MdDelete } from "react-icons/md";
 import useAuth from "../../../hooks/useAuth";
 
 const OrderManagement = () => {
+  // TO DO : JODI EVENTdEATILS e events na thake tahole oi row ta remove kore dibo
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [paymentByRole, refetch] = useEventRoleBased();
@@ -17,31 +18,38 @@ const OrderManagement = () => {
     paymentByRole
   );
 
-  const handleDelete = (id) => {
-    console.log(id);
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        useAxiosSecure.delete(`/payments/${id}`).then((res) => {
-          //console.log(res.data);
-          if (res.data.deletedCount === 1) {
-            refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: `${id} has been deleted from artists list.`,
-              icon: "success",
-            });
-          }
-        });
-      }
-    });
+  const handleDelete = (payment) => {
+    console.log(payment._id);
+    if (payment.paymentStatus === "Paid") {
+      return Swal.fire(
+        "Payment is already done, you can not cancel  this order !"
+      );
+    }
+    if (user && user?.email) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, cancel it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure.delete(`/payments/${payment._id}`).then((res) => {
+            console.log(res.data);
+            if (res.data.deletedCount === 1) {
+              refetch();
+              Swal.fire({
+                title: "Deleted!",
+                text: `${payment._id} has been deleted from the payments list.`,
+                icon: "success",
+              });
+            }
+          });
+        }
+      });
+    }
   };
   // update order status FOR WHOLE ORDER
   const handleOrderUpdate = (changeStatus, paymentId, paymentStatus) => {
@@ -55,6 +63,33 @@ const OrderManagement = () => {
         axiosSecure
           .patch(`/payments/fullorderstatus/${paymentId}`, {
             orderStatus: changeStatus,
+          })
+          .then((res) => {
+            console.log(res.data);
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+      }
+    }
+  };
+  // update PAYMENT STATUS FOR WHOLE ORDER
+  const handlePaymentStatus = (paymentStatus, paymentId, statustobeChange) => {
+    console.log(paymentStatus, paymentId, statustobeChange);
+    if (paymentStatus === "Paid") {
+      return Swal.fire(
+        "This order has already been paid. You cannot mark it as unpaid.!"
+      );
+    } else {
+      if (user && user?.email) {
+        axiosSecure
+          .patch(`/payments/fullpaymentstatus/${paymentId}`, {
+            paymentStatus: statustobeChange,
           })
           .then((res) => {
             console.log(res.data);
@@ -111,135 +146,166 @@ const OrderManagement = () => {
             </thead>
             <tbody>
               {/* row 1 */}
-              {paymentByRole.map((payment, index) => (
-                <tr
-                  key={paymentByRole._id}
-                  className="text-white border-b border-[#4c4f4e]">
-                  <th className="px-2 py-2 whitespace-nowrap">{index + 1}</th>
-                  <td className="px-2 py-2 whitespace-nowrap">
-                    {payment.transactionId}
-                  </td>
-                  <td className="px-2 py-2 whitespace-nowrap">
-                    {new Date(payment.date).toLocaleDateString("EN-GB")}
-                  </td>
-                  <td className="px-2 py-2 whitespace-nowrap ">
-                    <div className="flex items-center justify-center gap-4">
-                      <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out 0 text-white rounded-lg">
-                        {/* {eDetail._id} */}
 
-                        {payment.orderStatus === "Completed" && (
-                          <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-900 text-white rounded-full">
-                            {payment.orderStatus}
-                          </p>
-                        )}
-                        {payment.orderStatus === "Canceled" && (
-                          <p className=" px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-full">
-                            {payment.orderStatus}
-                          </p>
-                        )}
-                        {payment.orderStatus === "Pending" && (
-                          <p className=" px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-yellow-600 text-white rounded-full">
-                            {payment.orderStatus}
-                          </p>
-                        )}
-                        {payment.orderStatus === "Confirmed" && (
-                          <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-full">
-                            {payment.orderStatus}
-                          </p>
-                        )}
-                      </p>
-                      <div className="dropdown ">
-                        <div
-                          tabIndex={0}
-                          role="button"
-                          className="btn border border-white px-3 py-0 btn-ghost m-1">
-                          <GrUpdate className="text-lg" />
+              {paymentByRole.map((payment, index) =>
+                payment?.eventDetails?.length > 0 ? (
+                  <tr
+                    key={paymentByRole._id}
+                    className="text-white border-b border-[#4c4f4e]">
+                    <th className="px-2 py-2 whitespace-nowrap">{index + 1}</th>
+                    <td className="px-2 py-2 whitespace-nowrap">
+                      {payment.transactionId}
+                    </td>
+                    <td className="px-2 py-2 whitespace-nowrap">
+                      {new Date(payment.date).toLocaleDateString("EN-GB")}
+                    </td>
+                    <td className="px-2 py-2 whitespace-nowrap ">
+                      <div className="flex items-center justify-center gap-4">
+                        <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out 0 text-white rounded-lg">
+                          {/* {eDetail._id} */}
+
+                          {payment.orderStatus === "Completed" && (
+                            <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-900 text-white rounded-full">
+                              {payment.orderStatus}
+                            </p>
+                          )}
+                          {payment.orderStatus === "Canceled" && (
+                            <p className=" px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-full">
+                              {payment.orderStatus}
+                            </p>
+                          )}
+                          {payment.orderStatus === "Pending" && (
+                            <p className=" px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-yellow-600 text-white rounded-full">
+                              {payment.orderStatus}
+                            </p>
+                          )}
+                          {payment.orderStatus === "Confirmed" && (
+                            <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-full">
+                              {payment.orderStatus}
+                            </p>
+                          )}
+                        </p>
+                        <div className="dropdown ">
+                          <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn border border-white px-3 py-0 btn-ghost m-1">
+                            <GrUpdate className="text-lg" />
+                          </div>
+                          <ul
+                            tabIndex={0}
+                            className="dropdown-content text-black content-center menu bg-base-100 absolute -top-8 right-[100%] rounded-box z-[1] w-32 md:w-52 p-1 shadow">
+                            <li
+                              onClick={() =>
+                                handleOrderUpdate(
+                                  "Canceled",
+                                  payment._id,
+                                  payment.paymentStatus
+                                )
+                              }>
+                              <a className="font-semibold">Canceled</a>
+                            </li>
+                            <li
+                              onClick={() =>
+                                handleOrderUpdate(
+                                  "Pending",
+                                  payment._id,
+                                  payment.paymentStatus
+                                )
+                              }>
+                              <a className="font-semibold ">Pending</a>
+                            </li>
+                            <li
+                              onClick={() =>
+                                handleOrderUpdate(
+                                  "Confirmed",
+                                  payment._id,
+                                  payment.paymentStatus
+                                )
+                              }>
+                              <a className="font-semibold">Confirmed</a>
+                            </li>
+                          </ul>
                         </div>
-                        <ul
-                          tabIndex={0}
-                          className="dropdown-content text-black content-center menu bg-base-100 absolute -top-8 right-[100%] rounded-box z-[1] w-32 md:w-52 p-1 shadow">
-                          <li
-                            onClick={() =>
-                              handleOrderUpdate(
-                                "Canceled",
-                                payment._id,
-                                payment.paymentStatus
-                              )
-                            }>
-                            <a className="font-semibold">Canceled</a>
-                          </li>
-                          <li
-                            onClick={() =>
-                              handleOrderUpdate(
-                                "Pending",
-                                payment._id,
-                                payment.paymentStatus
-                              )
-                            }>
-                            <a className="font-semibold ">Pending</a>
-                          </li>
-                          <li
-                            onClick={() =>
-                              handleOrderUpdate(
-                                "Confirmed",
-                                payment._id,
-                                payment.paymentStatus
-                              )
-                            }>
-                            <a className="font-semibold">Confirmed</a>
-                          </li>
-                        </ul>
                       </div>
-                    </div>
-                  </td>
-                  <td className="px-2 py-2 whitespace-nowrap ">
-                    <div className="flex items-center justify-end gap-4">
-                      <p className=" py-1 px-2 hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-lg">
-                        {payment.paymentStatus}
-                      </p>
-                      <div className="dropdown ">
-                        <div
-                          tabIndex={0}
-                          role="button"
-                          className="btn border border-white px-3 py-0 btn-ghost m-1">
-                          <GrUpdate className="text-lg" />
+                    </td>
+                    <td className="px-2 py-2 whitespace-nowrap ">
+                      <div className="flex items-center justify-end gap-4">
+                        <p className=" py-1 px-2 hover:bg-gray-800 transition-all duration-200 ease-in-out  text-white rounded-lg">
+                          {payment.paymentStatus === "Paid" && (
+                            <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-green-600 text-white rounded-full">
+                              {payment.paymentStatus}
+                            </p>
+                          )}
+                          {payment.paymentStatus === "Unpaid" && (
+                            <p className="px-2 py-[1px] font-semibold hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-full">
+                              {payment.paymentStatus}
+                            </p>
+                          )}
+                        </p>
+                        <div className="dropdown ">
+                          <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn border border-white px-3 py-0 btn-ghost m-1">
+                            <GrUpdate className="text-lg" />
+                          </div>
+                          <ul
+                            tabIndex={0}
+                            className="dropdown-content text-black content-center menu bg-base-100 absolute -top-8 right-[100%] rounded-box z-[1] w-32 md:w-52 p-1 shadow">
+                            <li
+                              onClick={() =>
+                                handlePaymentStatus(
+                                  payment.paymentStatus,
+                                  payment._id,
+                                  "Paid"
+                                )
+                              }>
+                              <a className="font-semibold">paid</a>
+                            </li>
+                            <li
+                              onClick={() =>
+                                handlePaymentStatus(
+                                  payment.paymentStatus,
+                                  payment._id,
+                                  "Unpaid"
+                                )
+                              }>
+                              <a className="font-semibold">unpaid</a>
+                            </li>
+                          </ul>
                         </div>
-                        <ul
-                          tabIndex={0}
-                          className="dropdown-content text-black content-center menu bg-base-100 absolute -top-8 right-[100%] rounded-box z-[1] w-32 md:w-52 p-1 shadow">
-                          <li>
-                            <a className="font-semibold">paid</a>
-                          </li>
-                          <li>
-                            <a className="font-semibold">unpaid</a>
-                          </li>
-                        </ul>
                       </div>
-                    </div>
-                  </td>
-                  <td className="px-2 py-2 whitespace-nowrap ">
-                    $<span className="font-semibold">{payment.totalPrice}</span>
-                  </td>
+                    </td>
+                    <td className="px-2 py-2 whitespace-nowrap ">
+                      $
+                      <span className="font-semibold">
+                        {payment.totalPrice}
+                      </span>
+                    </td>
 
-                  <td className="px-3 py-2">
-                    <div className="flex justify-center items-center gap-5">
-                      <Link
-                        to={`/dashboard/ordermanagement/orderdetail/${payment._id}`}
-                        state={{ payment: payment }}>
-                        <span className="px-5 hover:bg-gray-700 transition-all duration-500 hover:text-white py-1 font-semibold cursor-pointer bg-teal-300 text-[#0c0606] rounded-md">
-                          Details
-                        </span>
-                      </Link>
+                    <td className="px-3 py-2">
+                      <div className="flex justify-center items-center gap-5">
+                        <Link
+                          to={`/dashboard/ordermanagement/orderdetail/${payment._id}`}
+                          state={{ payment: payment }}>
+                          <span className="px-5 hover:bg-gray-700 transition-all duration-500 hover:text-white py-1 font-semibold cursor-pointer bg-teal-300 text-[#0c0606] rounded-md">
+                            Details
+                          </span>
+                        </Link>
 
-                      <button
-                        onClick={() => handleDelete(payment)}
-                        className="w-10 h-10 hover:bg-gray-500 rounded-md flex justify-center items-center">
-                        <MdDelete className="text-[27px] text-red-600" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                        <button
+                          onClick={() => handleDelete(payment)}
+                          className="w-10 h-10 hover:bg-gray-500 rounded-md flex justify-center items-center">
+                          <MdDelete className="text-[27px] text-red-600" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  ""
+                )
+              )}
             </tbody>
           </table>
         </div>
