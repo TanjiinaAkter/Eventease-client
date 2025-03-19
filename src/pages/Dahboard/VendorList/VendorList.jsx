@@ -7,12 +7,13 @@ import { LuPlus } from "react-icons/lu";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useVendors from "../../../hooks/useVendors";
+import { CgUnavailable } from "react-icons/cg";
 
 const VendorList = () => {
   const axiosSecure = useAxiosSecure();
 
   const [vendors, refetch] = useVendors();
-  console.log("vendors are here adadddaddad", vendors);
+  console.log("vendors are here ", vendors);
   const handleDelete = (vendor) => {
     Swal.fire({
       title: "Are you sure?",
@@ -100,46 +101,55 @@ const VendorList = () => {
             </thead>
             <tbody className="">
               {/* row 1 */}
-              {vendors.map((vendor, index) => (
-                <tr
-                  key={vendor._id}
-                  className="border-b border-[#4c4f4e] text-center">
-                  <th>{index + 1}</th>
-                  <td className="px-5 py-2  whitespace-nowrap">
-                    {vendor.company} {vendor.userId}
-                  </td>
-                  <td className="px-5 py-2  whitespace-nowrap">
-                    {vendor.description}
-                  </td>
-                  <td className="px-5 py-2  whitespace-nowrap">
-                    {vendor.email}
-                  </td>
-                  <td className="px-5 py-2  whitespace-nowrap">
-                    {vendor.phone}
-                  </td>
-                  <td className="px-5 py-2  whitespace-nowrap">
-                    {vendor.createdAt}
-                  </td>
+              {vendors.length > 0 ? (
+                vendors.map((vendor, index) => (
+                  <tr
+                    key={vendor._id}
+                    className="border-b border-[#4c4f4e] text-center">
+                    <th>{index + 1}</th>
+                    <td className="px-5 py-2  whitespace-nowrap">
+                      {vendor.company} {vendor.userId}
+                    </td>
+                    <td className="px-5 py-2  whitespace-nowrap">
+                      {vendor.description}
+                    </td>
+                    <td className="px-5 py-2  whitespace-nowrap">
+                      {vendor.email}
+                    </td>
+                    <td className="px-5 py-2  whitespace-nowrap">
+                      {vendor.phone}
+                    </td>
+                    <td className="px-5 py-2  whitespace-nowrap">
+                      {vendor.createdAt}
+                    </td>
 
-                  <td className=" py-2  whitespace-nowrap">
-                    <div className="dropdown ">
-                      <label tabIndex={0} className="btn m-1">
-                        <HiDotsHorizontal />
-                      </label>
-                      <ul
-                        tabIndex={0}
-                        className="dropdown-content  absolute top-0 text-3xl right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-32 md:w-52 ">
-                        <li className="">
-                          <MdDelete
-                            onClick={() => handleDelete(vendor)}
-                            className="justify-self-center text-red-600"
-                          />
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    <td className=" py-2  whitespace-nowrap">
+                      <div className="dropdown ">
+                        <label tabIndex={0} className="btn m-1">
+                          <HiDotsHorizontal />
+                        </label>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content  absolute top-0 text-3xl right-[100%] content-center p-2 shadow bg-gray-800 text-white rounded-box w-32 md:w-52 ">
+                          <li className="">
+                            <MdDelete
+                              onClick={() => handleDelete(vendor)}
+                              className="justify-self-center text-red-600"
+                            />
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <div className="flex justify-center my-6 items-center w-full">
+                  <CgUnavailable className="text-red-600 text-xl" />{" "}
+                  <p className="text-yellow-400 pl-1 text-lg ">
+                    No vendors available
+                  </p>
+                </div>
+              )}
 
               {/* row 2 */}
             </tbody>

@@ -188,7 +188,7 @@ const AdminOrderDetail = () => {
                           eDetail.price * eDetail.quantity}
                       </div>
                     </div>
-                   {/* ORDER STATUS UPDATE */}
+                    {/* ORDER STATUS UPDATE */}
                     <div className="flex items-center justify-center gap-4">
                       {eDetail.orderStatus === "Canceled" && (
                         <p className=" py-1 px-2  hover:bg-gray-800 transition-all duration-200 ease-in-out bg-red-600 text-white rounded-lg">

@@ -74,6 +74,7 @@ const OrderManagement = () => {
               showConfirmButton: false,
               timer: 1500,
             });
+            
           });
       }
     }

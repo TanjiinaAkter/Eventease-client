@@ -125,7 +125,7 @@ const CheckoutForm = () => {
           email: user?.email,
           userName: user?.displayName,
           totalPrice: finalCalculation,
-          orderStatus: "Completed",
+          orderStatus: "Confirmed",
           paymentStatus: "Paid",
           date: new Date(),
           quantity: allcarts.reduce((acc, cart) => acc + cart.quantity, 0),
