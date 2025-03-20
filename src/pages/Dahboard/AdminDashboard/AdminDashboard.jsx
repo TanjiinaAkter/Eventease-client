@@ -1,17 +1,57 @@
 import { FaCalendar, FaDollarSign } from "react-icons/fa";
 import { MdOutlinePendingActions, MdShoppingBag } from "react-icons/md";
 import useEventRoleBased from "../../../hooks/useEventRoleBased";
+import { useEffect, useState } from "react";
 
 const AdminDashboard = () => {
+  const [eventsCount, setEventsCount] = useState(0);
   const [paymentByRole] = useEventRoleBased();
-  console.log(paymentByRole);
+  // console.log(paymentByRole);
   const revenue = paymentByRole.reduce(
     (acc, total) => acc + total.totalPrice,
     0
   );
-  
-  const pendingOrder = paymentByRole.filter((payment) => (payment.orderStatus === 'Pending'));
-  console.log(pendingOrder.length);
+
+  useEffect(() => {
+    // each payment>eventDetails>eventId gulo niye array create korlam.....[event1, event2, event3, event4, event1]
+    const mapEvents = paymentByRole.flatMap((payment) =>
+      payment.eventDetails.map((eve) => eve.eventId)
+    );
+
+    // new map nilam , normally seta {} thake , eita obj na but obj type e
+    const getCountOfEvent = new Map();
+
+    // proti ta event er upor loop chalacchi and key value pair kortesi event count kore , key=event value=event koyta seta.. foreach er code theke onek ta ei typer output pabo...
+    // Map(3) {
+    //   1 => 3,
+    //   2 => 3,
+    //   3 => 1
+    // }
+    mapEvents.forEach((eventId) => {
+      getCountOfEvent.set(eventId, (getCountOfEvent.get(eventId) || 0) + 1);
+    });
+    // 1=>3 emn thaktese ja obj ba array kichui na tai obj baniye nicchi
+    const objCreatForEvent = Object.fromEntries(getCountOfEvent);
+    // obj is converting to array because sort function work for array only
+    const topPerforming = Object.entries(objCreatForEvent).sort(
+      ([, a], [, b]) => b - a
+    );
+    // array ta ke ekta obj banai nibo
+    const sortedEventObj = Object.fromEntries(topPerforming);
+
+    // obj theke maximum number konta seta ber kore nicchi karon pore compare korbo koyta ei number er ase
+    const maxCount = Math.max(...Object.values(sortedEventObj));
+    const maxCountLength = Object.values(sortedEventObj).filter(
+      (value) => value === maxCount
+    ).length;
+    console.log("final ", maxCountLength);
+    setEventsCount(maxCountLength);
+  }, [paymentByRole]);
+
+  const pendingOrder = paymentByRole.filter(
+    (payment) => payment.orderStatus === "Pending"
+  );
+  // console.log(pendingOrder.length);
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
       <div className=" mx-auto mb-5 text-center md:text-start">
@@ -52,7 +92,7 @@ const AdminDashboard = () => {
           <div>
             <h2 className="text-xl text-white">Pending Orders</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
-            {pendingOrder.length}
+              {pendingOrder.length}
             </h1>
             <p className="px-3 py-[1px] mt-4  bg-[#23ce2e] text-white flex  rounded-2xl">
               needs attention
@@ -66,7 +106,7 @@ const AdminDashboard = () => {
           <div>
             <h2 className="text-xl text-white">Active Events</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
-              2
+              {eventsCount}
             </h1>
             <p className="px-3 py-[1px] mt-4  text-white bg-[#63706388] flex  rounded-2xl">
               top performing
