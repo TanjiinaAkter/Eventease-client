@@ -49,7 +49,7 @@ const UserDashboard = () => {
   console.log(futureEvents);
   return (
     <div className="mx-auto w-full p-8 bg-[#0a1316] min-h-screen h-full">
-      <div className=" flex flex-wrap border border-[#4b4d4c]  mx-auto justify-evenly items-center gap-4 p-7 rounded-md bg-[#0f1c1c]">
+      <div className=" flex flex-wrap border border-[#4b4d4c]  mx-auto justify-evenly  gap-4 p-7 rounded-md bg-[#0f1c1c]">
         <div className=" pb-3 text-center  sm:border-b-[1px] md:border-r-[1px] md:pr-12 md:border-r-[#6a6d6a]">
           <h2 className="text-xl text-[#b58753]">Cancelled Orders</h2>
           <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
@@ -62,7 +62,7 @@ const UserDashboard = () => {
             {confirmedOrders}
           </h1>
         </div>
-        <div className="">
+        <div className=" pb-3 text-center  sm:border-b-[1px] md:border-r-[1px] md:pr-12 md:border-r-[#6a6d6a]">
           <h2 className="text-xl text-[#b58753]">Pending Orders</h2>
           <h1 className="text-3xl  font-semibold text-[#44cfbf]  mt-2 text-center">
             {pendingOrders}

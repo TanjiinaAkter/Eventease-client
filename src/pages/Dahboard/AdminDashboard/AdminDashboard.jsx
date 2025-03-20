@@ -65,7 +65,7 @@ const AdminDashboard = () => {
       </div>
       {/* SECOND DIV */}
 
-      <div className=" flex flex-wrap border border-[#4b4d4c]  mx-auto w-full justify-center md:justify-around items-center gap-4 p-7 rounded-md bg-[#0f1c1c]">
+      <div className=" flex flex-wrap border border-[#4b4d4c]  mx-auto w-full justify-center md:justify-around gap-4 p-7 rounded-md bg-[#0f1c1c]">
         <div className="flex justify-center md:justify-between items-start gap-3 pb-3 text-center w-full md:w-auto sm:border-b-[1px] md:border-r-[1px] md:pr-12 md:border-r-[#6a6d6a]">
           <div>
             <h2 className="text-xl text-white">Total Orders</h2>
