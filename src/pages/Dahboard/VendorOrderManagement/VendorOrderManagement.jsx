@@ -19,10 +19,10 @@ const VendorOrderManagement = () => {
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
     if (paymentDetailsByRole?.data) {
-      console.log(paymentDetailsByRole?.data);
+      // console.log(paymentDetailsByRole?.data);
       setPayments(paymentDetailsByRole?.data);
     }
-  }, [paymentDetailsByRole]);
+  }, [paymentDetailsByRole, payments]);
   //ORDER STATUS UPDATE OPERATION
   const handleCancelOrder = (
     paymentStatus,
@@ -30,16 +30,16 @@ const VendorOrderManagement = () => {
     eDetail,
     changestatus
   ) => {
-    console.log(
-      "paymentStatus",
-      paymentStatus,
-      "paymentid",
-      paymentid,
-      "eventId",
-      eDetail.eventId,
-      "changestatus",
-      changestatus
-    );
+    // console.log(
+    //   "paymentStatus",
+    //   paymentStatus,
+    //   "paymentid",
+    //   paymentid,
+    //   "eventId",
+    //   eDetail.eventId,
+    //   "changestatus",
+    //   changestatus
+    // );
     if (paymentStatus === "Paid") {
       return Swal.fire({
         title: "Payment already done! ",
@@ -89,6 +89,7 @@ const VendorOrderManagement = () => {
       }
     }
   };
+
   // EVENT DELETE OPERATION
   const handleDelete = (eventId, paymentStatus, paymentId) => {
     console.log(eventId, paymentStatus, paymentId);
@@ -151,9 +152,6 @@ const VendorOrderManagement = () => {
             {/* head */}
             <thead>
               <tr className="text-[#44cfbf] bg-black rounded-b-lg">
-                <th className="px-1 py-3 text-lg md:text-base  whitespace-nowrap">
-                  #
-                </th>
                 <th className="px-1  py-3 text-lg md:text-base whitespace-nowrap">
                   Order Number
                 </th>
@@ -183,11 +181,10 @@ const VendorOrderManagement = () => {
             </thead>
             <tbody>
               {payments.map((payment) =>
-                payment.eventDetails.map((eDetail, index) => (
+                payment.eventDetails.map((eDetail) => (
                   <tr
                     key={eDetail._id}
                     className="text-white border-b border-[#4c4f4e]">
-                    <th className="px-2 py-2 whitespace-nowrap">{index + 1}</th>
                     <td className="px-2 py-2 whitespace-nowrap">
                       {payment._id}
                     </td>

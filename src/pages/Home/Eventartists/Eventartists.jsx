@@ -2,14 +2,35 @@ import { FaArrowCircleRight, FaFacebookF, FaInstagram } from "react-icons/fa";
 import Sectiontitle from "../../../components/Sectiontitle";
 import useArtists from "../../../hooks/useArtists";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Eventartists = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const [artists] = useArtists();
   const [showCard, setShowCard] = useState(4);
   useEffect(() => {
     setShowCard(4);
   }, [artists]);
+  const handleGetArtists = () => {
+    if (!user && !user?.email) {
+      Swal.fire({
+        title: "You are not logged in",
+        text: "Please login to see our artists detail information!!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "OK, Login now!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
+  };
   return (
     <div className="bg-[#0a1316] md:mx-6 mx-auto w-[88%] md:w-[97%]">
       <Sectiontitle
@@ -51,8 +72,10 @@ const Eventartists = () => {
         ))}
       </div>
       <div className="card-actions justify-center my-12">
-        <Link to="/artists">
-          <button className="flex button-style flex-row  items-center gap-2 ">
+        <Link to={user && user?.email ? "/artists" : "/"}>
+          <button
+            onClick={handleGetArtists}
+            className="flex button-style flex-row  items-center gap-2 ">
             View All Artists
             <FaArrowCircleRight className="text-2xl"></FaArrowCircleRight>
           </button>

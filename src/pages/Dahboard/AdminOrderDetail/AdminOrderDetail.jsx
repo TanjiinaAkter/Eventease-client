@@ -16,6 +16,7 @@ const AdminOrderDetail = () => {
   const getPaymentId = location?.state?.payment;
 
   const [paymentDetailsByRole, refetch] = usePaymentByRole();
+
   const axiosSecure = useAxiosSecure();
   console.log("ihfpwfffff", payment);
   useEffect(() => {

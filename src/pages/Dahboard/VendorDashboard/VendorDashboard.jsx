@@ -1,7 +1,61 @@
 import { FaCalendar, FaDollarSign } from "react-icons/fa";
 import { MdOutlinePendingActions, MdShoppingBag } from "react-icons/md";
+import usePaymentByRole from "../../../hooks/usePaymentByRole";
+import { useEffect, useState } from "react";
 
 const VendorDashboard = () => {
+  const [paymentDetailsByRole] = usePaymentByRole();
+
+  const [revenue, setRevenue] = useState(0);
+  const [totalEvents, setTotalEvents] = useState(0);
+
+  const [pendingOrder, setPendingOrder] = useState(0);
+  console.log(pendingOrder);
+  // REVENUE CALCULATION
+  useEffect(() => {
+    // TOTAL ORDER CALCULATION
+    if (paymentDetailsByRole.data && paymentDetailsByRole.data.length > 0) {
+      const events = paymentDetailsByRole.data
+        .flatMap((payment) => payment.eventDetails || []) // Flatten the eventDetails arrays from all payments
+        .filter((event) => event.eventId).length; // Only keep events that have an eventId // Get the count of those events
+
+      console.log("events", events); // This will give you the total count of eventIds
+      setTotalEvents(events);
+    }
+    // REVENUE CALCULATION
+    if (paymentDetailsByRole.data && paymentDetailsByRole.data.length > 0) {
+      // reduce niyechi karon map nile array return korto new kore, reduce same kaj kortese array na kore
+      const totalRevenue = paymentDetailsByRole?.data?.reduce(
+        (total, payment) => {
+          if (payment.eventDetails && payment.eventDetails.length > 0) {
+            return (
+              total +
+              payment.eventDetails.reduce((acc, event) => {
+                console.log("Event Price:", event.price);
+                console.log("Event Quantity:", event.quantity);
+                return acc + (event.price * event.quantity || 0);
+              }, 0)
+            );
+          }
+          return total;
+        },
+        0
+      );
+
+      setRevenue(totalRevenue);
+    }
+    // pendingOrder CALCULATION
+    if (paymentDetailsByRole?.data && paymentDetailsByRole?.data.length > 0) {
+      const pendingOrders = paymentDetailsByRole.data.filter((payment) => {
+        return payment.eventDetails?.some(
+          (event) => event.orderStatus === "Pending"
+        );
+      });
+
+      setPendingOrder(pendingOrders.length);
+    }
+  }, [paymentDetailsByRole.data]);
+
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
       <div className=" mx-auto mb-5 text-center md:text-start">
@@ -18,13 +72,10 @@ const VendorDashboard = () => {
       <div className=" flex flex-wrap border border-[#4b4d4c]  mx-auto w-full justify-center md:justify-around gap-4 p-7 rounded-md bg-[#0f1c1c]">
         <div className="flex justify-center md:justify-between items-start gap-3 pb-3 text-center w-full md:w-auto sm:border-b-[1px] md:border-r-[1px] md:pr-12 md:border-r-[#6a6d6a]">
           <div>
-            <h2 className="text-xl text-white">Total Orders</h2>
+            <h2 className="text-xl text-[#b58753]">Total Orders</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
-              2
+              {totalEvents}
             </h1>
-            <p className="px-3 py-[1px] mt-4  bg-red-600 text-white flex  rounded-2xl">
-              completed
-            </p>
           </div>
           <div>
             <MdShoppingBag className="text-[#44cfbf] text-2xl" />
@@ -32,9 +83,9 @@ const VendorDashboard = () => {
         </div>
         <div className="flex justify-center md:justify-between items-start gap-3 pb-3 text-center w-full md:w-auto sm:border-b-[1px] md:border-r-[1px] md:pr-12 md:border-r-[#6a6d6a]">
           <div>
-            <h2 className="text-xl text-white">Revenue</h2>
+            <h2 className="text-xl text-[#b58753]">Revenue</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
-              $ 100
+              $ {revenue}
             </h1>
           </div>
           <div>
@@ -43,9 +94,9 @@ const VendorDashboard = () => {
         </div>
         <div className="flex justify-center md:justify-between items-start gap-3 pb-3 text-center w-full md:w-auto sm:border-b-[1px] md:border-r-[1px] h-full md:pr-12 md:border-r-[#6a6d6a]">
           <div>
-            <h2 className="text-xl text-white">Pending Orders</h2>
+            <h2 className="text-xl text-[#b58753]">Pending Orders</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
-              2
+              {pendingOrder}
             </h1>
             <p className="px-3 py-[1px] mt-4  bg-[#23ce2e] text-white flex  rounded-2xl">
               needs attention
@@ -57,7 +108,7 @@ const VendorDashboard = () => {
         </div>
         <div className="flex justify-center md:justify-between items-start gap-3 pb-3 text-center w-full md:w-auto sm:border-b-[1px] md:border-r-[1px] md:pr-12 md:border-r-[#6a6d6a]">
           <div>
-            <h2 className="text-xl text-white">Active Events</h2>
+            <h2 className="text-xl text-[#b58753]">Active Events</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
               2
             </h1>

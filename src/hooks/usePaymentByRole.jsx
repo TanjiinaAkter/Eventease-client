@@ -9,9 +9,10 @@ const usePaymentByRole = () => {
     queryKey: ["paymentDetailsByRole", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/payments/rolebased/${user?.email}`);
-      console.log(res.data);
+      console.log("pay-aadjddaddddd", res?.data);
       return res.data;
     },
+    enabled: !!user?.email,
   });
   return [paymentDetailsByRole, refetch];
 };

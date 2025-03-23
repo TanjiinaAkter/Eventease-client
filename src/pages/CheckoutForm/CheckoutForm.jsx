@@ -33,7 +33,7 @@ const CheckoutForm = () => {
     }
   }, [allcarts, discount, finalCalculation]);
   const navigate = useNavigate();
-
+  console.log(allcarts, "cart items list from add to cart");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const { user } = useAuth();
   const [transactionId, setTransactionId] = useState("");
@@ -114,10 +114,16 @@ const CheckoutForm = () => {
       if (paymentIntent.status === "succeeded") {
         console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
+        // MAKE EACH payment>eventDetails>orderStatus="Confirm" when do payment using stripe
 
+        const updatedEventDetails = allcarts.map((event) => ({
+          ...event,
+          orderStatus: "Confirmed",
+        }));
         // NOW SAVE PAYMENT IN THE DATABASE
         const payment = {
-          eventDetails: allcarts,
+          eventDetails: updatedEventDetails,
+
           paymentMethod: "stripe",
           transactionId: paymentIntent.id,
           eventIds: allcarts.map((cart) => cart.eventId),
