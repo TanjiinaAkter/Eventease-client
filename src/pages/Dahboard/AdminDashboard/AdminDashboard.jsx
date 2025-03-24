@@ -15,7 +15,6 @@ const AdminDashboard = () => {
   console.log("payments", allpayments);
   const [revenue, setRevenue] = useState(0);
   console.log("revenue", revenue);
-  // REVENUE CALCULATION
   useEffect(() => {
     if (paymentDetailsByRole.data && paymentDetailsByRole.data.length > 0) {
       // Filter payments that have eventDetails with eventId, mane eventDetails [] thakle seta bad dibo
@@ -35,23 +34,13 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (allpayments && allpayments.length > 0) {
       // reduce niyechi karon map nile array return korto new kore, reduce same kaj kortese array na kore
-      const totalRevenue = allpayments?.reduce((total, payment) => {
-        if (payment.eventDetails && payment.eventDetails.length > 0) {
-          return (
-            total +
-            payment.eventDetails.reduce((acc, event) => {
-              console.log("Event Price:", event.price);
-              console.log("Event Quantity:", event.quantity);
-              return acc + (event.price * event.quantity || 0);
-            }, 0)
-          );
-        }
-        return total;
+      const totalRevenue = allpayments.reduce((total, payment) => {
+        return total + payment.totalPrice;
       }, 0);
-
       setRevenue(totalRevenue);
     }
   }, [allpayments]);
+  console.log("revenue  eije", revenue);
   useEffect(() => {
     const eventCount = {}; // ইভেন্টের সংখ্যা গোনার জন্য একটা অবজেক্ট নিচ্ছি... frequency count kori
 
@@ -107,7 +96,7 @@ const AdminDashboard = () => {
         eventId,
         count,
         details: allpayments.flatMap((payment) =>
-          payment.eventDetails.filter((eve) => eve.eventId === eventId)
+          payment.eventDetails.find((eve) => eve.eventId === eventId)
         ),
       })
     );
@@ -200,6 +189,7 @@ const AdminDashboard = () => {
         {/* ==============  card-box =========== */}
         <div className="flex gap-3 flex-col">
           {payments.slice(-3).map((payment) => {
+            //[0] disi karon slice always array return kore kintu eventDetails a event array te thakle show korte error khetam tai [0] dile ['event'] na peye direct access pacchi 'event' eivabe.....without array
             const lasttwo = payment?.eventDetails?.slice(-1)[0];
             return (
               <div
@@ -239,19 +229,25 @@ const AdminDashboard = () => {
             <div
               key={event.eventId}
               className="card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-                <div className="pt-2">
+              <div className="flex w-full flex-col space-y-4 justify-between gap-3 items-center">
+                <div className="pt-2 w-full flex">
                   <img
                     className="object-cover h-[4rem] w-[4rem] rounded-full border-4 border-white"
                     src={event.details[0]?.photo} // Assuming 'details' is an array with the event details
                     alt={event.details[0]?.name}
                   />
                 </div>
-                <div>
+                <div className="">
                   <h2 className="text-base text-white">
                     {event.details[0]?.name}
                   </h2>
-                  <p className="text-base text-white">Orders: {event.count}</p>
+                  <p className="text-lg mt-3 text-white">
+                    Orders:{" "}
+                    <span className="text-teal-300 font-semibold">
+                      {" "}
+                      {event.count}
+                    </span>
+                  </p>
                 </div>
               </div>
 

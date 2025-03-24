@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 
 const VendorDashboard = () => {
   const [paymentDetailsByRole] = usePaymentByRole();
-
+  console.log("vendors events", paymentDetailsByRole);
   const [revenue, setRevenue] = useState(0);
   const [totalEvents, setTotalEvents] = useState(0);
-
+  console.log("vendor er payments", paymentDetailsByRole.data);
   const [pendingOrder, setPendingOrder] = useState(0);
   console.log(pendingOrder);
   // REVENUE CALCULATION
@@ -24,36 +24,32 @@ const VendorDashboard = () => {
     }
     // REVENUE CALCULATION
     if (paymentDetailsByRole.data && paymentDetailsByRole.data.length > 0) {
-      // reduce niyechi karon map nile array return korto new kore, reduce same kaj kortese array na kore
-      const totalRevenue = paymentDetailsByRole?.data?.reduce(
-        (total, payment) => {
-          if (payment.eventDetails && payment.eventDetails.length > 0) {
-            return (
-              total +
-              payment.eventDetails.reduce((acc, event) => {
-                console.log("Event Price:", event.price);
-                console.log("Event Quantity:", event.quantity);
-                return acc + (event.price * event.quantity || 0);
-              }, 0)
-            );
-          }
-          return total;
-        },
-        0
-      );
+      const totalRevenue = paymentDetailsByRole?.data
+        ?.reduce((total, payment) => {
+          const eventRevenue = payment.eventDetails?.reduce(
+            (acc, event) =>
+              acc +
+              event.price * event.quantity -
+              (event.price * event.quantity * 10) / 100,
+            0
+          );
+          return total + eventRevenue;
+        }, 0)
+        .toFixed(2);
 
       setRevenue(totalRevenue);
     }
-    // pendingOrder CALCULATION
+    // PENDING  CALCULATION
     if (paymentDetailsByRole?.data && paymentDetailsByRole?.data.length > 0) {
-      const pendingOrders = paymentDetailsByRole.data.filter((payment) => {
-        return payment.eventDetails?.some(
+      const pendingOrders = paymentDetailsByRole?.data.flatMap((payment) => {
+        return payment.eventDetails?.filter(
           (event) => event.orderStatus === "Pending"
         );
       });
 
       setPendingOrder(pendingOrders.length);
     }
+    // ACTIVE EVENTS CALCULATION
   }, [paymentDetailsByRole.data]);
 
   return (
