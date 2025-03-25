@@ -13,6 +13,7 @@ const VendorDashboard = () => {
   const [pendingOrder, setPendingOrder] = useState(0);
   console.log(pendingOrder);
   const [topPerformance, setTopPerformance] = useState([]);
+  console.log(topPerformance);
   // REVENUE CALCULATION
   useEffect(() => {
     // TOTAL ORDER CALCULATION
@@ -65,18 +66,23 @@ const VendorDashboard = () => {
       ).length;
       setTopCount(findMaxEventMatch);
       const matchedEvents = Object.entries(eventCount).map(
-        ([eventId, count]) => ({
-          eventId,
-          count,
-          eventDetails: paymentDetailsByRole.data.flatMap((payment) =>
-            payment.eventDetails.find((eve) => eve.eventId === eventId)
-          ),
-        })
+        ([eventId, count]) => {
+          const newArrayCreate = new Map();
+          paymentDetailsByRole?.data.map((payment) => {
+            payment.eventDetails.filter((event) => {
+              if (event.eventId === eventId) {
+                newArrayCreate.set(event.eventId, event);
+              }
+            });
+          });
+          return { eventId, count, eventDetails: [...newArrayCreate.values()] };
+        }
       );
+
       setTopPerformance(matchedEvents);
     }
   }, [paymentDetailsByRole.data]);
-
+  console.log(paymentDetailsByRole);
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
       <div className=" mx-auto mb-5 text-center md:text-start">
@@ -146,165 +152,71 @@ const VendorDashboard = () => {
       <div className="mt-12 border border-[#4b4d4c] flex flex-col flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
         <h2 className="text-xl text-white">Recent Orders</h2>
         {/* ==============  card-box =========== */}
-        <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-          <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-            <div className="pt-2">
-              <img
-                className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                alt=""
-              />
+
+        {paymentDetailsByRole?.data?.slice(-3).map((payment) => {
+          const lastOne = payment?.eventDetails?.slice(-1)[0];
+          return (
+            <div
+              key={payment._id}
+              className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
+              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
+                <div className="pt-2">
+                  <img
+                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
+                    src={lastOne.photo}
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h2 className="text-base text-white">{lastOne.name}</h2>
+                  <p className="text-base text-white">{lastOne.startdate}</p>
+                </div>
+              </div>
+              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
+                <div className="badge badge-sm font-semibold badge-ghost">
+                  $ {lastOne.price}
+                </div>
+                <div className="badge badge-sm font-semibold text-[#e3a20a] border-none bg-[#e4f360]">
+                  pending
+                </div>
+              </div>
             </div>
-            <div>
-              <h2 className="text-base text-white">User name</h2>
-              <p className="text-base text-white">EVENT name </p>
-            </div>
-          </div>
-          <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-            <div className="badge badge-sm font-semibold badge-ghost">$320</div>
-            <div className="badge badge-sm font-semibold text-[#e3a20a] border-none bg-[#e4f360]">
-              pending
-            </div>
-          </div>
-        </div>
-        {/* ==============  card-box =========== */}
-        <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-          <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-            <div className="pt-2">
-              <img
-                className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <h2 className="text-base text-white">User name</h2>
-              <p className="text-base text-white">EVENT name </p>
-            </div>
-          </div>
-          <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-            <div className="badge badge-sm font-semibold badge-ghost">$320</div>
-            <div className="badge badge-sm font-semibold text-[#e3a20a] border-none bg-[#e4f360]">
-              pending
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
       {/* FOURTH DIV   */}
-      {topPerformance.map((event) => (
-        <div
-          key={event._id}
-          className="mt-12 border border-[#4b4d4c]  mx-auto   p-5 rounded-md bg-[#0f1c1c]">
-          <h2 className="text-xl mb-4 text-white">Top Performing Events</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
-            {/* ==============  card-box =========== */}
-            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-                <div className="pt-2">
-                  <img
-                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                    alt=""
-                  />
+
+      <div className="mt-12 border border-[#4b4d4c]  mx-auto   p-5 rounded-md bg-[#0f1c1c]">
+        <h2 className="text-xl mb-4 text-white">Top Performing Events</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
+          {/* ==============  card-box =========== */}
+
+          {topPerformance.map((top) =>
+            top.eventDetails.map((event) => (
+              <div
+                key={event._id}
+                className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
+                <div className="flex flex-col  flex-wrap flex-1 space-y-4 justify-between gap-3 items-start">
+                  <div className="pt-2 ">
+                    <img
+                      className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
+                      src={event.photo}
+                      alt=""
+                    />
+                  </div>
+                  <div className=" ">
+                    <h2 className="text-base text-white">{event.name}</h2>
+                    <p className="text-base text-white">Orders : {top.count}</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-base text-white">
-                    Gaming Expo Unlimited 2024
-                  </h2>
-                  <p className="text-base text-white">Orders : 6</p>
-                </div>
-              </div>
-              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-                <div className="text-white font-semibold ">$320</div>
-              </div>
-            </div>
-            {/* ==============  card-box =========== */}
-            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-                <div className="pt-2">
-                  <img
-                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h2 className="text-base text-white">
-                    Gaming Expo Unlimited 2024
-                  </h2>
-                  <p className="text-base text-white">Orders : 6</p>
+                <div className="flex  gap-3 justify-center items-center">
+                  <p className="text-white font-semibold ">$ {event.price}</p>
                 </div>
               </div>
-              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-                <div className="text-white font-semibold ">$320</div>
-              </div>
-            </div>
-            {/* ==============  card-box =========== */}
-            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-                <div className="pt-2">
-                  <img
-                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h2 className="text-base text-white">
-                    Gaming Expo Unlimited 2024
-                  </h2>
-                  <p className="text-base text-white">Orders : 6</p>
-                </div>
-              </div>
-              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-                <div className="text-white font-semibold ">$320</div>
-              </div>
-            </div>
-            {/* ==============  card-box =========== */}
-            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-                <div className="pt-2">
-                  <img
-                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h2 className="text-base text-white">
-                    Gaming Expo Unlimited 2024
-                  </h2>
-                  <p className="text-base text-white">Orders : 6</p>
-                </div>
-              </div>
-              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-                <div className="text-white font-semibold ">$320</div>
-              </div>
-            </div>
-            {/* ==============  card-box =========== */}
-            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-                <div className="pt-2">
-                  <img
-                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h2 className="text-base text-white">
-                    Gaming Expo Unlimited 2024
-                  </h2>
-                  <p className="text-base text-white">Orders : 6</p>
-                </div>
-              </div>
-              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-                <div className="text-white font-semibold ">$320</div>
-              </div>
-            </div>
-          </div>
+            ))
+          )}
         </div>
-      ))}
+      </div>
     </div>
   );
 };
