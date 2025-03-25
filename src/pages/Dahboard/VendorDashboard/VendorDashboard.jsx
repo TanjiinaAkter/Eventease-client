@@ -7,10 +7,12 @@ const VendorDashboard = () => {
   const [paymentDetailsByRole] = usePaymentByRole();
   console.log("vendors events", paymentDetailsByRole);
   const [revenue, setRevenue] = useState(0);
+  const [topCount, setTopCount] = useState(0);
   const [totalEvents, setTotalEvents] = useState(0);
   console.log("vendor er payments", paymentDetailsByRole.data);
   const [pendingOrder, setPendingOrder] = useState(0);
   console.log(pendingOrder);
+  const [topPerformance, setTopPerformance] = useState([]);
   // REVENUE CALCULATION
   useEffect(() => {
     // TOTAL ORDER CALCULATION
@@ -50,6 +52,29 @@ const VendorDashboard = () => {
       setPendingOrder(pendingOrders.length);
     }
     // ACTIVE EVENTS CALCULATION
+    if (paymentDetailsByRole?.data && paymentDetailsByRole?.data.length > 0) {
+      const eventCount = {};
+      paymentDetailsByRole?.data?.forEach((payment) => {
+        payment.eventDetails.forEach((eve) => {
+          eventCount[eve.eventId] = (eventCount[eve.eventId] || 0) + 1;
+        });
+      });
+      const maxCount = Math.max(...Object.values(eventCount));
+      const findMaxEventMatch = Object.values(eventCount).filter(
+        (count) => count === maxCount
+      ).length;
+      setTopCount(findMaxEventMatch);
+      const matchedEvents = Object.entries(eventCount).map(
+        ([eventId, count]) => ({
+          eventId,
+          count,
+          eventDetails: paymentDetailsByRole.data.flatMap((payment) =>
+            payment.eventDetails.find((eve) => eve.eventId === eventId)
+          ),
+        })
+      );
+      setTopPerformance(matchedEvents);
+    }
   }, [paymentDetailsByRole.data]);
 
   return (
@@ -106,7 +131,7 @@ const VendorDashboard = () => {
           <div>
             <h2 className="text-xl text-[#b58753]">Active Events</h2>
             <h1 className="text-3xl text-[#44cfbf] font-semibold text-center mt-2">
-              2
+              {topCount}
             </h1>
             <p className="px-3 py-[1px] mt-4  text-white bg-[#63706388] flex  rounded-2xl">
               top performing
@@ -166,116 +191,120 @@ const VendorDashboard = () => {
         </div>
       </div>
       {/* FOURTH DIV   */}
-      <div className="mt-12 border border-[#4b4d4c]  mx-auto   p-5 rounded-md bg-[#0f1c1c]">
-        <h2 className="text-xl mb-4 text-white">Top Performing Events</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
-          {/* ==============  card-box =========== */}
-          <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-            <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-              <div className="pt-2">
-                <img
-                  className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                  src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                  alt=""
-                />
+      {topPerformance.map((event) => (
+        <div
+          key={event._id}
+          className="mt-12 border border-[#4b4d4c]  mx-auto   p-5 rounded-md bg-[#0f1c1c]">
+          <h2 className="text-xl mb-4 text-white">Top Performing Events</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
+            {/* ==============  card-box =========== */}
+            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
+              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
+                <div className="pt-2">
+                  <img
+                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
+                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h2 className="text-base text-white">
+                    Gaming Expo Unlimited 2024
+                  </h2>
+                  <p className="text-base text-white">Orders : 6</p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-base text-white">
-                  Gaming Expo Unlimited 2024
-                </h2>
-                <p className="text-base text-white">Orders : 6</p>
-              </div>
-            </div>
-            <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-              <div className="text-white font-semibold ">$320</div>
-            </div>
-          </div>
-          {/* ==============  card-box =========== */}
-          <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-            <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-              <div className="pt-2">
-                <img
-                  className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                  src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                  alt=""
-                />
-              </div>
-              <div>
-                <h2 className="text-base text-white">
-                  Gaming Expo Unlimited 2024
-                </h2>
-                <p className="text-base text-white">Orders : 6</p>
+              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
+                <div className="text-white font-semibold ">$320</div>
               </div>
             </div>
-            <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-              <div className="text-white font-semibold ">$320</div>
-            </div>
-          </div>
-          {/* ==============  card-box =========== */}
-          <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-            <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-              <div className="pt-2">
-                <img
-                  className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                  src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                  alt=""
-                />
+            {/* ==============  card-box =========== */}
+            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
+              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
+                <div className="pt-2">
+                  <img
+                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
+                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h2 className="text-base text-white">
+                    Gaming Expo Unlimited 2024
+                  </h2>
+                  <p className="text-base text-white">Orders : 6</p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-base text-white">
-                  Gaming Expo Unlimited 2024
-                </h2>
-                <p className="text-base text-white">Orders : 6</p>
-              </div>
-            </div>
-            <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-              <div className="text-white font-semibold ">$320</div>
-            </div>
-          </div>
-          {/* ==============  card-box =========== */}
-          <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-            <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-              <div className="pt-2">
-                <img
-                  className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                  src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                  alt=""
-                />
-              </div>
-              <div>
-                <h2 className="text-base text-white">
-                  Gaming Expo Unlimited 2024
-                </h2>
-                <p className="text-base text-white">Orders : 6</p>
+              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
+                <div className="text-white font-semibold ">$320</div>
               </div>
             </div>
-            <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-              <div className="text-white font-semibold ">$320</div>
-            </div>
-          </div>
-          {/* ==============  card-box =========== */}
-          <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-            <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-              <div className="pt-2">
-                <img
-                  className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                  src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
-                  alt=""
-                />
+            {/* ==============  card-box =========== */}
+            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
+              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
+                <div className="pt-2">
+                  <img
+                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
+                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h2 className="text-base text-white">
+                    Gaming Expo Unlimited 2024
+                  </h2>
+                  <p className="text-base text-white">Orders : 6</p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-base text-white">
-                  Gaming Expo Unlimited 2024
-                </h2>
-                <p className="text-base text-white">Orders : 6</p>
+              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
+                <div className="text-white font-semibold ">$320</div>
               </div>
             </div>
-            <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-              <div className="text-white font-semibold ">$320</div>
+            {/* ==============  card-box =========== */}
+            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
+              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
+                <div className="pt-2">
+                  <img
+                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
+                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h2 className="text-base text-white">
+                    Gaming Expo Unlimited 2024
+                  </h2>
+                  <p className="text-base text-white">Orders : 6</p>
+                </div>
+              </div>
+              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
+                <div className="text-white font-semibold ">$320</div>
+              </div>
+            </div>
+            {/* ==============  card-box =========== */}
+            <div className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
+              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
+                <div className="pt-2">
+                  <img
+                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
+                    src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <h2 className="text-base text-white">
+                    Gaming Expo Unlimited 2024
+                  </h2>
+                  <p className="text-base text-white">Orders : 6</p>
+                </div>
+              </div>
+              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
+                <div className="text-white font-semibold ">$320</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 };
