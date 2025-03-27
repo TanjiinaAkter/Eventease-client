@@ -3,6 +3,17 @@ import { MdOutlinePendingActions, MdShoppingBag } from "react-icons/md";
 // import useEventRoleBased from "../../../hooks/useEventRoleBased";
 import { useEffect, useState } from "react";
 import usePaymentByRole from "../../../hooks/usePaymentByRole";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const AdminDashboard = () => {
   const [eventsMatched, setEventsMatched] = useState([]);
@@ -10,11 +21,10 @@ const AdminDashboard = () => {
   // const [matchedEvents, setMatchedEvents] = useState([]);
   const [paymentDetailsByRole] = usePaymentByRole();
   const [allpayments, setAllPayments] = useState([]);
-  // console.log(paymentByRole, paymentDetailsByRole.data);
+  console.log("payments", allpayments);
   const payments = paymentDetailsByRole.data || []; // Ensure it's an array
-  // console.log("payments", allpayments);
+
   const [revenue, setRevenue] = useState(0);
-  //console.log("revenue", revenue);
   useEffect(() => {
     if (paymentDetailsByRole.data && paymentDetailsByRole.data.length > 0) {
       // Filter payments that have eventDetails with eventId, mane eventDetails [] thakle seta bad dibo
@@ -31,8 +41,47 @@ const AdminDashboard = () => {
       setAllPayments(paymentsWithEventId);
     }
   }, [paymentDetailsByRole]);
-
   // =============================== TOTAL REVENUE ==================================//
+  const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
+  const [data, setData] = useState([]);
+  const [dataOrder, setDataOrder] = useState([]);
+
+  useEffect(() => {
+    if (allpayments && allpayments.length > 0) {
+      const formatDate = (date) => date.toISOString().split("T")[0];
+      const last7Days = [];
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        last7Days.push(formatDate(date));
+      }
+      console.log("last7Days", last7Days);
+      const revenueData = last7Days.map((dateString) => {
+        const dailyPayments = allpayments.filter(
+          (payment) => formatDate(new Date(payment.date)) === dateString
+        );
+        const dailyRevenue = dailyPayments.reduce(
+          (sum, payment) => sum + payment.totalPrice,
+          0
+        );
+        return { name: dateString, revenue: dailyRevenue };
+      });
+      const dailyOrder = last7Days.map((dateString) => {
+        //filter kore khuje quantityOfOrder e je koyta pacchi seta store kortesi
+        const quantityOfOrder = allpayments.filter((payment) => {
+          const splitss = payment.date.split("T")[0];
+
+          return splitss === dateString;
+        });
+
+        return { name: dateString, order: quantityOfOrder.length };
+      });
+
+      setData(revenueData);
+      setDataOrder(dailyOrder);
+    }
+  }, [allpayments]);
+  console.log("dailyOrder data is here", dataOrder);
   useEffect(() => {
     if (allpayments && allpayments.length > 0) {
       // reduce niyechi karon map nile array return korto new kore, reduce same kaj kortese array na kore
@@ -44,7 +93,7 @@ const AdminDashboard = () => {
   }, [allpayments]);
 
   // =============================== PENDING ORDERS ==================================//
-
+  console.log(dataOrder);
   const pendingOrder = allpayments.filter(
     (payment) => payment.orderStatus === "Pending"
   );
@@ -88,18 +137,29 @@ const AdminDashboard = () => {
       console.log(matchedEvents);
     }
   }, [allpayments]);
+  const getPath = (x, y, width, height) => {
+    return `M${x},${y + height}C${x + width / 3},${y + height} ${
+      x + width / 2
+    },${y + height / 3}
+    ${x + width / 2}, ${y}
+    C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${
+      x + width
+    }, ${y + height}
+    Z`;
+  };
+
+  const TriangleBar = (props) => {
+    const { fill, x, y, width, height } = props;
+
+    return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+  };
+
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
       <div className=" mx-auto mb-5 text-center md:text-start">
         <h2 className="text-[#44cfbf] text-xl">Admin Dashboard</h2>
         <p className="text-[#b58753]">View and manage your events</p>
       </div>
-      {/* EITA HOBE CHART  DIV */}
-      <div className="mt-12 mb-4 border border-[#4b4d4c] flex flex-col flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
-        <h2 className="text-xl text-white">BAR CHART HOBE</h2>
-        {/* ==============  card-box =========== */}
-      </div>
-      {/* SECOND DIV */}
 
       <div className=" flex flex-wrap border border-[#4b4d4c]  mx-auto w-full justify-center md:justify-around gap-4 p-7 rounded-md bg-[#0f1c1c]">
         <div className="flex justify-center md:justify-between items-start gap-3 pb-3 text-center w-full md:w-auto sm:border-b-[1px] md:border-r-[1px] md:pr-12 md:border-r-[#6a6d6a]">
@@ -153,6 +213,57 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+      {/* EITA HOBE CHART  DIV */}
+      <div className="mt-12 w-full  mb-4 border border-[#4d4b4b] flex flex-row flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
+        <div className="w-full">
+          <h2 className="text-xl text-white uppercase mb-2">Revenue Trend -</h2>
+
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart barSize={50} data={data}>
+              <CartesianGrid strokeDasharray="1 1" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {/* <Bar dataKey="name" fill="#b58753"  barSize={50} /> */}
+              <Bar dataKey="revenue" fill="#44cfbf" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="w-full">
+          <h2 className="text-xl text-white uppercase mt-2">
+            Orders Overview -
+          </h2>
+          <ResponsiveContainer width={"100%"} height={300}>
+            <BarChart
+              width={500}
+              height={300}
+              data={dataOrder}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Bar
+                dataKey="order"
+                fill="#8884d8"
+                shape={<TriangleBar />}
+                label={{ position: "top" }}>
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={colors[index % 20]} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* ==============  REVENUE TREND =========== */}
+      </div>
+      {/* SECOND DIV */}
+
       {/* THIRD DIV --Recent Orders */}
       <div className="mt-12 border border-[#4b4d4c] flex flex-col flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
         <h2 className="text-xl text-white">Recent Orders</h2>

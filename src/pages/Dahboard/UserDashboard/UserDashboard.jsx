@@ -86,7 +86,7 @@ const UserDashboard = () => {
                   <div className="pt-2">
                     <img
                       className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                      src="https://i.ibb.co.com/4RNsn51T/chuttersnap-a-En-H4h-J-Mrs-unsplash.jpg"
+                      src={lastEventFromEventDetails.photo}
                       alt=""
                     />
                   </div>
