@@ -2,18 +2,31 @@ import { FaCalendar, FaDollarSign } from "react-icons/fa";
 import { MdOutlinePendingActions, MdShoppingBag } from "react-icons/md";
 import usePaymentByRole from "../../../hooks/usePaymentByRole";
 import { useEffect, useState } from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const VendorDashboard = () => {
   const [paymentDetailsByRole] = usePaymentByRole();
-  console.log("vendors events", paymentDetailsByRole);
+  // console.log("vendors events", paymentDetailsByRole);
   const [revenue, setRevenue] = useState(0);
   const [topCount, setTopCount] = useState(0);
   const [totalEvents, setTotalEvents] = useState(0);
-  console.log("vendor er payments", paymentDetailsByRole.data);
+  //console.log("vendor er payments", paymentDetailsByRole.data);
   const [pendingOrder, setPendingOrder] = useState(0);
-  console.log(pendingOrder);
+  //console.log(pendingOrder);
   const [topPerformance, setTopPerformance] = useState([]);
-  console.log(topPerformance);
+  //console.log(topPerformance);
+  const [revenueBar, setRevenueBar] = useState([]);
+  const [ordersBar, setOrdersBar] = useState([]);
   // REVENUE CALCULATION
   useEffect(() => {
     // TOTAL ORDER CALCULATION
@@ -81,20 +94,76 @@ const VendorDashboard = () => {
 
       setTopPerformance(matchedEvents);
     }
+    // REVENUE BAR AND ORDERS BAR CALCULATION
+    if (paymentDetailsByRole?.data && paymentDetailsByRole?.data.length > 0) {
+      const formatDate = (date) => {
+        return date.toISOString().split("T")[0];
+      };
+      const lastSevenDay = [];
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+
+        lastSevenDay.push(formatDate(date));
+      }
+
+      const revenueInfo = lastSevenDay.map((perDate) => {
+        const revenueCalculate = paymentDetailsByRole?.data?.filter(
+          (payment) => {
+            const dateConvert = payment.date.split("T")[0];
+            console.log(dateConvert);
+            return dateConvert === perDate;
+          }
+        );
+        console.log(revenueCalculate);
+        const totalCal = revenueCalculate.reduce((total, payment) => {
+          return total + payment.totalPrice;
+        }, 0);
+
+        return { date: perDate, revenue: totalCal };
+      });
+
+      const ordersCalculation = lastSevenDay.map((perDate) => {
+        //console.log(perDate)..................2025-03-21
+
+        const getPaymentsOfMatcheddates = paymentDetailsByRole.data.filter(
+          (payment) => {
+            const reFromDate = payment.date.split("T")[0];
+            // console.log('hiiiiiiiiiiiiiii',reFromDate).....2025-03-27
+            return reFromDate === perDate;
+          }
+        );
+        return { date: perDate, orders: getPaymentsOfMatcheddates.length };
+      });
+      setRevenueBar(revenueInfo);
+      setOrdersBar(ordersCalculation);
+    }
   }, [paymentDetailsByRole.data]);
-  console.log(paymentDetailsByRole);
+  console.log(ordersBar);
+  //console.log(paymentDetailsByRole);
+  const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
+  const getPath = (x, y, width, height) => {
+    return `M${x},${y + height}C${x + width / 3},${y + height} ${
+      x + width / 2
+    },${y + height / 3}
+    ${x + width / 2}, ${y}
+    C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${
+      x + width
+    }, ${y + height}
+    Z`;
+  };
+
+  const TriangleBar = (props) => {
+    const { fill, x, y, width, height } = props;
+
+    return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+  };
   return (
     <div className="mx-auto w-full p-4 bg-[#0a1316] min-h-screen h-full">
       <div className=" mx-auto mb-5 text-center md:text-start">
         <h2 className="text-[#44cfbf] text-xl">Vendor Dashboard</h2>
         <p className="text-[#b58753]">View and manage your events</p>
       </div>
-      {/* EITA HOBE CHART  DIV */}
-      <div className="mt-12 mb-4 border border-[#4b4d4c] flex flex-col flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
-        <h2 className="text-xl text-white">BAR CHART HOBE</h2>
-        {/* ==============  card-box =========== */}
-      </div>
-      {/* SECOND DIV */}
 
       <div className=" flex flex-wrap border border-[#4b4d4c]  mx-auto w-full justify-center md:justify-around gap-4 p-7 rounded-md bg-[#0f1c1c]">
         <div className="flex justify-center md:justify-between items-start gap-3 pb-3 text-center w-full md:w-auto sm:border-b-[1px] md:border-r-[1px] md:pr-12 md:border-r-[#6a6d6a]">
@@ -148,40 +217,93 @@ const VendorDashboard = () => {
           </div>
         </div>
       </div>
+      {/* EITA HOBE CHART  DIV */}
+      <div className="mt-12 mb-4 border border-[#4b4d4c] flex flex-col flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
+        <div>
+          <h2 className="text-xl text-white my-5 uppercase">Revenue Trend -</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart barSize={50} data={revenueBar}>
+              <CartesianGrid strokeDasharray="1 1" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {/* <Bar dataKey="name" fill="#b58753"  barSize={50} /> */}
+              <Bar dataKey="revenue" fill="#44cfbf" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div>
+          <ResponsiveContainer width={"100%"} height={300}>
+            <BarChart
+              width={500}
+              height={300}
+              data={ordersBar}
+              margin={{
+                top: 20,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}>
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Bar
+                dataKey="orders"
+                fill="#8884d8"
+                shape={<TriangleBar />}
+                label={{ position: "top" }}>
+                {ordersBar.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={colors[index % 20]} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        {/* ==============  card-box =========== */}
+      </div>
+      {/* SECOND DIV */}
+
       {/* THIRD DIV */}
       <div className="mt-12 border border-[#4b4d4c] flex flex-col flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
         <h2 className="text-xl text-white">Recent Orders</h2>
         {/* ==============  card-box =========== */}
 
         {paymentDetailsByRole?.data?.slice(-3).map((payment) => {
-          const lastOne = payment?.eventDetails?.slice(-1)[0];
-          return (
-            <div
-              key={payment._id}
-              className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
-              <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
-                <div className="pt-2">
-                  <img
-                    className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
-                    src={lastOne.photo}
-                    alt=""
-                  />
+          if (payment.eventDetails && payment.eventDetails.length > 0) {
+            const lastOne = payment?.eventDetails?.slice(-1)[0];
+            console.log(lastOne);
+            return (
+              <div
+                key={payment._id}
+                className=" card-box flex p-5 bg-[#1b303087] transition-all hover:shadow-md shadow-[#383938] duration-300 gap-3 justify-between items-center">
+                <div className="flex flex-wrap space-y-4 justify-between gap-3 items-center">
+                  <div className="pt-2">
+                    <img
+                      className="object-cover h-[4rem] w-[4rem] rounded-full border-4  border-white"
+                      src={lastOne?.photo}
+                      alt=""
+                    />
+                  </div>
+                  <div>
+                    <h2 className="text-base text-white">{lastOne?.name}</h2>
+                    <p className="text-base text-white">{lastOne?.startdate}</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-base text-white">{lastOne.name}</h2>
-                  <p className="text-base text-white">{lastOne.startdate}</p>
+                <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
+                  <div className="badge badge-sm font-semibold badge-ghost">
+                    $ {lastOne?.price}
+                  </div>
+                  <div className="badge badge-sm font-semibold text-[#e3a20a] border-none bg-[#e4f360]">
+                    pending
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-c flex-wrap gap-3 justify-center items-center">
-                <div className="badge badge-sm font-semibold badge-ghost">
-                  $ {lastOne.price}
-                </div>
-                <div className="badge badge-sm font-semibold text-[#e3a20a] border-none bg-[#e4f360]">
-                  pending
-                </div>
-              </div>
-            </div>
-          );
+            );
+          } else {
+            <p className="text-yellow-400 font-semibold my-4">
+              No events to show!!!
+            </p>;
+          }
         })}
       </div>
       {/* FOURTH DIV   */}
@@ -191,7 +313,7 @@ const VendorDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
           {/* ==============  card-box =========== */}
 
-          {topPerformance.map((top) =>
+          {topPerformance.slice(0,3).map((top) =>
             top.eventDetails.map((event) => (
               <div
                 key={event._id}

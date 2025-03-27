@@ -24,6 +24,7 @@ const UserProfileEdit = () => {
     reset,
     handleSubmit,
     setValue,
+
     formState: { errors },
   } = useForm(); //name, role, company, phone, address, city, state, photo
   useEffect(() => {
@@ -226,7 +227,6 @@ const UserProfileEdit = () => {
                   id=""
                   placeholder="Enter your location"
                   className="py-3 text-white border focus:border-[#b58753] focus:border-2  pl-2 border-gray-500 focus:outline-none  rounded-none"
-                  required
                 />
               </div>
               <div className="flex flex-col w-full md:w-1/2 space-y-3">
