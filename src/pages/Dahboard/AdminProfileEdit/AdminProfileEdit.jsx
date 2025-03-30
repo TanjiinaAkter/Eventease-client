@@ -9,15 +9,17 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import useRole from "../../../hooks/useRole";
 
 const AdminProfileEdit = () => {
   const [loadingToImageUpload, setLoadingToImageUpload] = useState(false);
   const { updateUserProfile } = useAuth();
   const axiosPublic = useAxiosPublic();
+  const [refetch] = useRole();
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
   const axiosSecure = useAxiosSecure();
-  const [userinfo] = useSingleUserDetail();
+  const [userinfo, profilerefetch] = useSingleUserDetail();
   const {
     register,
     reset,
@@ -62,6 +64,10 @@ const AdminProfileEdit = () => {
           }
         );
         if (updateRes.data.modifiedCount === 1) {
+          console.log("Refetching data...");
+
+          profilerefetch();
+          console.log("Refetch complete!");
           setLoadingToImageUpload(false);
           // ekhane access korte parbe na tai imgurl er moddhe niye nisi
           updateUserProfile(data.name, imgURL);

@@ -216,7 +216,7 @@ const AdminDashboard = () => {
         </div>
       </div>
       {/* EITA HOBE CHART  DIV */}
-      <div className="mt-12 w-full  mb-4 border border-[#4d4b4b] flex flex-row flex-wrap  mx-auto  gap-4 p-5 rounded-md bg-[#0f1c1c]">
+      <div className="mt-12 w-full  mb-4 border border-[#4d4b4b] flex flex-row flex-wrap  mx-auto  gap-4 md:p-5 rounded-md bg-[#0f1c1c]">
         <div className="w-full">
           <h2 className="text-xl text-white uppercase my-5">Revenue Trend -</h2>
 
@@ -308,7 +308,7 @@ const AdminDashboard = () => {
       <div className="mt-12 border border-[#4b4d4c] mx-auto p-5 rounded-md bg-[#0f1c1c]">
         <h2 className="text-xl mb-4 text-white">Top Performing Events</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {eventsMatched.slice(0,3).map((eventmatch) =>
+          {eventsMatched.slice(0, 3).map((eventmatch) =>
             eventmatch.eventDetails.map((event) => (
               <div
                 key={event._id}

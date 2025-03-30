@@ -17,7 +17,7 @@ const UserProfileEdit = () => {
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
   const axiosSecure = useAxiosSecure();
-  const [userinfo] = useSingleUserDetail();
+  const [userinfo, profilerefetch] = useSingleUserDetail();
   //console.log(userinfo);
   const {
     register,
@@ -68,6 +68,7 @@ const UserProfileEdit = () => {
         console.log(updateRes.data);
         if (updateRes.data.modifiedCount === 1) {
           setLoadingToImageUpload(false);
+          profilerefetch();
           // ekhane access korte parbe na tai imgurl er moddhe niye nisi
           updateUserProfile(data.name, imgURL);
           Swal.fire({

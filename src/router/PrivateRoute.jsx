@@ -6,7 +6,7 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
   const { user, loading } = useAuth();
   const [role, roleloading] = useRole();
-  console.log("user er role", user?.role);
+  console.log("user er role", user?.role, " use role is", role);
   if (!user && !loading) {
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
   }

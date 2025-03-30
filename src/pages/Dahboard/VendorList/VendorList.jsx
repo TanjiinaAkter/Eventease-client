@@ -90,13 +90,13 @@ const VendorList = () => {
             {/* head */}
             <thead className="text-white ">
               <tr className="border-b-[1px] text-[#44cfbf] text-[1.2rem] border-white">
-                <th className="px-5 py-2 whitespace-nowrap">#</th>
-                <th className="px-5 py-2 whitespace-nowrap">Company name</th>
-                <th className="px-5 py-2 whitespace-nowrap">Description</th>
-                <th className="px-5 py-2 whitespace-nowrap"> Contact Email</th>
-                <th className="px-5 py-2 whitespace-nowrap"> Contact Phone</th>
-                <th className="px-5 py-2 whitespace-nowrap">Created At </th>
-                <th className="px-5 py-2 whitespace-nowrap">Action </th>
+                <th className="px-2 py-2 whitespace-nowrap">#</th>
+                <th className="px-2 py-2 whitespace-nowrap">Company name</th>
+                <th className="px-2 py-2 whitespace-nowrap">Description</th>
+                <th className="px-2 py-2 whitespace-nowrap"> Contact Email</th>
+                <th className="px-2 py-2 whitespace-nowrap"> Contact Phone</th>
+                <th className="px-2 py-2 whitespace-nowrap">Created At </th>
+                <th className="px-2 py-2 whitespace-nowrap">Action </th>
               </tr>
             </thead>
             <tbody className="">
@@ -107,20 +107,20 @@ const VendorList = () => {
                     key={vendor._id}
                     className="border-b border-[#4c4f4e] text-center">
                     <th>{index + 1}</th>
-                    <td className="px-5 py-2  whitespace-nowrap">
+                    <td className="px-3 py-2  whitespace-nowrap">
                       {vendor.company} {vendor.userId}
                     </td>
-                    <td className="px-5 py-2  whitespace-nowrap">
+                    <td className="px-3 py-2  whitespace-nowrap">
                       {vendor.description}
                     </td>
-                    <td className="px-5 py-2  whitespace-nowrap">
+                    <td className="px-3 py-2  whitespace-nowrap">
                       {vendor.email}
                     </td>
-                    <td className="px-5 py-2  whitespace-nowrap">
+                    <td className="px-3 py-2  whitespace-nowrap">
                       {vendor.phone}
                     </td>
-                    <td className="px-5 py-2  whitespace-nowrap">
-                      {vendor.createdAt}
+                    <td className="px-3 py-2  whitespace-nowrap">
+                      {new Date(vendor.createdAt).toLocaleDateString("en-GB")}
                     </td>
 
                     <td className=" py-2  whitespace-nowrap">

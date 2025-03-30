@@ -1,6 +1,5 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import useAuth from "../../../hooks/useAuth";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/scrollbar";

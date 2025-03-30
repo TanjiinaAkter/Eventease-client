@@ -13,11 +13,11 @@ const HomeCategories = () => {
 
       <div className="">
         {/* <Categorycard></Categorycard> */}
-        <div className="cards flex mx-auto w-[97%] justify-between items-center gap-4 flex-wrap">
+        <div className="cards flex mx-auto w-[99%] justify-between items-center gap-4 flex-wrap">
           {categories.map((category) => (
             <div
               key={category._id}
-              className="card  border border-[#4c4f4e]  mx-auto w-[80%] md:w-[30%] red ">
+              className="card  border border-[#4c4f4e]  mx-auto w-full md:w-[30%] red ">
               <img
                 className="w-[4rem] text-red-600"
                 src={category.categoryicon}

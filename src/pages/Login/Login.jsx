@@ -53,7 +53,7 @@ const Login = () => {
     // );
     signIn(data.email, data.password)
       .then((res) => {
-        console.log('user info in signin page',res.user);
+        console.log("user info in signin page", res.user);
         if (res.user.emailVerified) {
           Swal.fire({
             title: "logged in successfull!!",
@@ -97,6 +97,23 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
+        Swal.fire({
+          title: "Please enter valid credentials!!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
       });
   };
   const handleForgetPassword = () => {
@@ -216,12 +233,7 @@ const Login = () => {
                   ? "bg-gray-400 px-[1.4em ] py-[0.4em]  text-white cursor-not-allowed"
                   : "button-style hover:scale-95"
               }  cursor-pointer w-full grid my-7`}>
-              <input
-               
-                type="submit"
-                value="Login"
-                disabled={disabled}
-              />
+              <input type="submit" value="Login" disabled={disabled} />
             </div>
 
             <p className="text-white">

@@ -10,10 +10,13 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useRole from "../../../hooks/useRole";
+import useVendors from "../../../hooks/useVendors";
 const UserList = () => {
   const [role] = useRole();
   const isAdmin = role === "Admin";
   // const isAdmin = true;
+  const [vendors, vendorrefetch] = useVendors();
+  console.log("vendor lists", vendors);
   const axiosSecure = useAxiosSecure();
   const { data: allusers = [], refetch } = useQuery({
     queryKey: ["allusers"],
@@ -40,10 +43,33 @@ const UserList = () => {
           console.log(res.data);
           if (res.data.deletedCount > 0) {
             refetch();
+            vendorrefetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
               icon: "success",
+            });
+            axiosSecure.delete(`/vendors/${user.email}`).then((res) => {
+              console.log("sdadnldad", res.data.result.deletedCount);
+              if (res.data.result.deletedCount === 1) {
+                refetch();
+                Swal.fire({
+                  title: "Deleted!",
+                  text: `${user.name} has been deleted.`,
+                  icon: "success",
+                });
+
+                axiosSecure
+                  .patch(`/users/role/${user._id}`, {
+                    role: "User",
+                  })
+                  .then((res) => {
+                    console.log(res.data);
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }
             });
           }
         });

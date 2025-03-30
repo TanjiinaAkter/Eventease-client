@@ -9,7 +9,7 @@ const Header = () => {
   const { user, logOut } = useAuth();
   const [allcarts] = useCarts();
   const [role] = useRole();
-  console.log('role is ',role, allcarts);
+  console.log("role is ", role, user?.email);
   const location = useLocation();
   const isHome = location.pathname === "/";
   const lists = (
@@ -168,7 +168,7 @@ const Header = () => {
                 }>
                 <img
                   className="w-[4rem]  h-[4rem] rounded-full hover:opacity-65 hover:scale-105 transition-all duration-300 border-white hover:border-teal-300 border-4 object-cover "
-                  src={user?.photoURL}
+                  src={role?.photo || user?.photoURL}
                   alt=""
                 />
               </Link>

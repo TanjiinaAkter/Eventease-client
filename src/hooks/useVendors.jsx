@@ -5,7 +5,7 @@ import useAuth from "./useAuth";
 const useVendors = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: vendors = [], refetch } = useQuery({
+  const { data: vendors = [], refetch: vendorrefetch } = useQuery({
     queryKey: ["vendors"],
     queryFn: async () => {
       const res = await axiosSecure.get("/vendors");
@@ -15,7 +15,7 @@ const useVendors = () => {
     enabled: !!user?.email,
   });
 
-  return [vendors, refetch];
+  return [vendors, vendorrefetch];
 };
 
 export default useVendors;

@@ -47,7 +47,7 @@ const VenuesDetails = () => {
             }}></div>
           <div
             data-aos="fade-down"
-            className="banner mx-auto text-center z-50 my-6">
+            className="banner mx-auto text-center z-50  md:my-6">
             <h3 className=" text-[18px] gap-1 text-[#b9c3b9] md:text-lg  my-4 font-bold    ">
               <span className=""></span>
               detail info of
@@ -58,7 +58,7 @@ const VenuesDetails = () => {
             <hr className="h-[5px] bg-[#3caea1] w-[17%] mx-auto" />
           </div>
         </div>
-        <div className="grid mt-24 flex-wrap m-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14">
+        <div className="grid mt-24 flex-wrap m-6 md:m-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14">
           <div
             data-aos="fade-left"
             className=" p-5 border border-[#3a3939] bg-[#0f1c1c]  flex justify-center flex-col items-center space-y-6">

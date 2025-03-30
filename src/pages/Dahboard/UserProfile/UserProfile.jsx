@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import useSingleUserDetail from "../../../hooks/useSingleUserDetail";
+import useAuth from "../../../hooks/useAuth";
 
 const UserProfile = () => {
+  const { user } = useAuth();
+  console.log('user er photo from auth',user.photoURL);
   const [userinfo] = useSingleUserDetail();
   console.log(userinfo);
   return (

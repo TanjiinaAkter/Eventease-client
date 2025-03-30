@@ -5,7 +5,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useSingleUserDetail = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const { data: userinfo = [] } = useQuery({
+  const { data: userinfo = [], refetch: profilerefetch } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/update/${user?.email}`);
@@ -14,7 +14,7 @@ const useSingleUserDetail = () => {
     },
     enabled: !!user?.email,
   });
-  return [userinfo];
+  return [userinfo, profilerefetch];
 };
 
 export default useSingleUserDetail;

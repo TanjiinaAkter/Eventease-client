@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://eventease-server.vercel.app",
 });
 const useAxiosSecure = () => {
   const { logOut } = useAuth();
@@ -14,8 +14,9 @@ const useAxiosSecure = () => {
     const requestInterceptor = axiosSecure.interceptors.request.use(
       function (config) {
         const token = localStorage.getItem("access-token");
-        //console.log("token", token);
+        console.log("token nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", token);
         config.headers.authorization = `Bearer ${token}`;
+
         return config;
       },
       function (error) {

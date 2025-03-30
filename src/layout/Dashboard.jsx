@@ -15,9 +15,11 @@ import { RiMenu2Line } from "react-icons/ri";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 import useRole from "../hooks/useRole";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
   const [role] = useRole();
+  const { logOut } = useAuth();
   console.log(role);
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
@@ -32,7 +34,7 @@ const Dashboard = () => {
               EventEase
             </h1>
           </Link>
-          <hr className="h-[2px] w-full bg-gray-600" />
+          <hr className="h-[2px] mb-3 w-full bg-gray-600" />
           <ul className={`md:block ${isOpen ? "block" : "hidden"}`}>
             {role === "Admin" ? (
               <>
@@ -87,10 +89,14 @@ const Dashboard = () => {
                     to: "/",
                     icon: <IoIosLogOut />,
                     label: "Logout",
+                    onClick: () => {
+                      logOut();
+                    },
                   },
                 ].map((item) => (
                   <li key={item.to} className="w-full ">
                     <NavLink
+                      onClick={item.onClick}
                       to={item.to}
                       className={({ isActive }) =>
                         `${
@@ -142,10 +148,14 @@ const Dashboard = () => {
                     to: "/",
                     icon: <IoIosLogOut />,
                     label: "Logout",
+                    onClick: () => {
+                      logOut();
+                    },
                   },
                 ].map((item) => (
                   <li key={item.to} className="w-full ">
                     <NavLink
+                      onClick={item.onClick}
                       to={item.to}
                       className={({ isActive }) =>
                         `${
@@ -187,10 +197,14 @@ const Dashboard = () => {
                     to: "/",
                     icon: <IoIosLogOut />,
                     label: "Logout",
+                    onClick: () => {
+                      logOut();
+                    },
                   },
                 ].map((item) => (
                   <li key={item.to} className="w-full ">
                     <NavLink
+                      onClick={item.onClick}
                       to={item.to}
                       className={({ isActive }) =>
                         `${
@@ -198,6 +212,7 @@ const Dashboard = () => {
                         } justify-start rounded-md p-3 text-lg flex  items-center gap-2 text-[#44cfbf]`
                       }>
                       {item.icon}
+
                       <span className="text-white">{item.label}</span>
                     </NavLink>
                   </li>
