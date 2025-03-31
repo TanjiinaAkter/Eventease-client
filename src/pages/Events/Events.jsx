@@ -55,7 +55,7 @@ const Events = () => {
           routesubtitle={
             "Secure your spot at the most exciting events around you!"
           }></RouteTitle>
-        <div className="py-12 flex items-center justify-center gap-0">
+        <div className="py-12 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-0">
           {/* =========== INPUT SEARCH ===========*/}
           <div className="container-input">
             <input
@@ -77,14 +77,16 @@ const Events = () => {
               />
             </svg>
           </div>
-          <button onClick={handleSearch} className="button-style">
-            Search
-          </button>
-          {clearBtn && (
-            <button onClick={handleClear} className="button-style ml-3">
-              Reset
+          <div className="flex flex-row">
+            <button onClick={handleSearch} className="button-style">
+              Search
             </button>
-          )}
+            {clearBtn && (
+              <button onClick={handleClear} className="button-style  ml-3">
+                Reset
+              </button>
+            )}
+          </div>
         </div>
         <div className="grid  grid-cols-1 md:px-4  w-full pt-4 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {showByInputField.slice(0, showCard).map((event) => (
