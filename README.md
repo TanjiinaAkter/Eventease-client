@@ -94,17 +94,6 @@ A full-stack event ticket booking and management platform with role-based access
    - View all users.
    - Promote users to Admin/vendor/user.
 
-- **Product Management:**
-   - Add, Edit, Delete, View products.
-
-- **Order Management:**
-   - Update order status (Pending, Confirmed, Shipped, Delivered).
-   - Delete orders if necessary.
-     
-- **View Order Overview:**
-  - See the **total number of orders** and their **status breakdown**.
-  - View the **percentage of each order status**.
-  - Track **last 8 days' total sales**, with a **daily sales percentage breakdown**.
  
 ## Vendor Features:
 ## Vendor Dashboard
