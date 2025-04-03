@@ -5,8 +5,8 @@
 
 
 
-## Live Site - [Visit My shopping website's live link](https://a10-client.web.app/)
-## Server side repo - [Backend Repository](https://github.com/TanjiinaAkter/a-server)
+## Live Site - [Visit My shopping website's live link](https://eventease-client.web.app/)
+## Server side repo - [Backend Repository](https://github.com/TanjiinaAkter/Eventease-server)
  
 ## Admin Login Credentials
 Email: admin@admin.com 
@@ -36,27 +36,37 @@ Password: Asdf$$
 
 # About the Project
 ## Overview:
-This is a full-stack eCommerce platform where users can browse and purchase products across various categories like Men’s, Women’s, Kids’ Fashion, and Home Decor. The platform supports secure authentication, advanced filtering, a wishlist system, reviews & ratings on purchased products and Stripe payment integration. **The website has** :
+A full-stack event ticket booking and management platform with role-based access control (User, Vendor, Admin). Users can browse events, book tickets, and make payments, while vendors manage events, and admins oversee the entire system. **The website has** :
 
 - Header
 - Footer
 - Homepage
-- Brand products page based on product category items
-- Wishlist page
-- Cart page
-- User dashboard
-- Admin dashboard
+- Events page
+- Eventdetail page
+- Artists page
+- Artistdetail page
+- Category]ies page
+- Venues page
+- Venue detail page
+- Contact page
 - 404 page
 
 # Features:
 ## User Features:
-  - **Authentication:** Firebase email/password login & registration.
+  - **Authentication:** Firebase email/password and google signin & registration with reCAPTCHA protection
     
   - **Browse & Purchase:**
-     - Men's Fashion: Pants, Jeans, T-shirts, Jackets.
-     - Women's Fashion: Pants, Jeans, T-shirts, Jackets, Skirts, Tops,Dresses.
-     - Kids' Fashion: Pants, Jeans, T-shirts, Jackets, Skirts, Tops,Dresses.
-     - Home Decor: Bed sheets, Lamps etc
+     - Browse Events – View event ,event details, artists,artists details, venues, venues details and categories
+     - Ticket Booking – Add events to cart and book tickets
+     - Checkout Page & Payment –
+          - Users can proceed to the checkout page after selecting tickets
+          - Choose "Pay at Venue" or complete payment via Stripe
+          - If payment is successful, the order status updates automatically
+              - Order Management – View order history, track order & payment status
+              -  Cancel Unpaid Orders – Cancel an event from an order if payment is not completed
+      - Profile Management – Update user profile information
+      - User can see in user dashboard his/her order status and Recent Orders and Upcoming evnets information
+
        
   - **Filtering & Sorting:**
      - Filter by size, color, price range, discount range.
