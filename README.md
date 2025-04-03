@@ -45,7 +45,7 @@ A full-stack event ticket booking and management platform with role-based access
 - Eventdetail page
 - Artists page
 - Artistdetail page
-- Category]ies page
+- Categories page
 - Venues page
 - Venue detail page
 - Contact page
