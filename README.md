@@ -26,7 +26,7 @@ Password: Asdf$$
 ## Backend:
 - Node.js, Express.js, MongoDB
 
-- Firebase (For authentication + hosting)
+- Firebase (For authentication (Google Sign-In & Email/Password), JWT, reCAPTCHA) + hosting)
 
 - JWT (JSON Web Token)
   
@@ -122,14 +122,32 @@ A full-stack event ticket booking and management platform with role-based access
 ## Checkout Page & Payment Process
  - User selects tickets & goes to the checkout page
  - Two payment options available:
+   
      – Pay at Venue – Order placed without online payment
+   
      – Stripe Payment
           – Users can securely complete their payment online
-         
+
+ - If Stripe payment is successful:
+
+    – Order status updates to Confirmed
+    – Payment status updates to Paid
+
+ - If user chooses "Pay at Venue":
+
+    – Order remains Pending
+    – Payment status remains Unpaid until completed at the venue
+
+ - If payment status is Unpaid, users can cancel the order or individual events
     
 ## Payment integration
 - Stripe Payment  for event ticket purchase
-
+## Security & Protection
+- Firebase Google & Email Authentication
+   – Users can securely log in using Google Sign-In or Email/Password
+- reCAPTCHA Integration – Protects against bot attacks during registration & login
+- JWT Authentication – Secures API endpoints
+- Role-Based Access Control (RBAC) – Ensures admin, vendor, and user permissions are correctly enforced
 ## Miscellaneous Features:
 - 404 Page for non-existing routes
 - Fully Responsive Design
