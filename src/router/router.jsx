@@ -56,12 +56,14 @@ import VendorRoute from "./VendorRoute";
 import VenuesDetails from "../pages/VenuesDetails/VenuesDetails";
 import UserOrderDetail from "../pages/Dahboard/UserOrderDetail/UserOrderDetail";
 import AdminOrderDetail from "../pages/Dahboard/AdminOrderDetail/AdminOrderDetail";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   // =================== HOME ROUTES ========================//
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
