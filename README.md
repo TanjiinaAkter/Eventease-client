@@ -1,4 +1,4 @@
-# EventEase - Event Ticketing & Management System (MERN Stack) 🛍️
+# EventEase - Event Ticketing & Management System (MERN Stack) 🎟️
 
 ![image](https://github.com/user-attachments/assets/fd12d69d-6613-4937-9c1d-ef7954cf9d76)
 
