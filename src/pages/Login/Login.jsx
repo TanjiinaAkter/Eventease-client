@@ -44,17 +44,25 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // console.log(
-    //   "login form data from react hook form",
-    //   "email is",
-    //   data.email,
-    //   "pass is",
-    //   data.password
-    // );
+    console.log(
+      "login form data from react hook form",
+      "email is",
+      data.email,
+      "pass is",
+      data.password
+    );
+
+    const adminEmail = "admin2@gmail.com";
+    const vendorEmail = "vendor2@gmail.com";
     signIn(data.email, data.password)
       .then((res) => {
         console.log("user info in signin page", res.user);
-        if (res.user.emailVerified) {
+        if (
+          res.user.email === adminEmail ||
+          res.user.email === vendorEmail ||
+          res.user.emailVerified ||
+          !data.email
+        ) {
           Swal.fire({
             title: "logged in successfull!!",
             showClass: {
@@ -244,8 +252,8 @@ const Login = () => {
                 </span>
               </Link>
             </p>
-            <SocialLogin></SocialLogin>
           </form>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@ import { CgUnavailable } from "react-icons/cg";
 const VendorList = () => {
   const axiosSecure = useAxiosSecure();
 
-  const [vendors, refetch] = useVendors();
+  const [vendors, vendorrefetch] = useVendors();
   console.log("vendors are here ", vendors);
   const handleDelete = (vendor) => {
     Swal.fire({
@@ -28,7 +28,7 @@ const VendorList = () => {
         axiosSecure.delete(`/vendors/${vendor.email}`).then((res) => {
           console.log("sdadnldad", res.data.result.deletedCount);
           if (res.data.result.deletedCount === 1) {
-            refetch();
+            vendorrefetch();
             Swal.fire({
               title: "Deleted!",
               text: `${vendor.name} has been deleted.`,
